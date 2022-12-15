@@ -3,6 +3,50 @@ import type MuxPlayerElement from '.';
 import { StreamTypes } from '@mux/playback-core';
 
 const MUX_VIDEO_DOMAIN = 'mux.com';
+const IMGIX_VIDEO_DOMAIN = 'imgix.video';
+
+export const isImgixVideoSrc = (src: string | undefined) => {
+  if (src === undefined) return false;
+  // having no src string should never actually happen, but could
+  if (typeof src !== 'string') return false;
+  // Include base for relative paths
+  const base = window?.location.href;
+  const hostname = new URL(src, base).hostname.toLocaleLowerCase();
+
+  return hostname.includes(IMGIX_VIDEO_DOMAIN);
+};
+
+export const getThumbnailFromSrc = (src: string, posterParams?: string) => {
+  const url = new URL(src, undefined);
+  // take out existing fm to avoid painter conflicts
+  url.searchParams.delete('fm');
+  url.searchParams.set('auto', 'format');
+  url.searchParams.set('video-generate', 'thumbnail');
+
+  if (posterParams != null) {
+    return url.toString() + '&' + posterParams;
+  }
+  return url.toString();
+};
+
+export const getGifURLFromSrc = (src: string) => {
+  const url = new URL(src, undefined);
+  // take out existing fm to avoid painter conflicts
+  url.searchParams.delete('fm');
+  url.searchParams.set('video-generate', 'gif');
+  url.searchParams.set('video-gif-end', '10');
+  url.searchParams.set('video-gif-fps', '10');
+  return url.toString();
+};
+
+export const getStoryboardURLFromSrc = (src: string) => {
+  const url = new URL(src, undefined);
+  // take out existing fm to avoid painter conflicts
+  url.searchParams.delete('fm');
+  url.searchParams.set('video-generate', 'storyboard');
+  url.searchParams.set('video-storyboard-format', 'vtt');
+  return url.toString();
+};
 
 /* eslint-disable */
 const getEnvPlayerVersion = () => {

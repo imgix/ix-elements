@@ -1,41 +1,37 @@
 <p align="center">
-  <h1 align="center">&lt;mux-player&gt;</h1>
-  <a href="https://npmcharts.com/compare/@mux/mux-player?interval=30"><img src="https://img.shields.io/npm/dm/@mux/mux-player.svg?sanitize=true" alt="Downloads"></a>
-    <a href="https://www.npmjs.com/package/@mux/mux-player"><img src="https://img.shields.io/npm/v/@mux/mux-player.svg?sanitize=true" alt="Version"></a>
-    <a href="https://www.npmjs.com/package/@mux/mux-player"><img src="https://img.shields.io/npm/l/@mux/mux-player.svg?sanitize=true" alt="License"></a>
+  <h1 align="center">&lt;ix-video&gt;</h1>
+  <a href="https://npmcharts.com/compare/@imgix/ix-video?interval=30"><img src="https://img.shields.io/npm/dm/@imgix/ix-video.svg?sanitize=true" alt="Downloads"></a>
+    <a href="https://www.npmjs.com/package/@imgix/ix-video"><img src="https://img.shields.io/npm/v/@imgix/ix-video.svg?sanitize=true" alt="Version"></a>
+    <a href="https://www.npmjs.com/package/@imgix/ix-video"><img src="https://img.shields.io/npm/l/@imgix/ix-video.svg?sanitize=true" alt="License"></a>
 </p>
 
 # Introduction
 
-`<mux-player>` is the official Mux-flavored video player web component.
+`<ix-video>` is the official imgix-flavored video player web component.
 
 The player UI is built on [Media Chrome](https://media-chrome.org) and [`<mux-video>`](../mux-video) drives the core video logic used to play Mux Video content.
 
 # Installation
 
 ```shell
-npm install @mux/mux-player
+npm install @imgix/ix-video
 ```
 
 or
 
 ```shell
-yarn add @mux/mux-player
+yarn add @imgix/ix-video
 ```
 
 # Usage
 
 ```html
-<mux-player
-  playback-id="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe"
-  metadata-video-title="Big Buck Bunny"
-  metadata-viewer-user-id="user-id-1234"
-  stream-type="on-demand"
-></mux-player>
+<ix-video
+  src="https://my-domain.imgix.video/my-video.mp4?fm=hls"
+  type="hls"
+></ix-video>
 ```
 
 # Docs
-
-Docs and guides live on [docs.mux.com](https://docs.mux.com/guides/video/mux-player?utm_source=github-mux-player).
 
 API reference lives [on Github](./REFERENCE.md).

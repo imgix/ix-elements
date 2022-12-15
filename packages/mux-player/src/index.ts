@@ -20,8 +20,10 @@ import {
   seekToLive,
   toPropName,
   AttributeTokenList,
-  getPosterURLFromPlaybackId,
-  getStoryboardURLFromPlaybackId,
+  getThumbnailFromSrc,
+  getGifURLFromSrc,
+  isImgixVideoSrc,
+  getStoryboardURLFromSrc,
 } from './helpers';
 import { template } from './template';
 import { render } from './html';
@@ -59,6 +61,7 @@ function getPlayerSize(el: Element) {
 const VideoAttributes = {
   SRC: 'src',
   POSTER: 'poster',
+  TYPE: 'type',
 };
 
 const PlayerAttributes = {
@@ -79,9 +82,11 @@ const PlayerAttributes = {
   DEFAULT_SHOW_REMAINING_TIME: 'default-show-remaining-time',
   TITLE: 'title',
   PLACEHOLDER: 'placeholder',
+  GIFPREVIEW: 'gif-preview',
+  THUMBNAIL_PARAMS: 'thumbnail-params',
 };
 
-function getProps(el: MuxPlayerElement, state?: any): MuxTemplateProps {
+function getProps(el: IxVideoElement, state?: any): MuxTemplateProps {
   const props = {
     // Give priority to playbackId derrived asset URL's if playbackId is set.
     src: !el.playbackId && el.src,
@@ -90,6 +95,8 @@ function getProps(el: MuxPlayerElement, state?: any): MuxTemplateProps {
     poster: el.poster,
     storyboard: el.storyboard,
     placeholder: el.getAttribute('placeholder'),
+    gifPreview: el.gifPreview,
+    thumbnailParams: el.thumbnailParams,
     theme: el.getAttribute('theme'),
     thumbnailTime: !el.tokens.thumbnail && el.thumbnailTime,
     autoplay: el.autoplay,
@@ -127,6 +134,7 @@ function getProps(el: MuxPlayerElement, state?: any): MuxTemplateProps {
     customDomain: el.getAttribute(MuxVideoAttributes.CUSTOM_DOMAIN) ?? undefined,
     playerSize: getPlayerSize(el.mediaController ?? el),
     title: el.getAttribute(PlayerAttributes.TITLE),
+    type: el.type,
     ...state,
   };
 
@@ -137,7 +145,7 @@ const MuxVideoAttributeNames = Object.values(MuxVideoAttributes);
 const VideoAttributeNames = Object.values(VideoAttributes);
 const PlayerAttributeNames = Object.values(PlayerAttributes);
 const playerSoftwareVersion = getPlayerVersion();
-const playerSoftwareName = 'mux-player';
+const playerSoftwareName = 'ix-video';
 
 const initialState = {
   dialog: undefined,
@@ -145,7 +153,7 @@ const initialState = {
   inLiveWindow: false,
 };
 
-class MuxPlayerElement extends VideoApiElement {
+class IxVideoElement extends VideoApiElement {
   #isInit = false;
   #tokens = {};
   #userInactive = true;
@@ -176,7 +184,7 @@ class MuxPlayerElement extends VideoApiElement {
     this.attachShadow({ mode: 'open' });
     this.#setupCSSProperties();
 
-    // If the custom element is defined before the <mux-player> HTML is parsed
+    // If the custom element is defined before the <ix-video> HTML is parsed
     // no attributes will be available in the constructor (construction process).
     // Wait until initializing attributes in the attributeChangedCallback.
     // If this element is connected to the DOM, the attributes will be available.
@@ -192,7 +200,7 @@ class MuxPlayerElement extends VideoApiElement {
     // The next line triggers the first render of the template.
     this.#setState({ playerSize: getPlayerSize(this) });
 
-    // Fixes a bug in React where mux-player's CE children were not upgraded yet.
+    // Fixes a bug in React where ix-video's CE children were not upgraded yet.
     // These lines ensure the rendered mux-video and media-controller are upgraded,
     // even before they are connected to the main document.
     try {
@@ -220,9 +228,11 @@ class MuxPlayerElement extends VideoApiElement {
 
     this.#setUpErrors();
     this.#setUpCaptionsButton();
+    this.#monitorHover();
     this.#monitorLiveWindow();
     this.#userInactive = this.mediaController?.hasAttribute('user-inactive') ?? true;
     this.#setUpCaptionsMovement();
+    this.#preload();
   }
 
   #setupCSSProperties() {
@@ -303,6 +313,44 @@ class MuxPlayerElement extends VideoApiElement {
     this.#resizeObserver?.disconnect();
   }
 
+  #monitorHover() {
+    const checkStartGifPreview = () => {
+      if (this.gifPreview !== true) {
+        return;
+      }
+
+      if (
+        this.audio === true ||
+        this.media?.currentTime === undefined ||
+        this.media?.currentTime > 0 ||
+        this.media?.paused === false ||
+        this.media?.ended === true ||
+        !isImgixVideoSrc(this.src)
+      ) {
+        return;
+      }
+
+      if (this.src !== undefined) {
+        this.poster = getGifURLFromSrc(this.src);
+      }
+    };
+
+    const checkEndGifPreview = () => {
+      if (this.gifPreview !== true) {
+        return;
+      }
+
+      if (this.poster !== undefined && this.poster?.indexOf('video-generate=gif') >= 0) {
+        if (this.src !== undefined) {
+          this.poster = getThumbnailFromSrc(this.src, this.thumbnailParams);
+        }
+      }
+    };
+
+    this.media?.addEventListener('mouseenter', checkStartGifPreview);
+    this.media?.addEventListener('mouseleave', checkEndGifPreview);
+  }
+
   #monitorLiveWindow() {
     this.mediaController?.addEventListener('mediaplayrequest', (event) => {
       if (
@@ -364,7 +412,7 @@ class MuxPlayerElement extends VideoApiElement {
       this.#setState({ isDialogOpen: true, dialog });
     };
 
-    // Keep this event listener on mux-player instead of calling onError directly
+    // Keep this event listener on ix-video instead of calling onError directly
     // from video.onerror. This allows us to simulate errors from the outside.
     this.addEventListener('error', onError);
 
@@ -397,7 +445,7 @@ class MuxPlayerElement extends VideoApiElement {
         error = new MediaError(message, code);
       }
 
-      // Don't fire a mux-player error event for non-fatal errors.
+      // Don't fire a ix-video error event for non-fatal errors.
       if (!error?.fatal) return;
 
       this.dispatchEvent(
@@ -542,6 +590,17 @@ class MuxPlayerElement extends VideoApiElement {
 
       toggleLines(selectedTrack, this.#userInactive);
     });
+  }
+
+  #preload() {
+    // If preload is truthy, eagerly fetch GIF for gif-on-hover
+    if (this.preload === 'auto') {
+      console.info(this.preload);
+      const src = this.src;
+      if (this.gifPreview !== undefined && src) {
+        fetch(getGifURLFromSrc(src));
+      }
+    }
   }
 
   attributeChangedCallback(attrName: string, oldValue: string | null, newValue: string) {
@@ -703,19 +762,37 @@ class MuxPlayerElement extends VideoApiElement {
   }
 
   /**
+   * Gets the type value for the current playback
+   */
+  get type() {
+    const val = this.getAttribute(VideoAttributes.TYPE);
+    if (val != null) return val;
+
+    return undefined;
+  }
+
+  /**
+   * Sets the type value for the current playback
+   */
+  set type(val) {
+    if (val || val === '') {
+      this.setAttribute(VideoAttributes.TYPE, val);
+    } else {
+      this.removeAttribute(VideoAttributes.TYPE);
+    }
+  }
+
+  /**
    * Gets a URL of an image to display, for example, like a movie poster. This can be a still frame from the video, or another image if no video data is available.
    */
   get poster() {
     const val = this.getAttribute(VideoAttributes.POSTER);
     if (val != null) return val;
 
-    // Get the derived poster if a playbackId is present.
-    if (this.playbackId && !this.audio) {
-      return getPosterURLFromPlaybackId(this.playbackId, {
-        domain: this.customDomain,
-        thumbnailTime: this.thumbnailTime ?? this.startTime,
-        token: this.tokens.thumbnail,
-      });
+    if (isImgixVideoSrc(this.src) && !this.audio) {
+      if (this.src !== undefined) {
+        return getThumbnailFromSrc(this.src, this.thumbnailParams);
+      }
     }
 
     return undefined;
@@ -733,22 +810,37 @@ class MuxPlayerElement extends VideoApiElement {
   }
 
   /**
-   * Return the storyboard URL when a playback ID is provided,
+   * Gets a URL of a GIF to display, for example, like a trailer preview. This can be from a time range from the video.
+   */
+  get gifPreview() {
+    return this.hasAttribute(PlayerAttributes.GIFPREVIEW);
+  }
+
+  /**
+   * Sets a URL of a GIF to display, for example, like a trailer preview. This can be from a time range from the video.
+   */
+  set gifPreview(val) {
+    if (!val) {
+      this.removeAttribute(PlayerAttributes.GIFPREVIEW);
+    } else {
+      this.setAttribute(PlayerAttributes.GIFPREVIEW, 'true');
+    }
+  }
+
+  /**
+   * Return the storyboard URL when an imgix URL is provided,
    * we aren't an audio player and the stream-type isn't live.
    */
   get storyboard() {
     if (
-      this.playbackId &&
       !this.audio &&
       (!this.streamType ||
         ![StreamTypes.LIVE, StreamTypes.LL_LIVE, StreamTypes.DVR, StreamTypes.LL_DVR].includes(this.streamType as any))
     ) {
-      return getStoryboardURLFromPlaybackId(this.playbackId, {
-        domain: this.customDomain,
-        token: this.tokens.storyboard,
-      });
+      if (isImgixVideoSrc(this.src) && this.src !== undefined) {
+        return getStoryboardURLFromSrc(this.src);
+      }
     }
-
     return;
   }
 
@@ -798,6 +890,22 @@ class MuxPlayerElement extends VideoApiElement {
    */
   set thumbnailTime(val: number | undefined) {
     this.setAttribute(PlayerAttributes.THUMBNAIL_TIME, `${val}`);
+  }
+
+  get thumbnailParams() {
+    const val = this.getAttribute(PlayerAttributes.THUMBNAIL_PARAMS);
+    if (val != null) {
+      return val;
+    }
+    return undefined;
+  }
+
+  set thumbnailParams(val: string | undefined) {
+    if (!val) {
+      this.removeAttribute('title');
+    } else {
+      this.setAttribute(PlayerAttributes.THUMBNAIL_PARAMS, val);
+    }
   }
 
   /**
@@ -1201,15 +1309,16 @@ class MuxPlayerElement extends VideoApiElement {
   }
 }
 
-export function getVideoAttribute(el: MuxPlayerElement, name: string) {
+export function getVideoAttribute(el: IxVideoElement, name: string) {
   return el.media ? el.media.getAttribute(name) : el.getAttribute(name);
 }
 
 /** @TODO Refactor once using `globalThis` polyfills */
-if (!globalThis.customElements.get('mux-player')) {
-  globalThis.customElements.define('mux-player', MuxPlayerElement);
+if (!globalThis.customElements.get('ix-video')) {
+  globalThis.customElements.define('ix-video', IxVideoElement);
   /** @TODO consider externalizing this (breaks standard modularity) */
-  (globalThis as any).MuxPlayerElement = MuxPlayerElement;
+  (globalThis as any).IxVideoElement = IxVideoElement;
 }
 
-export default MuxPlayerElement;
+export const IxVideo = IxVideoElement;
+export default IxVideoElement;

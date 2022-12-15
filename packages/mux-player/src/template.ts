@@ -4,7 +4,7 @@ import './media-chrome/time-display';
 // @ts-ignore
 import cssStr from './styles.css';
 // @ts-ignore
-import muxTheme from './media-theme-mux.html';
+import muxTheme from './media-theme-imgix.html';
 import './dialog';
 import { getSrcFromPlaybackId } from './helpers';
 import { html } from './html';
@@ -90,6 +90,7 @@ export const content = (props: MuxTemplateProps) => html`
       env-key="${props.envKey ?? false}"
       stream-type="${props.streamType ?? false}"
       custom-domain="${props.customDomain ?? false}"
+      type="${props.type ?? false}"
       src="${!!props.src
         ? props.src
         : props.playbackId

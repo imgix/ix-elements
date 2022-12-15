@@ -2,7 +2,7 @@ import { i18n } from './utils';
 import { getPlayerVersion } from './helpers';
 import type { DevlogOptions } from './types';
 
-const prefix = `[mux-player ${getPlayerVersion()}]`;
+const prefix = `[ix-video ${getPlayerVersion()}]`;
 
 export function log(...args: any[]) {
   console.log(prefix, ...args);
