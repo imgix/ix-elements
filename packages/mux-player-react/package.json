@@ -1,7 +1,7 @@
 {
-  "name": "@mux/mux-player-react",
-  "version": "1.5.1",
-  "description": "An open source Mux player for React that Just Works™",
+  "name": "@imgix/ix-video-react",
+  "version": "0.0.1",
+  "description": "An imgix video custom element for React",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.mjs",
   "exports": {
@@ -28,10 +28,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/muxinc/elements",
-    "directory": "packages/mux-player-react"
+    "url": "https://github.com/imgix/ix-elements/tree/l/ix-video",
+    "directory": "packages/ix-video-react"
   },
-  "author": "Mux, Inc.",
+  "author": "imgix, Inc.",
   "license": "MIT",
   "scripts": {
     "clean": "shx rm -rf dist/",
@@ -65,7 +65,7 @@
     }
   },
   "dependencies": {
-    "@mux/mux-player": "1.5.1",
+    "@imgix/ix-video": ">=2.0.0-alpha.5",
     "@mux/playback-core": "0.15.0",
     "prop-types": "^15.7.2"
   },

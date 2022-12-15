@@ -1,65 +1,53 @@
 <p align="center">
-  <h1 align="center">&lt;MuxPlayer/&gt;</h1>
-  <a href="https://npmcharts.com/compare/@mux/mux-player-react?interval=30"><img src="https://img.shields.io/npm/dm/@mux/mux-player-react.svg?sanitize=true" alt="Downloads"></a>
-    <a href="https://www.npmjs.com/package/@mux/mux-player-react"><img src="https://img.shields.io/npm/v/@mux/mux-player-react.svg?sanitize=true" alt="Version"></a>
-    <a href="https://www.npmjs.com/package/@mux/mux-player-react"><img src="https://img.shields.io/npm/l/@mux/mux-player-react.svg?sanitize=true" alt="License"></a>
+  <h1 align="center">&lt;IxVideo/&gt;</h1>
+  <a href="https://npmcharts.com/compare/@imgix/ix-video-react?interval=30"><img src="https://img.shields.io/npm/dm/@imgix/ix-video-react.svg?sanitize=true" alt="Downloads"></a>
+    <a href="https://www.npmjs.com/package/@imgix/ix-video-react"><img src="https://img.shields.io/npm/v/@imgix/ix-video-react.svg?sanitize=true" alt="Version"></a>
+    <a href="https://www.npmjs.com/package/@imgix/ix-video-react"><img src="https://img.shields.io/npm/l/@imgix/ix-video-react.svg?sanitize=true" alt="License"></a>
 </p>
 
 # Introduction
 
-`<MuxPlayer />` is a Mux-flavored React video player component, built on top of our [mux-player web component](../mux-player) and [Media Chrome](https://media-chrome.org).
+`<IxVideo />` is an imgix-flavored React video player component, built on top of our [ix-video web component](../ix-video) and [Media Chrome](https://media-chrome.org).
 
 # Installation
 
 ```shell
-npm install @mux/mux-player-react
+npm install @imgix/ix-video-react
 ```
 
 or
 
 ```shell
-yarn add @mux/mux-player-react
+yarn add @imgix/ix-video-react
 ```
 
 # Usage
 
 ```jsx
-import MuxPlayer from '@mux/mux-player-react';
+import IxVideo from '@imgix/ix-video-react';
 
-<MuxPlayer
-  playbackId="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe"
-  metadata={{
-    video_id: 'video-id-123456',
-    video_title: 'Bick Buck Bunny',
-    viewer_user_id: 'user-id-bc-789',
-  }}
-  streamType="on-demand"
+<IxVideo
+  src="my.domain.imgix.video/my-video.mp4?fm=hls"
+  type="hls"
 />;
 ```
 
 ### Lazy-loading
 
-Defer loading of Mux Player by importing from `@mux/mux-player-react/lazy`.
+Defer loading of Mux Player by importing from `@imgix/ix-video-react/lazy`.
 
 ```jsx
-import MuxPlayer from '@mux/mux-player-react/lazy';
+import IxVideo from '@imgix/ix-video-react/lazy';
 
-<MuxPlayer
+<IxVideo
   loading="viewport"
-  playbackId="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe"
-  metadata={{
-    video_id: 'video-id-123456',
-    video_title: 'Bick Buck Bunny',
-    viewer_user_id: 'user-id-bc-789',
-  }}
-  streamType="on-demand"
+  src="my.domain.imgix.video/my-video.mp4?fm=hls"
+  type="hls"
 />;
 ```
 
-If you are generating your pages with a Node.js server (for example, [Next.js](https://nextjs.org/docs/basic-features/data-fetching/)), consider using `@mux/mux-player-react/lazy` with [`@mux/blurhash`](https://github.com/muxinc/blurhash) to generate a placeholder to display during loading.
+If you are generating your pages with a Node.js server (for example, [Next.js](https://nextjs.org/docs/basic-features/data-fetching/)), consider using `@imgix/ix-video-react/lazy` with [`@mux/blurhash`](https://github.com/muxinc/blurhash) to generate a placeholder to display during loading.
 
 # Docs
-
-Docs and guides live on [docs.mux.com](https://docs.mux.com/guides/video/mux-player?utm_source=github-mux-player).
 
 API reference lives [on Github](./REFERENCE.md).

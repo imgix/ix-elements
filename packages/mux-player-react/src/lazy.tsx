@@ -5,9 +5,9 @@ import ConditionalSuspense from './ConditionalSuspense';
 import useIsBrowser from './useIsBrowser';
 import useIsIntersecting from './useIsIntersecting';
 
-import type { MuxPlayerProps, MuxPlayerRefAttributes } from './index';
+import type { IxVideoProps, IxVideoRefAttributes } from './index';
 
-interface MuxPlayerElement extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
+interface IxVideoElement extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
   nohotkeys?: boolean | undefined;
 }
 
@@ -15,14 +15,14 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      'mux-player': MuxPlayerElement;
+      'ix-video': IxVideoElement;
     }
   }
 }
 
-const MuxPlayerIndex = React.lazy(() => import('./index'));
+const IxVideoIndex = React.lazy(() => import('./index'));
 
-interface FallbackProps extends MuxPlayerProps {
+interface FallbackProps extends IxVideoProps {
   onIntersection?: () => void;
 }
 const Fallback = (props: FallbackProps) => {
@@ -39,19 +39,19 @@ const Fallback = (props: FallbackProps) => {
 
   return (
     /* 
-    Why do we have a mux-player element before the mux-player bundle is even loaded?
-    Before the bundle is loaded, this mux-player element just acts like a div.
-    However, by calling this placeholder "mux-player",
-    it now gets the same CSS applied to it that the eventual "real" mux-player element will. 
+    Why do we have a ix-video element before the ix-video bundle is even loaded?
+    Before the bundle is loaded, this ix-video element just acts like a div.
+    However, by calling this placeholder "ix-video",
+    it now gets the same CSS applied to it that the eventual "real" ix-video element will. 
     */
     <>
-      <mux-player
+      <ix-video
         ref={intersectionRef}
-        data-mux-player-react-lazy-placeholder
+        data-ix-video-react-lazy-placeholder
         placeholder={placeholder}
         style={
           {
-            '--mux-player-react-lazy-placeholder': placeholder ? `url(${placeholder});` : '',
+            '--ix-video-react-lazy-placeholder': placeholder ? `url(${placeholder});` : '',
             ...style,
           } as React.CSSProperties
         }
@@ -62,24 +62,24 @@ const Fallback = (props: FallbackProps) => {
         aria-hidden
         tabIndex={-1}
       >
-        <div data-mux-player-react-lazy-placeholder-overlay />
-      </mux-player>
+        <div data-ix-video-react-lazy-placeholder-overlay />
+      </ix-video>
       <style>{
         /* css */ `
-        mux-player[data-mux-player-react-lazy-placeholder] {
+        ix-video[data-ix-video-react-lazy-placeholder] {
           aspect-ratio: 16/9;
           display: block;
           background-color: var(--media-background-color, #000);
           width: 100%;
           position: relative;
-          background-image: var(--mux-player-react-lazy-placeholder);
+          background-image: var(--ix-video-react-lazy-placeholder);
           background-repeat: no-repeat;
           background-size: var(--media-object-fit, contain);
           background-position: var(--media-object-position, 50% 50%);
           --controls: none;
           --controls-backdrop-color: rgba(0, 0, 0, 0.6);
         }
-        mux-player [data-mux-player-react-lazy-placeholder-overlay] {
+        ix-video [data-ix-video-react-lazy-placeholder-overlay] {
           position: absolute;
           inset: 0;
           background-color: var(--controls-backdrop-color);
@@ -90,13 +90,13 @@ const Fallback = (props: FallbackProps) => {
   );
 };
 
-interface MuxPlayerLazyProps extends MuxPlayerProps {
+interface MuxPlayerLazyProps extends IxVideoProps {
   loading?: 'page' | 'viewport';
 }
-const MuxPlayer = React.forwardRef<MuxPlayerRefAttributes, MuxPlayerLazyProps>((props, ref) => {
+const MuxPlayer = React.forwardRef<IxVideoRefAttributes, MuxPlayerLazyProps>((props, ref) => {
   const { loading = 'viewport', ...playerProps } = props;
 
-  // We load mux player once two conditions are met:
+  // We load ix-video once two conditions are met:
   // 1. We're in a browser (react.lazy doesn't work on the server in react 17)
   const isBrowser = useIsBrowser();
   // 2. The player has entered the viewport, according to the fallback (if enabled).
@@ -114,7 +114,7 @@ const MuxPlayer = React.forwardRef<MuxPlayerRefAttributes, MuxPlayerLazyProps>((
         />
       }
     >
-      <MuxPlayerIndex {...playerProps} ref={ref} />
+      <IxVideoIndex {...playerProps} ref={ref} />
     </ConditionalSuspense>
   );
 });
