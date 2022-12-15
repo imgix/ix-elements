@@ -3,8 +3,8 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages";
 import MuxVideoPage from "./pages/MuxVideo";
 import MuxAudioPage from "./pages/MuxAudio";
-import MuxPlayerPage from "./pages/MuxPlayer";
-import MuxPlayerLazyPage from "./pages/MuxPlayerLazy";
+import IxVideoPage from "./pages/IxVideo";
+// import MuxPlayerLazyPage from "./pages/MuxPlayerLazy";
 import MuxUploaderPage from "./pages/MuxUploader";
 
 function App() {
@@ -28,8 +28,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="MuxVideo" element={<MuxVideoPage />} />
           <Route path="MuxAudio" element={<MuxAudioPage />} />
-          <Route path="MuxPlayer" element={<MuxPlayerPage />} />
-          <Route path="MuxPlayerLazy" element={<MuxPlayerLazyPage />} />
+          <Route path="IxVideo" element={<IxVideoPage />} />
+          {/* <Route path="MuxPlayerLazy" element={<MuxPlayerLazyPage />} /> */}
           <Route path="MuxUploader" element={<MuxUploaderPage />} />
         </Routes>
       </Router>

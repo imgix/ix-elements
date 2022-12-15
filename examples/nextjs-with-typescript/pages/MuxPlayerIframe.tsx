@@ -1,12 +1,12 @@
 import dynamic from "next/dynamic";
-const MuxPlayerPageStatic = dynamic(() => import("./MuxPlayer"));
-function MuxPlayerPage() {
+const IxVideoPageStatic = dynamic(() => import("./IxVideo"));
+function IxVideoPage() {
   return <iframe
-    src="./MuxPlayer"
+    src="./IxVideo"
     width="816"
     height="1250"
     allow="fullscreen 'none'"
   />;
 }
 
-export default MuxPlayerPage;
+export default IxVideoPage;

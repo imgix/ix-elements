@@ -1,7 +1,7 @@
 // @ts-nocheck
 import Link from "next/link";
 import Head from "next/head";
-import "@mux/mux-player";
+import "@imgix/ix-video";
 import { useState } from "react";
 
 const INITIAL_DEBUG = false;
@@ -9,7 +9,7 @@ const INITIAL_MUTED = false;
 const INITIAL_AUTOPLAY = false;
 const INITIAL_PLAYBACK_ID = "g65IqSFtWdpGR100c2W8VUHrfIVWTNRen";
 
-function MuxPlayerWCPage() {
+function IxVideoWCPage() {
   // const mediaElRef = useRef(null);
   const [playbackId, setPlaybackId] = useState(INITIAL_PLAYBACK_ID);
   const [muted, setMuted] = useState(INITIAL_MUTED);
@@ -21,12 +21,12 @@ function MuxPlayerWCPage() {
   return (
     <>
       <Head>
-        <title>&lt;mux-player&gt; Demo</title>
+        <title>&lt;ix-video&gt; Demo</title>
       </Head>
 
       <div>
         <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-        <mux-player
+        <ix-video
           // style={{ aspectRatio: "16 / 9" }}
           playback-id={playbackId}
           forward-seek-offset={10}
@@ -40,7 +40,7 @@ function MuxPlayerWCPage() {
           // secondary-color="#64b5f6"
           // tertiary-color="#b4004e"
           // startTime={12}
-        ></mux-player>
+        ></ix-video>
       </div>
       <div className="options">
         <div>
@@ -86,4 +86,4 @@ function MuxPlayerWCPage() {
   );
 }
 
-export default MuxPlayerWCPage;
+export default IxVideoWCPage;

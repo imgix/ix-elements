@@ -14,13 +14,13 @@
 	// import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	onMount(async () => {
-		await import('@mux/mux-player');
+		await import('@imgix/ix-video');
 	});
 </script>
 
 <svelte:head>
 	<style>
-		mux-player {
+		ix-video {
 			display: block;
 			width: 100%;
 			margin: 1rem 0 2rem;
@@ -28,15 +28,17 @@
 			line-height: 0;
 		}
 
-		mux-player:not([audio]) {
+		ix-video:not([audio]) {
 			aspect-ratio: 16 / 9;
 		}
 	</style>
 </svelte:head>
 
-<mux-player
-	stream-type="on-demand"
-	playback-id="23s11nz72DsoN657h4314PjKKjsF2JG33eBQQt6B95I"
-></mux-player>
+<ix-video
+	src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
+	type="hls"
+	gif-preview
+	thumbnail-params="video-thumbnail-time=2&mark-align=top,right&mark64=aHR0cHM6Ly9hc3NldHMuaW1naXgubmV0L3ByZXNza2l0L2ltZ2l4LXByZXNza2l0LnBkZj93PTE2MCZmbT1wbmcmcGFnZT00"
+></ix-video>
 
 <a data-sveltekit-prefetch href="/">Browse Elements</a>

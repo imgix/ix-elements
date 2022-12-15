@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Head from "next/head";
 import Script from 'next/script';
-import MuxPlayer from "@mux/mux-player-react/lazy";
-import type {MuxPlayerProps} from "@mux/mux-player-react";
+import IxVideo from "@imgix/ix-video-react/lazy";
+import type {IxVideoProps} from "@imgix/ix-video-react";
 import { useEffect, useReducer, useRef, useState } from "react";
 import mediaAssetsJSON from "@mux/assets/media-assets.json";
-import type MuxPlayerElement from "@mux/mux-player";
+import type IxVideoElement from "@imgix/ix-video/";
 import { useRouter } from "next/router";
 import type { NextParsedUrlQuery } from "next/dist/server/request-meta";
 import type { GetServerSideProps } from "next";
@@ -49,7 +49,7 @@ const toPlayerPropsFromJSON = (mediaAsset: typeof mediaAssetsJSON[0] | undefined
     placeholder,
   } = mediaAsset ?? {};
   // NOTE: Inferred type is "string" from JSON (CJP)
-  const streamType = mediaAsset?.['stream-type'] as MuxPlayerProps["streamType"];
+  const streamType = mediaAsset?.['stream-type'] as IxVideoProps["streamType"];
   const metadata = mediaAsset ? toMetadataFromMediaAsset(mediaAsset, mediaAssets) : undefined;
 
   return {
@@ -68,7 +68,7 @@ const ActionTypes = {
   UPDATE: 'UPDATE',
 };
 
-const DEFAULT_INITIAL_STATE: Partial<MuxPlayerProps> = Object.freeze({
+const DEFAULT_INITIAL_STATE: Partial<IxVideoProps> = Object.freeze({
   muted: undefined,
   debug: undefined,
   autoPlay: undefined,
@@ -138,7 +138,7 @@ const toValueString = (value: any) => {
   return value;
 };
 
-const MuxPlayerCodeRenderer = ({ state, component = 'MuxPlayer' }: { state: Partial<MuxPlayerProps>; component?: string; }) => {
+const IxVideoCodeRenderer = ({ state, component = 'IxVideo' }: { state: Partial<IxVideoProps>; component?: string; }) => {
   const stateEntries = Object.entries(state).filter(([,value]) => value != undefined);
   const propsStr = stateEntries.length
     ? `\n${stateEntries.map(([key, value]) => `  ${key}={${toValueString(value)}}`).join('\n')}\n`
@@ -163,7 +163,7 @@ const UrlPathRenderer = ({
     origin: '',
     pathname: './'
   },
-}: { state: Partial<MuxPlayerProps>; location?: Pick<Location, 'origin' | 'pathname'>; }) => {
+}: { state: Partial<IxVideoProps>; location?: Pick<Location, 'origin' | 'pathname'>; }) => {
   const stateEntries = Object.entries(state).filter(([,value]) => value != undefined);
   const urlSearchParamsStr = stateEntries.length
     ? `?${new URLSearchParams(Object.fromEntries(stateEntries.map(([k, v]) => [k, JSON.stringify(v)]))).toString()}`
@@ -284,7 +284,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
   return ({ props: { location } })
 };
 
-function MuxPlayerPage({ location }: Props) {
+function IxVideoPage({ location }: Props) {
   const router = useRouter();
   const [isRefSafeToCheck, setIsRefSafeToCheck] = useState(false)
   const mediaElRef = useRef(null);
@@ -296,7 +296,7 @@ function MuxPlayerPage({ location }: Props) {
     dispatch(updateProps(toInitialState(selectedAsset, mediaAssets, router.query)))
   }, [router.query, router.isReady]);
   const [stylesState, dispatchStyles] = useReducer(reducer, {});
-  const genericOnChange = (obj) => dispatch(updateProps<MuxPlayerProps>(obj));
+  const genericOnChange = (obj) => dispatch(updateProps<IxVideoProps>(obj));
   const genericOnStyleChange = (obj) => dispatchStyles(updateProps(obj));
 
   const [optionStyles, optionsDispatchStyles] = useReducer(reducer, {
@@ -313,11 +313,11 @@ function MuxPlayerPage({ location }: Props) {
   return (
     <>
       <Head>
-        <title>&lt;MuxPlayer/&gt; Demo</title>
+        <title>&lt;IxVideo/&gt; Demo</title>
       </Head>
 
       <Script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1" />
-      <MuxPlayer
+      <IxVideo
         ref={mediaElRef}
         style={stylesState}
         envKey={state.envKey}
@@ -362,20 +362,20 @@ function MuxPlayerPage({ location }: Props) {
           // dispatch(updateProps({ paused: true }));
         }}
         onVolumeChange={(event) => {
-          // const muxPlayerEl = event.target as MuxPlayerElement
-          // dispatch(updateProps({ muted: muxPlayerEl.muted, volume: muxPlayerEl.volume }));
+          // const IxVideoEl = event.target as IxVideoElement
+          // dispatch(updateProps({ muted: IxVideoEl.muted, volume: IxVideoEl.volume }));
         }}
         onSeeking={onSeeking}
         onSeeked={onSeeked}
         onLoadStart={(evt) => {
           onLoadStart(evt)
-          // onLoadStart will fire after mux-player-react/lazy has mounted
+          // onLoadStart will fire after ix-video-react/lazy has mounted
           setIsRefSafeToCheck(true)
         }}
       />
 
       <div className="options" style={optionStyles}>
-        <MuxPlayerCodeRenderer state={state}/>
+        <IxVideoCodeRenderer state={state}/>
         <UrlPathRenderer
           state={state}
           location={typeof window !== 'undefined' ? window.location : location}
@@ -386,7 +386,7 @@ function MuxPlayerPage({ location }: Props) {
             id="assets-control"
             onChange={({ target: { value } }) => {
               setSelectedAsset(mediaAssets[value]);
-              dispatch(updateProps<MuxPlayerProps>(toPlayerPropsFromJSON(mediaAssets[value], mediaAssets)));
+              dispatch(updateProps<IxVideoProps>(toPlayerPropsFromJSON(mediaAssets[value], mediaAssets)));
             }}
             value={mediaAssets.indexOf(selectedAsset)}
           >
@@ -625,4 +625,4 @@ function MuxPlayerPage({ location }: Props) {
   );
 }
 
-export default MuxPlayerPage;
+export default IxVideoPage;

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "main": "index.js",
-  "author": "Mux, Inc.",
+  "author": "imgix, Inc.",
   "license": "MIT",
   "scripts": {
     "dev": "yarn esbuild --servedir=public --serve=0.0.0.0:8004",
@@ -19,8 +19,8 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
+    "@imgix/ix-video": ">=2.0.0-alpha.5",
     "@mux/mux-audio": ">=0.3.0",
-    "@mux/mux-player": ">=1.0.0-beta.0",
     "@mux/mux-uploader": ">=1.0.0-beta.0",
     "@mux/mux-video": ">=0.3.0"
   }

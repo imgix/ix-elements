@@ -10,6 +10,6 @@
 	<ul>
 		<li><a data-sveltekit-prefetch href="./mux-video" class="video">&lt;mux-video&gt;</a></li>
 		<li><a data-sveltekit-prefetch href="./mux-audio" class="audio">&lt;mux-audio&gt;</a></li>
-		<li><a data-sveltekit-prefetch href="./mux-player" class="player">&lt;mux-player&gt;</a></li>
+		<li><a data-sveltekit-prefetch href="./ix-video" class="player">&lt;ix-video&gt;</a></li>
 	</ul>
 </nav>

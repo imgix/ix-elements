@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link } from "react-router-dom";
-import MuxPlayer from "@mux/mux-player-react/lazy";
+import IxVideo from "@imgix/ix-video-react/lazy";
 
-function MuxPlayerPage() {
+function IxVideoPage() {
   return (
     <>
       <style>
-        {`mux-player {
+        {`ix-video {
           display: block;
           width: 100%;
           aspect-ratio: 16 / 9;
@@ -14,7 +14,7 @@ function MuxPlayerPage() {
         }`}
       </style>
 
-      <MuxPlayer
+      <IxVideo
         playbackId="23s11nz72DsoN657h4314PjKKjsF2JG33eBQQt6B95I"
         metadata={{
           video_id: "video-id-12345",
@@ -30,4 +30,4 @@ function MuxPlayerPage() {
   );
 }
 
-export default MuxPlayerPage;
+export default IxVideoPage;
