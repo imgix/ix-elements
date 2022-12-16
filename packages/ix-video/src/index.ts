@@ -24,6 +24,8 @@ import {
   getGifURLFromSrc,
   isImgixVideoSrc,
   getStoryboardURLFromSrc,
+  getPosterURLFromPlaybackId,
+  getStoryboardURLFromPlaybackId,
 } from './helpers';
 import { template } from './template';
 import { render } from './html';
@@ -278,9 +280,9 @@ class IxVideoElement extends VideoApiElement {
 
   connectedCallback() {
     this.#renderChrome();
-    const muxVideo = this.shadowRoot?.querySelector('mux-video') as MuxVideoElement;
-    if (muxVideo) {
-      muxVideo.metadata = this.metadataFromAttrs;
+    const ixVideo = this.shadowRoot?.querySelector('mux-video') as IxVideoElement;
+    if (ixVideo) {
+      ixVideo.metadata = this.metadataFromAttrs;
     }
     this.#initResizing();
   }
@@ -793,6 +795,14 @@ class IxVideoElement extends VideoApiElement {
         return getThumbnailFromSrc(this.src, this.thumbnailParams);
       }
     }
+    if (this.playbackId && !this.audio) {
+      // Get the derived poster if a playbackId is present.
+      return getPosterURLFromPlaybackId(this.playbackId, {
+        domain: this.customDomain,
+        thumbnailTime: this.thumbnailTime ?? this.startTime,
+        token: this.tokens.thumbnail,
+      });
+    }
 
     return undefined;
   }
@@ -838,6 +848,13 @@ class IxVideoElement extends VideoApiElement {
     ) {
       if (isImgixVideoSrc(this.src) && this.src !== undefined) {
         return getStoryboardURLFromSrc(this.src);
+      }
+
+      if (this.playbackId) {
+        return getStoryboardURLFromPlaybackId(this.playbackId, {
+          domain: this.customDomain,
+          token: this.tokens.storyboard,
+        });
       }
     }
     return;
