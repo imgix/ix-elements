@@ -4,7 +4,7 @@ import Home from "./pages";
 import MuxVideoPage from "./pages/MuxVideo";
 import MuxAudioPage from "./pages/MuxAudio";
 import IxVideoPage from "./pages/IxVideo";
-// import MuxPlayerLazyPage from "./pages/MuxPlayerLazy";
+import IxVideoLazyPage from "./pages/IxVideoLazy";
 import MuxUploaderPage from "./pages/MuxUploader";
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
           <Route path="MuxVideo" element={<MuxVideoPage />} />
           <Route path="MuxAudio" element={<MuxAudioPage />} />
           <Route path="IxVideo" element={<IxVideoPage />} />
-          {/* <Route path="MuxPlayerLazy" element={<MuxPlayerLazyPage />} /> */}
+          <Route path="IxVideoLazy" element={<IxVideoLazyPage />} />
           <Route path="MuxUploader" element={<MuxUploaderPage />} />
         </Routes>
       </Router>
