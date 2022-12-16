@@ -5,7 +5,7 @@ function IxVideoPage() {
   return (
     <>
       <style>
-        {`video {
+        {`ix-video {
           display: block;
           width: 100%;
           aspect-ratio: 16 / 9;
