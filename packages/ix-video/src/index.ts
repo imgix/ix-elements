@@ -595,7 +595,6 @@ class IxVideoElement extends VideoApiElement {
   #preload() {
     // If preload is truthy, eagerly fetch GIF for gif-on-hover
     if (this.preload === 'auto') {
-      console.info(this.preload);
       const src = this.src;
       if (this.gifPreview !== undefined && src) {
         fetch(getGifURLFromSrc(src));
