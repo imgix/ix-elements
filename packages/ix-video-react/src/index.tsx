@@ -159,6 +159,7 @@ const usePlayer = (
     metadata,
     tokens,
     paused,
+    playbackId,
     playbackRates,
     currentTime,
     ...remainingProps
@@ -166,6 +167,7 @@ const usePlayer = (
   useObjectPropEffect('playbackRates', playbackRates, ref);
   useObjectPropEffect('metadata', metadata, ref);
   useObjectPropEffect('tokens', tokens, ref);
+  useObjectPropEffect('playbackId', playbackId, ref);
   useObjectPropEffect(
     'paused',
     paused,
