@@ -62,8 +62,8 @@ const AllowedVideoAttributeNames = Object.values(AllowedVideoAttributes).filter(
 const CustomVideoAttributesNames = Object.values(CustomVideoAttributes);
 
 /**
- * Gets called from mux-player when mux-video is rendered and upgraded.
- * We might just merge VideoApiElement in MuxPlayerElement and remove this?
+ * Gets called from ix-video when mux-video is rendered and upgraded.
+ * We might just merge VideoApiElement in IxPlayerElement and remove this?
  */
 export function initVideoApi(el: VideoApiElement) {
   el.querySelectorAll(':scope > track').forEach((track) => {
@@ -79,7 +79,7 @@ export function initVideoApi(el: VideoApiElement) {
   });
 }
 
-// NOTE: Some of these are defined in MuxPlayerElement. We may want to apply a
+// NOTE: Some of these are defined in IxVideoElement. We may want to apply a
 // `Pick<>` on these to also enforce consistency (CJP).
 type PartialHTMLVideoElement = Omit<
   HTMLVideoElement,

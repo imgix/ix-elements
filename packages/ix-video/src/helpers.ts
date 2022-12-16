@@ -1,5 +1,5 @@
 import { toQuery, camelCase, parseJwt } from './utils';
-import type MuxPlayerElement from '.';
+import type IxVideoElement from '.';
 import { StreamTypes } from '@mux/playback-core';
 
 const MUX_VIDEO_DOMAIN = 'mux.com';
@@ -130,7 +130,7 @@ export function toPropName(attrName: string) {
   return attrToPropNameMap[attrName] ?? camelCase(attrName);
 }
 
-export const getLiveTime = (el: MuxPlayerElement) => {
+export const getLiveTime = (el: IxVideoElement) => {
   const { media } = el;
   return (
     media?._hls?.liveSyncPosition ??
@@ -138,7 +138,7 @@ export const getLiveTime = (el: MuxPlayerElement) => {
   );
 };
 
-export const seekToLive = (el: MuxPlayerElement) => {
+export const seekToLive = (el: IxVideoElement) => {
   const liveTime = getLiveTime(el);
   if (liveTime == undefined) {
     console.warn('attempting to seek to live but cannot determine live edge time!');
@@ -152,7 +152,7 @@ export const LIVE_SEGMENT_SECS = 5;
 export const DEFAULT_HOLDBACK = 3;
 export const LIVE_HOLDBACK_MOE = 0.5;
 
-export const isInLiveWindow = (el: MuxPlayerElement) => {
+export const isInLiveWindow = (el: IxVideoElement) => {
   const { streamType } = el;
   const liveTime = getLiveTime(el);
   const currentTime = el.media?.currentTime;

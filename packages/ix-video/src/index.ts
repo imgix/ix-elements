@@ -52,10 +52,10 @@ const MediaChromeSizes = {
 };
 
 function getPlayerSize(el: Element) {
-  const muxPlayerRect = el.getBoundingClientRect();
-  return muxPlayerRect.width < XSMALL_BREAKPOINT
+  const IxVideoRect = el.getBoundingClientRect();
+  return IxVideoRect.width < XSMALL_BREAKPOINT
     ? MediaChromeSizes.XS
-    : muxPlayerRect.width < SMALL_BREAKPOINT
+    : IxVideoRect.width < SMALL_BREAKPOINT
     ? MediaChromeSizes.SM
     : MediaChromeSizes.LG;
 }

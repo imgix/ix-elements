@@ -90,10 +90,10 @@ const Fallback = (props: FallbackProps) => {
   );
 };
 
-interface MuxPlayerLazyProps extends IxVideoProps {
+interface IxVideoLazyProps extends IxVideoProps {
   loading?: 'page' | 'viewport';
 }
-const MuxPlayer = React.forwardRef<IxVideoRefAttributes, MuxPlayerLazyProps>((props, ref) => {
+const IxVideo = React.forwardRef<IxVideoRefAttributes, IxVideoLazyProps>((props, ref) => {
   const { loading = 'viewport', ...playerProps } = props;
 
   // We load ix-video once two conditions are met:
@@ -119,4 +119,4 @@ const MuxPlayer = React.forwardRef<IxVideoRefAttributes, MuxPlayerLazyProps>((pr
   );
 });
 
-export default MuxPlayer;
+export default IxVideo;
