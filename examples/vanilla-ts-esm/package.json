@@ -19,7 +19,7 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "@imgix/ix-video": ">=2.0.0-alpha.5",
+    "@imgix/ix-video": ">=2.0.0-alpha.1",
     "@mux/mux-audio": ">=0.3.0",
     "@mux/mux-uploader": ">=1.0.0-beta.0",
     "@mux/mux-video": ">=0.3.0"

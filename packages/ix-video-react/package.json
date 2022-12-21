@@ -65,7 +65,7 @@
     }
   },
   "dependencies": {
-    "@imgix/ix-video": ">=2.0.0-alpha.5",
+    "@imgix/ix-video": ">=2.0.0-alpha.1",
     "@mux/playback-core": "0.15.0",
     "prop-types": "^15.7.2"
   },

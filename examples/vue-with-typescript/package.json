@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@imgix/ix-video": ">=2.0.0-alpha.5",
+    "@imgix/ix-video": ">=2.0.0-alpha.1",
     "@mux/mux-audio": ">=0.3.0",
     "@mux/mux-video": ">=0.3.0",
     "pinia": "^2.0.11",
