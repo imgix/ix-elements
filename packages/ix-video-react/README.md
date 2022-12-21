@@ -47,7 +47,7 @@ import IxVideo from '@imgix/ix-video-react/lazy';
   src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
   type="hls"
   gifPreview
-  thumbnailParams="video-thumbnail-time=2"
+  posterParams="video-thumbnail-time=2"
 />;
 ```
 

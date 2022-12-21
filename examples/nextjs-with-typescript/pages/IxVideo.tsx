@@ -51,7 +51,7 @@ const toPlayerPropsFromJSON = (mediaAsset: typeof mediaAssetsJSON[0] | undefined
   } = mediaAsset ?? {};
   // NOTE: Inferred type is "string" from JSON (CJP)
   const streamType = mediaAsset?.['stream-type'] as IxVideoProps["streamType"];
-  const thumbnailParams = mediaAsset?.['thumbnail-params'] as IxVideoProps["thumbnailParams"];
+  const posterParams = mediaAsset?.['poster-params'] as IxVideoProps["posterParams"];
   const gifPreview = mediaAsset?.['gif-preview'] as IxVideoProps["gifPreview"];
   const metadata = mediaAsset ? toMetadataFromMediaAsset(mediaAsset, mediaAssets) : undefined;
 
@@ -66,7 +66,7 @@ const toPlayerPropsFromJSON = (mediaAsset: typeof mediaAssetsJSON[0] | undefined
     placeholder,
     src,
     type,
-    thumbnailParams,
+    posterParams,
     gifPreview
   };
 };
@@ -328,7 +328,7 @@ function MuxPlayerPage({ location }: Props) {
         style={stylesState}
         src={state.src}
         type={state.type}
-        thumbnailParams={state.thumbnailParams}
+        posterParams={state.posterParams}
         gifPreview={!!state.gifPreview}
         envKey={state.envKey}
         metadata={state.metadata}

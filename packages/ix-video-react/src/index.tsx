@@ -77,7 +77,7 @@ export type IxVideoProps = {
   thumbnailTime?: number;
   title?: string;
   gifPreview?: boolean;
-  thumbnailParams?: string;
+  posterParams?: string;
   tokens?: Tokens;
   onAbort?: GenericEventListener<IxVideoElementEventMap['abort']>;
   onCanPlay?: GenericEventListener<IxVideoElementEventMap['canplay']>;

@@ -47,7 +47,7 @@ yarn add @imgix/ix-video
   src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
   type="hls"
   gif-preview
-  thumbnail-params="video-thumbnail-time=2"
+  poster-params="video-thumbnail-time=2"
 ></ix-video>
 ```
 

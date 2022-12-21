@@ -85,7 +85,7 @@ const PlayerAttributes = {
   TITLE: 'title',
   PLACEHOLDER: 'placeholder',
   GIFPREVIEW: 'gif-preview',
-  THUMBNAIL_PARAMS: 'thumbnail-params',
+  POSTER_PARAMS: 'poster-params',
 };
 
 function getProps(el: IxVideoElement, state?: any): MuxTemplateProps {
@@ -98,7 +98,7 @@ function getProps(el: IxVideoElement, state?: any): MuxTemplateProps {
     storyboard: el.storyboard,
     placeholder: el.getAttribute('placeholder'),
     gifPreview: el.gifPreview,
-    thumbnailParams: el.thumbnailParams,
+    posterParams: el.posterParams,
     theme: el.getAttribute('theme'),
     thumbnailTime: !el.tokens.thumbnail && el.thumbnailTime,
     autoplay: el.autoplay,
@@ -344,7 +344,7 @@ class IxVideoElement extends VideoApiElement {
 
       if (this.poster !== undefined && this.poster?.indexOf('video-generate=gif') >= 0) {
         if (this.src !== undefined) {
-          this.poster = getThumbnailFromSrc(this.src, this.thumbnailParams);
+          this.poster = getThumbnailFromSrc(this.src, this.posterParams);
         }
       }
     };
@@ -792,7 +792,7 @@ class IxVideoElement extends VideoApiElement {
 
     if (isImgixVideoSrc(this.src) && !this.audio) {
       if (this.src !== undefined) {
-        return getThumbnailFromSrc(this.src, this.thumbnailParams);
+        return getThumbnailFromSrc(this.src, this.posterParams);
       }
     }
     if (this.playbackId && !this.audio) {
@@ -908,19 +908,19 @@ class IxVideoElement extends VideoApiElement {
     this.setAttribute(PlayerAttributes.THUMBNAIL_TIME, `${val}`);
   }
 
-  get thumbnailParams() {
-    const val = this.getAttribute(PlayerAttributes.THUMBNAIL_PARAMS);
+  get posterParams() {
+    const val = this.getAttribute(PlayerAttributes.POSTER_PARAMS);
     if (val != null) {
       return val;
     }
     return undefined;
   }
 
-  set thumbnailParams(val: string | undefined) {
+  set posterParams(val: string | undefined) {
     if (!val) {
       this.removeAttribute('title');
     } else {
-      this.setAttribute(PlayerAttributes.THUMBNAIL_PARAMS, val);
+      this.setAttribute(PlayerAttributes.POSTER_PARAMS, val);
     }
   }
 
