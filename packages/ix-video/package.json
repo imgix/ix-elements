@@ -1,6 +1,6 @@
 {
   "name": "@imgix/ix-video",
-  "version": "2.0.0-alpha.7",
+  "version": "2.0.0",
   "description": "An imgix video custom element that works anywhere",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.mjs",
