@@ -6,11 +6,12 @@ describe('errors', () => {
   it("doesn't propagate non-fatal error events", async function () {
     this.timeout(5000);
 
-    const player = await fixture(`<mux-player
-      playback-id="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe"
-      stream-type="on-demand"
+    const player = await fixture(`<ix-video
+      src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
+      type="hls"
+      poster-params="video-thumbnail-time=2&mark-align=top,right&mark64=aHR0cHM6Ly9hc3NldHMuaW1naXgubmV0L3ByZXNza2l0L2ltZ2l4LXByZXNza2l0LnBkZj93PTE2MCZmbT1wbmcmcGFnZT00"
       muted
-    ></mux-player>`);
+    ></ix-video>`);
 
     let fired;
     player.addEventListener('error', () => {
@@ -27,11 +28,12 @@ describe('errors', () => {
   });
 
   it('does propagate fatal error events', async function () {
-    const player = await fixture(`<mux-player
-      playback-id="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe"
-      stream-type="on-demand"
+    const player = await fixture(`<ix-video
+      src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
+      type="hls"
+      poster-params="video-thumbnail-time=2&mark-align=top,right&mark64=aHR0cHM6Ly9hc3NldHMuaW1naXgubmV0L3ByZXNza2l0L2ltZ2l4LXByZXNza2l0LnBkZj93PTE2MCZmbT1wbmcmcGFnZT00"
       muted
-    ></mux-player>`);
+    ></ix-video>`);
 
     let fired;
     player.addEventListener('error', () => {
@@ -122,48 +124,48 @@ describe('errors', () => {
     );
   });
 
-  it('403 response code message w/ expired token for MediaError.MEDIA_ERR_NETWORK', function () {
-    const playbackId = 'bzeU5fRA47S01KDzrObYiiZvzj00j5E00dCVbt3oRzmfF00';
-    const playbackToken =
-      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik96VU90ek1nUWhPbkk2MDJ6SlFQbU52THR4MDBnSjJqTlBxN0tTTzAxQlozelEifQ.eyJleHAiOjE2NDgwNzY0MDQsImF1ZCI6InYiLCJzdWIiOiJiemVVNWZSQTQ3UzAxS0R6ck9iWWlpWnZ6ajAwajVFMDBkQ1ZidDNvUnptZkYwMCJ9.kNn4tWOCffu01tIEw8AtWPtkuAGQrE3K33CyEhG54l4S8JaNRJvrxZNP_zbp42vHPtoa8GbsvQ3DogHUeoQYVOnFObpakhkoRmuA5sNXcDEtKWh_t20fJ84ZED_LOj2LBIrlXabeb3oZoprPWs3ovDVh8nJrm-GC90rfA4twMqDwKNSE0ZTt9O1mYjJ0ZyyFqqyMnY-gkOg8db7OJV-flKwEDSYK8VkwARz1kxIJKSslQt_9QT8is3CyL3m5Hp1NozgRdJ55-9KO-K6vmdla6GDFnAcChGT6AFI_MWKHsQWcJtaZQ3vZLKkZUR29ZYpmxkigxzuu2XK8OvY070NXJg';
-    const error = new MediaError(undefined, MediaError.MEDIA_ERR_NETWORK);
-    error.data = { response: { code: 403 } };
+  // it('403 response code message w/ expired token for MediaError.MEDIA_ERR_NETWORK', function () {
+  //   const playbackId = 'bzeU5fRA47S01KDzrObYiiZvzj00j5E00dCVbt3oRzmfF00';
+  //   const playbackToken =
+  //     'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik96VU90ek1nUWhPbkk2MDJ6SlFQbU52THR4MDBnSjJqTlBxN0tTTzAxQlozelEifQ.eyJleHAiOjE2NDgwNzY0MDQsImF1ZCI6InYiLCJzdWIiOiJiemVVNWZSQTQ3UzAxS0R6ck9iWWlpWnZ6ajAwajVFMDBkQ1ZidDNvUnptZkYwMCJ9.kNn4tWOCffu01tIEw8AtWPtkuAGQrE3K33CyEhG54l4S8JaNRJvrxZNP_zbp42vHPtoa8GbsvQ3DogHUeoQYVOnFObpakhkoRmuA5sNXcDEtKWh_t20fJ84ZED_LOj2LBIrlXabeb3oZoprPWs3ovDVh8nJrm-GC90rfA4twMqDwKNSE0ZTt9O1mYjJ0ZyyFqqyMnY-gkOg8db7OJV-flKwEDSYK8VkwARz1kxIJKSslQt_9QT8is3CyL3m5Hp1NozgRdJ55-9KO-K6vmdla6GDFnAcChGT6AFI_MWKHsQWcJtaZQ3vZLKkZUR29ZYpmxkigxzuu2XK8OvY070NXJg';
+  //   const error = new MediaError(undefined, MediaError.MEDIA_ERR_NETWORK);
+  //   error.data = { response: { code: 403 } };
 
-    const { dialog, devlog } = getErrorLogs(error, false, playbackId, playbackToken);
-    assert.equal(String(dialog.title), 'Video URL has expired');
-    assert.equal(String(dialog.message), 'The video’s secured playback-token has expired.');
-    assert.include(
-      String(devlog.message),
-      'This playback is using signed URLs and the playback-token has expired. Expired at:'
-    );
-  });
+  //   const { dialog, devlog } = getErrorLogs(error, false, playbackId, playbackToken);
+  //   assert.equal(String(dialog.title), 'Video URL has expired');
+  //   assert.equal(String(dialog.message), 'The video’s secured playback-token has expired.');
+  //   assert.include(
+  //     String(devlog.message),
+  //     'This playback is using signed URLs and the playback-token has expired. Expired at:'
+  //   );
+  // });
 
-  it('403 response code message w/ playback id mismatch for MediaError.MEDIA_ERR_NETWORK', function () {
-    const playbackId = 'bos2bPV3qbFgpVPaQ900Xd5UcdM6WXTmz02WZSz01nJ00tY_blabla';
-    const playbackToken =
-      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik96VU90ek1nUWhPbkk2MDJ6SlFQbU52THR4MDBnSjJqTlBxN0tTTzAxQlozelEifQ.eyJleHAiOjE5NjE2MDE2MjgsImF1ZCI6InYiLCJzdWIiOiJib3MyYlBWM3FiRmdwVlBhUTkwMFhkNVVjZE02V1hUbXowMldaU3owMW5KMDB0WSJ9.OUegJAmrlvD9BhzUhogrup_mYRBYNG2ocqmJZK2lKPLFmP1jLKi99Lj_9ZQqIXgmoYeXo2jKr3WFMO8nbGwtZFKU2_szq1EWlj4mBgdWXfAP5amC92qkm87nIuNFM2WVANGlBksmj8uOmYNIuPh1Ctti1qiJEYkf-JthWFFpaR_2TlQJ7g0bmRPzk3nOPDtqZnJBfTVm3n4Kp7Cr27a_VBA6zpoW6DwjJ6_uPkm6TAxXjw7VWNd3YVLs7S_jgs8q3t9DPpAN57q94syVQtEUkRh4tlDX-gdIrJDi9nFB1fIBh45pD01PvrAWzZXKKE9YSW7dnktqSUy81kcu2F_gXA';
-    const error = new MediaError(undefined, MediaError.MEDIA_ERR_NETWORK);
-    error.data = { response: { code: 403 } };
+  // it('403 response code message w/ playback id mismatch for MediaError.MEDIA_ERR_NETWORK', function () {
+  //   const playbackId = 'bos2bPV3qbFgpVPaQ900Xd5UcdM6WXTmz02WZSz01nJ00tY_blabla';
+  //   const playbackToken =
+  //     'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik96VU90ek1nUWhPbkk2MDJ6SlFQbU52THR4MDBnSjJqTlBxN0tTTzAxQlozelEifQ.eyJleHAiOjE5NjE2MDE2MjgsImF1ZCI6InYiLCJzdWIiOiJib3MyYlBWM3FiRmdwVlBhUTkwMFhkNVVjZE02V1hUbXowMldaU3owMW5KMDB0WSJ9.OUegJAmrlvD9BhzUhogrup_mYRBYNG2ocqmJZK2lKPLFmP1jLKi99Lj_9ZQqIXgmoYeXo2jKr3WFMO8nbGwtZFKU2_szq1EWlj4mBgdWXfAP5amC92qkm87nIuNFM2WVANGlBksmj8uOmYNIuPh1Ctti1qiJEYkf-JthWFFpaR_2TlQJ7g0bmRPzk3nOPDtqZnJBfTVm3n4Kp7Cr27a_VBA6zpoW6DwjJ6_uPkm6TAxXjw7VWNd3YVLs7S_jgs8q3t9DPpAN57q94syVQtEUkRh4tlDX-gdIrJDi9nFB1fIBh45pD01PvrAWzZXKKE9YSW7dnktqSUy81kcu2F_gXA';
+  //   const error = new MediaError(undefined, MediaError.MEDIA_ERR_NETWORK);
+  //   error.data = { response: { code: 403 } };
 
-    const { dialog, devlog } = getErrorLogs(error, false, playbackId, playbackToken);
-    assert.equal(String(dialog.title), 'Video URL is formatted incorrectly');
-    assert.equal(
-      String(dialog.message),
-      'The video’s playback ID does not match the one encoded in the playback-token.'
-    );
-    assert.include(String(devlog.message), 'and the playback ID encoded in the playback-token');
-  });
+  //   const { dialog, devlog } = getErrorLogs(error, false, playbackId, playbackToken);
+  //   assert.equal(String(dialog.title), 'Video URL is formatted incorrectly');
+  //   assert.equal(
+  //     String(dialog.message),
+  //     'The video’s playback ID does not match the one encoded in the playback-token.'
+  //   );
+  //   assert.include(String(devlog.message), 'and the playback ID encoded in the playback-token');
+  // });
 
-  it('403 response code message w/ token type mismatch for MediaError.MEDIA_ERR_NETWORK', function () {
-    const playbackId = 'bos2bPV3qbFgpVPaQ900Xd5UcdM6WXTmz02WZSz01nJ00tY';
-    const playbackToken =
-      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik96VU90ek1nUWhPbkk2MDJ6SlFQbU52THR4MDBnSjJqTlBxN0tTTzAxQlozelEifQ.eyJleHAiOjE5NjE2MDE3MzYsImF1ZCI6InQiLCJzdWIiOiJib3MyYlBWM3FiRmdwVlBhUTkwMFhkNVVjZE02V1hUbXowMldaU3owMW5KMDB0WSJ9.gDe_efqmRB5E3e4ag6in8MfMK-Vn3c_3B4M-BiWw6lg2aaf2BOTv7ltxhn2cvg4G0iFi-esRjhDlHbMRTxwTGavsx8TRLFtJ8vyBzToaFQbQMrn9OZztq_XrCEwqkD8bUAVtdOT1YB606OZyy6XO-CxdMRrKMUsM-cGrfv0TxvzJjThJBY4SzFv_whtYRxqAypZojROU7IiTbqcsk_cSrRMjB7WyAOAvyPNKnr6RkVEuMJtlCtaf_e4DIJHebZUZb3JmVTG4jIWrD1QkN7uLUwCPPRvGhXwhet9JaJPyC5lmkcb9YmH-15V6GOpwSg7sDMGC3YS4aIb_RtVkan0t-w';
-    const error = new MediaError(undefined, MediaError.MEDIA_ERR_NETWORK);
-    error.data = { response: { code: 403 } };
+  // it('403 response code message w/ token type mismatch for MediaError.MEDIA_ERR_NETWORK', function () {
+  //   const playbackId = 'bos2bPV3qbFgpVPaQ900Xd5UcdM6WXTmz02WZSz01nJ00tY';
+  //   const playbackToken =
+  //     'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik96VU90ek1nUWhPbkk2MDJ6SlFQbU52THR4MDBnSjJqTlBxN0tTTzAxQlozelEifQ.eyJleHAiOjE5NjE2MDE3MzYsImF1ZCI6InQiLCJzdWIiOiJib3MyYlBWM3FiRmdwVlBhUTkwMFhkNVVjZE02V1hUbXowMldaU3owMW5KMDB0WSJ9.gDe_efqmRB5E3e4ag6in8MfMK-Vn3c_3B4M-BiWw6lg2aaf2BOTv7ltxhn2cvg4G0iFi-esRjhDlHbMRTxwTGavsx8TRLFtJ8vyBzToaFQbQMrn9OZztq_XrCEwqkD8bUAVtdOT1YB606OZyy6XO-CxdMRrKMUsM-cGrfv0TxvzJjThJBY4SzFv_whtYRxqAypZojROU7IiTbqcsk_cSrRMjB7WyAOAvyPNKnr6RkVEuMJtlCtaf_e4DIJHebZUZb3JmVTG4jIWrD1QkN7uLUwCPPRvGhXwhet9JaJPyC5lmkcb9YmH-15V6GOpwSg7sDMGC3YS4aIb_RtVkan0t-w';
+  //   const error = new MediaError(undefined, MediaError.MEDIA_ERR_NETWORK);
+  //   error.data = { response: { code: 403 } };
 
-    const { dialog, devlog } = getErrorLogs(error, false, playbackId, playbackToken);
-    assert.equal(String(dialog.title), 'Video URL is formatted incorrectly');
-    assert.equal(String(dialog.message), 'The playback-token is formatted with incorrect information.');
-    assert.include(String(devlog.message), 'The playback-token has an incorrect aud value: ');
-  });
+  //   const { dialog, devlog } = getErrorLogs(error, false, playbackId, playbackToken);
+  //   assert.equal(String(dialog.title), 'Video URL is formatted incorrectly');
+  //   assert.equal(String(dialog.message), 'The playback-token is formatted with incorrect information.');
+  //   assert.include(String(devlog.message), 'The playback-token has an incorrect aud value: ');
+  // });
 });

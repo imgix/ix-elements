@@ -4,6 +4,10 @@ import {
   getPosterURLFromPlaybackId,
   getStoryboardURLFromPlaybackId,
   AttributeTokenList,
+  isImgixVideoSrc,
+  getThumbnailFromSrc,
+  getGifURLFromSrc,
+  getStoryboardURLFromSrc,
 } from '../src/helpers.ts';
 
 // token key Key-Must-Be-at-least-32-bytes-in-length!
@@ -12,6 +16,35 @@ const THUMBNAIL_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJ0In0.BUhYQ9GTTFrrqyfT_7
 const STORYBOARD_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJzIn0.aYYPU6VETdQOF04OEbhDYPOCgIxmngVBIfC6BQXbgI8';
 
 describe('helpers', () => {
+  describe('isImgixVideoSrc', () => {
+    it('returns true if imgix.video domain', () => {
+      assert.equal(isImgixVideoSrc('https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls'), true);
+    });
+  });
+  describe('getThumbnailFromSrc', () => {
+    it('returns thumbnail URL from imgix video source URL', () => {
+      assert.equal(
+        getThumbnailFromSrc('https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls'),
+        'https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?auto=format&video-generate=thumbnail'
+      );
+    });
+  });
+  describe('getGifURLFromSrc', () => {
+    it('returns thumbnail URL from imgix video source URL', () => {
+      assert.equal(
+        getGifURLFromSrc('https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls'),
+        'https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?video-generate=gif&video-gif-end=10&video-gif-fps=10'
+      );
+    });
+  });
+  describe('getStoryboardURLFromSrc', () => {
+    it('returns thumbnail URL from imgix video source URL', () => {
+      assert.equal(
+        getStoryboardURLFromSrc('https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls'),
+        'https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?video-generate=storyboard&video-storyboard-format=vtt'
+      );
+    });
+  });
   describe('getSrcFromPlaybackId', () => {
     it('with no token', () => {
       assert.equal(getSrcFromPlaybackId('12345'), 'https://stream.mux.com/12345.m3u8?redundant_streams=true');
