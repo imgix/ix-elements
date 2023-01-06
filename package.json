@@ -12,6 +12,8 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "@commitlint/cli": "^17.4.0",
+    "@commitlint/config-conventional": "^17.4.0",
     "husky": "^7.0.0",
     "lerna": "^4.0.0",
     "prettier": "^2.3.2",
