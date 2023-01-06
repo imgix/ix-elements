@@ -1,5 +1,6 @@
 {
   "name": "@mux/mux-video",
+  "private": true,
   "version": "0.12.0",
   "description": "A custom mux video element for the browser that Just Works™",
   "main": "./dist/index.cjs.js",
