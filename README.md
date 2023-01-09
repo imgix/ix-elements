@@ -19,12 +19,6 @@ Elements are written to make it easy to work in a variety of web frameworks. If 
 | ------------------------------------------------- | --------------------------------------------- | ------------- | ----------------------- |
 | [ix-video](packages/ix-video)                   | An imgix HTML5 video element            | Web Component | 2.0.0             |
 | [ix-video-react](packages/ix-video-react)       | An imgix React video component          | React         | Public Beta             |
-<!-- | [mux-audio](packages/mux-audio)                   | A Mux-flavored HTML5 audio element            | Web Component | Public Beta             |
-| [mux-audio-react](packages/mux-audio-react)       | A Mux-flavored HTML5 audio component          | React         | Public Beta             |
-| [mux-player](packages/mux-player)                 | A Mux-flavored HTML5 media player component   | Web Component | 1.x.x 🎉                |
-| [mux-player-react](packages/mux-player-react)     | A Mux-flavored React media player component   | React         | 1.x.x 🎉                |
-| [mux-uploader](packages/mux-uploader)             | A Mux-flavored HTML5 media uploader component | Web Component | Public Beta             |
-| [mux-uploader-react](packages/mux-uploader-react) | A Mux-flavored React media uploader component | React         | Public Beta             | -->
 
 # Contribution
 
