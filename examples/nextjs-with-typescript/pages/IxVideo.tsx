@@ -54,7 +54,6 @@ const toPlayerPropsFromJSON = (mediaAsset: typeof mediaAssetsJSON[0] | undefined
   const posterParams = mediaAsset?.['poster-params'] as IxVideoProps["posterParams"];
   const gifPreview = mediaAsset?.['gif-preview'] as IxVideoProps["gifPreview"];
   const metadata = mediaAsset ? toMetadataFromMediaAsset(mediaAsset, mediaAssets) : undefined;
-
   return {
     playbackId,
     streamType,

@@ -47,11 +47,14 @@ const toPlayerPropsFromJSON = (mediaAsset: typeof mediaAssetsJSON[0] | undefined
     audio,
     description: title,
     placeholder,
+    src,
+    type,
   } = mediaAsset ?? {};
   // NOTE: Inferred type is "string" from JSON (CJP)
   const streamType = mediaAsset?.['stream-type'] as IxVideoProps["streamType"];
+  const posterParams = mediaAsset?.['poster-params'] as IxVideoProps["posterParams"];
+  const gifPreview = mediaAsset?.['gif-preview'] as IxVideoProps["gifPreview"];
   const metadata = mediaAsset ? toMetadataFromMediaAsset(mediaAsset, mediaAssets) : undefined;
-
   return {
     playbackId,
     streamType,
@@ -61,6 +64,10 @@ const toPlayerPropsFromJSON = (mediaAsset: typeof mediaAssetsJSON[0] | undefined
     metadata,
     title,
     placeholder,
+    src,
+    type,
+    posterParams,
+    gifPreview
   };
 };
 
@@ -319,6 +326,9 @@ function IxVideoPage({ location }: Props) {
       <Script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1" />
       <IxVideo
         ref={mediaElRef}
+        src={state.src}
+        gifPreview={state.gifPreview}
+        type={state.type}
         style={stylesState}
         envKey={state.envKey}
         metadata={state.metadata}

@@ -7,11 +7,13 @@ import { useState } from "react";
 const INITIAL_DEBUG = false;
 const INITIAL_MUTED = false;
 const INITIAL_AUTOPLAY = false;
-const INITIAL_PLAYBACK_ID = "g65IqSFtWdpGR100c2W8VUHrfIVWTNRen";
+const INITIAL_SRC = "https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls";
+const INITIAL_TYPE = "hls";
 
 function IxVideoWCPage() {
   // const mediaElRef = useRef(null);
-  const [playbackId, setPlaybackId] = useState(INITIAL_PLAYBACK_ID);
+  const [playbackSrc, setSrc] = useState(INITIAL_SRC);
+  const [playbackType, setType] = useState(INITIAL_TYPE);
   const [muted, setMuted] = useState(INITIAL_MUTED);
   const [debug, setDebug] = useState(INITIAL_DEBUG);
   const [autoplay, setAutoplay] = useState(INITIAL_AUTOPLAY);
@@ -28,7 +30,8 @@ function IxVideoWCPage() {
         <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
         <ix-video
           // style={{ aspectRatio: "16 / 9" }}
-          playback-id={playbackId}
+          src={playbackSrc}
+          type={playbackType}
           forward-seek-offset={10}
           backward-seek-offset={10}
           // onPlayerReady={() => console.log("ready!")}
@@ -71,11 +74,19 @@ function IxVideoWCPage() {
           />
         </div>
         <div>
-          <label htmlFor="playback-id-control">Playback Id</label>
+          <label htmlFor="playback-src-control">Playback Src</label>
           <input
-            id="playback-id-control"
-            onBlur={({ currentTarget }) => setPlaybackId(currentTarget.value)}
-            defaultValue={playbackId}
+            id="playback-src-control"
+            onBlur={({ currentTarget }) => setSrc(currentTarget.value)}
+            defaultValue={playbackSrc}
+          />
+        </div>
+        <div>
+          <label htmlFor="playback-type-control">Playback Type</label>
+          <input
+            id="playback-type-control"
+            onBlur={({ currentTarget }) => setType(currentTarget.value)}
+            defaultValue={playbackType}
           />
         </div>
       </div>
