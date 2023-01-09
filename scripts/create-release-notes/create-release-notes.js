@@ -7,7 +7,7 @@ import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { promisify } from 'util';
 import { exec } from 'child_process';
-import { Octokit } from 'octokit';
+// import { Octokit } from 'octokit';
 
 const execAsync = promisify(exec);
 const headerMatchRegex = /^#+[^\S\r\n]+\[\d+\.\d+\.\d+\S*?]\(.+?\)$|^#+[^\S\r\n]+\d+\.\d+\.\d+\S*?[^\S\r\n]+\(.+?\)$/gm;
@@ -39,7 +39,9 @@ export async function extractLog(changeLogPath) {
 async function getTagName() {
   const pkg = await readFile(path.resolve(process.cwd(), 'package.json'), 'utf-8');
   const { name } = JSON.parse(pkg);
+  console.log('package name: ', name);
   try {
+    console.log('tag name: ', `git describe --match "${name}@*" --abbrev=0 --tags HEAD`);
     const { stdout } = await execAsync(`git describe --match "${name}@*" --abbrev=0 --tags HEAD`);
     return stdout.trim();
   } catch (err) {
@@ -49,19 +51,20 @@ async function getTagName() {
 
 const changelog = await extractLog(process.argv[2]);
 const tag = await getTagName();
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+console.log(tag, changelog);
+// const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
-try {
-  await octokit.request('POST /repos/{owner}/{repo}/releases', {
-    owner: 'muxinc',
-    repo: 'elements',
-    tag_name: tag,
-    name: tag,
-    body: changelog,
-    draft: false,
-    prerelease: tag.includes('-alpha.') || tag.includes('-beta.'),
-    generate_release_notes: false,
-  });
-} catch (err) {
-  console.error(err);
-}
+// try {
+//   await octokit.request('POST /repos/{owner}/{repo}/releases', {
+//     owner: 'imgix',
+//     repo: 'ix-elements',
+//     tag_name: tag,
+//     name: tag,
+//     body: changelog,
+//     draft: false,
+//     prerelease: tag.includes('-alpha.') || tag.includes('-beta.'),
+//     generate_release_notes: false,
+//   });
+// } catch (err) {
+//   console.error(err);
+// }
