@@ -30,7 +30,6 @@
 	"type": "module",
 	"dependencies": {
 		"@imgix/ix-video": ">=2.0.0-alpha.1",
-		"@mux/mux-audio": ">=0.3.0",
 		"@mux/mux-video": ">=0.3.0"
 	}
 }
