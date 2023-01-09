@@ -12,14 +12,14 @@ coverage:
         target: auto
         flags:
           - mux-audio-react
-      mux-player:
+      ix-video:
         target: auto
         flags:
-          - mux-player
-      mux-player-react:
+          - ix-video
+      ix-video-react:
         target: auto
         flags:
-          - mux-player-react
+          - ix-video-react
       mux-video:
         target: auto
         flags:
@@ -53,12 +53,12 @@ flags:
   mux-audio-react:
     paths: #note, accepts globs, not regexes
       - packages/mux-audio-react
-  mux-player:
+  ix-video:
     paths: #note, accepts globs, not regexes
-      - packages/mux-player
-  mux-player-react:
+      - packages/ix-video
+  ix-video-react:
     paths: #note, accepts globs, not regexes
-      - packages/mux-player-react
+      - packages/ix-video-react
   mux-video:
     paths: #note, accepts globs, not regexes
       - packages/mux-video
