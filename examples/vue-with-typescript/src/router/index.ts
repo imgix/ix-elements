@@ -1,6 +1,5 @@
 import IxVideo from "@/views/IxVideoView.vue";
 import MuxVideoView from "@/views/MuxVideoView.vue";
-import MuxAudioView from "@/views/MuxAudioView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
@@ -21,11 +20,6 @@ const router = createRouter({
       path: "/mux-video",
       name: "mux-video",
       component: MuxVideoView,
-    },
-    {
-      path: "/mux-audio",
-      name: "mux-audio",
-      component: MuxAudioView,
     },
     // {
     //   path: '/about',
