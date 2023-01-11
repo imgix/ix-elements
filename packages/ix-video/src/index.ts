@@ -57,9 +57,9 @@ export const Attributes: AttributeNames = {
 const AttributeNameValues = Object.values(Attributes);
 
 const playerSoftwareVersion = getPlayerVersion();
-const playerSoftwareName = 'mux-video';
+const playerSoftwareName = 'ix-video';
 
-class MuxVideoElement extends CustomVideoElement<HTMLVideoElement> implements Partial<MuxMediaProps> {
+class IxVideoElement extends CustomVideoElement<HTMLVideoElement> implements Partial<MuxMediaProps> {
   static get observedAttributes() {
     return [...AttributeNameValues, ...(CustomVideoElement.observedAttributes ?? [])];
   }
@@ -323,7 +323,7 @@ class MuxVideoElement extends CustomVideoElement<HTMLVideoElement> implements Pa
   }
 
   get streamType(): ValueOf<StreamTypes> | undefined {
-    // getAttribute doesn't know that this attribute is well defined. Should explore extending for MuxVideo (CJP)
+    // getAttribute doesn't know that this attribute is well defined. Should explore extending for IxVideo (CJP)
     return (this.getAttribute(Attributes.STREAM_TYPE) as ValueOf<StreamTypes>) ?? undefined;
   }
 
@@ -479,18 +479,18 @@ class MuxVideoElement extends CustomVideoElement<HTMLVideoElement> implements Pa
   }
 }
 
-type MuxVideoElementType = typeof MuxVideoElement;
+type IxVideoElementType = typeof IxVideoElement;
 declare global {
-  var MuxVideoElement: MuxVideoElementType; // eslint-disable-line
+  var IxVideoElement: IxVideoElementType; // eslint-disable-line
 }
 
 /** @TODO Refactor once using `globalThis` polyfills */
-if (!globalThis.customElements.get('mux-video')) {
-  globalThis.customElements.define('mux-video', MuxVideoElement);
+if (!globalThis.customElements.get('ix-video')) {
+  globalThis.customElements.define('ix-video', IxVideoElement);
   /** @TODO consider externalizing this (breaks standard modularity) */
-  globalThis.MuxVideoElement = MuxVideoElement;
+  globalThis.IxVideoElement = IxVideoElement;
 }
 
 export { PlaybackEngine, PlaybackEngine as Hls, ExtensionMimeTypeMap as MimeTypes, MediaError, VideoEvents };
 
-export default MuxVideoElement;
+export default IxVideoElement;
