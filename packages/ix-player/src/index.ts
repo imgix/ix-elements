@@ -52,10 +52,10 @@ const MediaChromeSizes = {
 };
 
 function getPlayerSize(el: Element) {
-  const IxVideoRect = el.getBoundingClientRect();
-  return IxVideoRect.width < XSMALL_BREAKPOINT
+  const ixPlayerRect = el.getBoundingClientRect();
+  return ixPlayerRect.width < XSMALL_BREAKPOINT
     ? MediaChromeSizes.XS
-    : IxVideoRect.width < SMALL_BREAKPOINT
+    : ixPlayerRect.width < SMALL_BREAKPOINT
     ? MediaChromeSizes.SM
     : MediaChromeSizes.LG;
 }
@@ -88,7 +88,7 @@ const PlayerAttributes = {
   POSTER_PARAMS: 'poster-params',
 };
 
-function getProps(el: IxVideoElement, state?: any): MuxTemplateProps {
+function getProps(el: IxPlayerElement, state?: any): MuxTemplateProps {
   const props = {
     // Give priority to playbackId derrived asset URL's if playbackId is set.
     src: !el.playbackId && el.src,
@@ -147,7 +147,7 @@ const MuxVideoAttributeNames = Object.values(MuxVideoAttributes);
 const VideoAttributeNames = Object.values(VideoAttributes);
 const PlayerAttributeNames = Object.values(PlayerAttributes);
 const playerSoftwareVersion = getPlayerVersion();
-const playerSoftwareName = 'ix-video';
+const playerSoftwareName = 'ix-player';
 
 const initialState = {
   dialog: undefined,
@@ -155,7 +155,7 @@ const initialState = {
   inLiveWindow: false,
 };
 
-class IxVideoElement extends VideoApiElement {
+class IxPlayerElement extends VideoApiElement {
   #isInit = false;
   #tokens = {};
   #userInactive = true;
@@ -186,7 +186,7 @@ class IxVideoElement extends VideoApiElement {
     this.attachShadow({ mode: 'open' });
     this.#setupCSSProperties();
 
-    // If the custom element is defined before the <ix-video> HTML is parsed
+    // If the custom element is defined before the <ix-player> HTML is parsed
     // no attributes will be available in the constructor (construction process).
     // Wait until initializing attributes in the attributeChangedCallback.
     // If this element is connected to the DOM, the attributes will be available.
@@ -202,7 +202,7 @@ class IxVideoElement extends VideoApiElement {
     // The next line triggers the first render of the template.
     this.#setState({ playerSize: getPlayerSize(this) });
 
-    // Fixes a bug in React where ix-video's CE children were not upgraded yet.
+    // Fixes a bug in React where ix-player's CE children were not upgraded yet.
     // These lines ensure the rendered mux-video and media-controller are upgraded,
     // even before they are connected to the main document.
     try {
@@ -280,9 +280,9 @@ class IxVideoElement extends VideoApiElement {
 
   connectedCallback() {
     this.#renderChrome();
-    const ixVideo = this.shadowRoot?.querySelector('mux-video') as IxVideoElement;
-    if (ixVideo) {
-      ixVideo.metadata = this.metadataFromAttrs;
+    const ixPlayer = this.shadowRoot?.querySelector('ix-video') as IxPlayerElement;
+    if (ixPlayer) {
+      ixPlayer.metadata = this.metadataFromAttrs;
     }
     this.#initResizing();
   }
@@ -414,7 +414,7 @@ class IxVideoElement extends VideoApiElement {
       this.#setState({ isDialogOpen: true, dialog });
     };
 
-    // Keep this event listener on ix-video instead of calling onError directly
+    // Keep this event listener on ix-player instead of calling onError directly
     // from video.onerror. This allows us to simulate errors from the outside.
     this.addEventListener('error', onError);
 
@@ -447,7 +447,7 @@ class IxVideoElement extends VideoApiElement {
         error = new MediaError(message, code);
       }
 
-      // Don't fire a ix-video error event for non-fatal errors.
+      // Don't fire a ix-player error event for non-fatal errors.
       if (!error?.fatal) return;
 
       this.dispatchEvent(
@@ -1325,16 +1325,16 @@ class IxVideoElement extends VideoApiElement {
   }
 }
 
-export function getVideoAttribute(el: IxVideoElement, name: string) {
+export function getVideoAttribute(el: IxPlayerElement, name: string) {
   return el.media ? el.media.getAttribute(name) : el.getAttribute(name);
 }
 
 /** @TODO Refactor once using `globalThis` polyfills */
-if (!globalThis.customElements.get('ix-video')) {
-  globalThis.customElements.define('ix-video', IxVideoElement);
+if (!globalThis.customElements.get('ix-player')) {
+  globalThis.customElements.define('ix-player', IxPlayerElement);
   /** @TODO consider externalizing this (breaks standard modularity) */
-  (globalThis as any).IxVideoElement = IxVideoElement;
+  (globalThis as any).IxPlayerElement = IxPlayerElement;
 }
 
-export const IxVideo = IxVideoElement;
-export default IxVideoElement;
+export const IxPlayer = IxPlayerElement;
+export default IxPlayerElement;

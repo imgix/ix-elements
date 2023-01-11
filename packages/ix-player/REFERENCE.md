@@ -11,7 +11,7 @@
 | `volume`                      | `number` (0-1)                                                                                              | Attribute equivalent of the [`volume` property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/volume)                                                                                                                                                                                                                                                                        | Varies        |
 | `playbackrate`                | `number`                                                                                                    | Attribute equivalent of the [`playbackRate` property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playbackRate)                                                                                                                                                                                                                                                            | `1`           |
 | `debug`                       | `boolean`                                                                                                   | Enables debug mode for the underlying playback engine (currently hls.js) and mux-embed, providing additional information in the console.                                                                                                                                                                                                                                                         | `false`       |
-| `prefer-playback`             | `"mse" \| "native"`                                                                                         | Specify if ix-video should try to use Media Source Extension or native playback (if available). If no value is provided, ix-video will choose based on what's deemed optimal for content and playback environment.                                                                                                                                                                           | Varies        |
+| `prefer-playback`             | `"mse" \| "native"`                                                                                         | Specify if ix-player should try to use Media Source Extension or native playback (if available). If no value is provided, ix-player will choose based on what's deemed optimal for content and playback environment.                                                                                                                                                                           | Varies        |
 | `start-time`                  | `number` (seconds)                                                                                          | Specify where in the media's timeline you want playback to start.                                                                                                                                                                                                                                                                                                                                | `0`           |
 | `default-hidden-captions`     | `boolean`                                                                                                   | Hide captions by default instead of showing them on initial load (when available)                                                                                                                                                                                                                                                                                                                | `false`       |
 | `primary-color`               | `string` (Any valid CSS color style)                                                                        | The primary color used by the player's UI                                                                                                                                                                                                                                                                                                                                                        | N/A           |
@@ -112,7 +112,7 @@
 
 # Events
 
-`<ix-video>` has a number of events for media loading, playback, and the player itself. Listen to these events using `addEventListener()` or by assigning an event listener to the `oneventname` property of `<ix-video>`.
+`<ix-player>` has a number of events for media loading, playback, and the player itself. Listen to these events using `addEventListener()` or by assigning an event listener to the `oneventname` property of `<ix-player>`.
 
 | Event            | Description                                                                                                                              |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -145,7 +145,7 @@
 This is the list of CSS variables for showing/hiding specific controls.
 
 ```
-ix-video {
+ix-player {
   /* Hide all controls at once */
   --controls: none;
 
@@ -172,7 +172,7 @@ ix-video {
 Each of the above can be paired with a prefix for `top`, `center`, `bottom`
 
 ```
-ix-video {
+ix-player {
   /* Target a specific section by prefixing the CSS var with (top|center|bottom) */
   --center-controls: none;
   --bottom-play-button: none;
@@ -182,7 +182,7 @@ ix-video {
 Other CSS variables:
 
 ```
-ix-video {
+ix-player {
   /* the controls backdrop color */
   --controls-backdrop-color: rgb(0 0 0 / 0%);
 }
@@ -192,15 +192,15 @@ Turning this off completely has implications on the accessibility of the control
 
 # CSS Parts
 
-ix-video uses a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate its styles and behaviors. As a result, it's not possible to target its internals with the usual CSS selectors. Instead, some components expose parts that can be targeted with the [CSS part selector](https://developer.mozilla.org/en-US/docs/Web/CSS/::part), or `::part()`.
+ix-player uses a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate its styles and behaviors. As a result, it's not possible to target its internals with the usual CSS selectors. Instead, some components expose parts that can be targeted with the [CSS part selector](https://developer.mozilla.org/en-US/docs/Web/CSS/::part), or `::part()`.
 
 ```html
 <style>
-  ix-video::part(center play button) {
+  ix-player::part(center play button) {
     display: none;
   }
 </style>
-<ix-video src="https://my.imgix.domain.video/my-video.mp4"></ix-video>
+<ix-player src="https://my.imgix.domain.video/my-video.mp4"></ix-player>
 ```
 
 Supported parts: `top`, `center`, `bottom`, `layer`, `media-layer`, `poster-layer`, `vertical-layer`, `centered-layer`, `gesture-layer`, `poster`, `seek-live`, `play`, `button`, `seek-backward`, `seek-forward`, `mute`, `captions`, `airplay`, `pip`, `fullscreen`, `cast`, `playback-rate`, `volume`, `range`, `time`, `display`, `video`

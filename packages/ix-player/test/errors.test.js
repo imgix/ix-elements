@@ -6,12 +6,12 @@ describe('errors', () => {
   it("doesn't propagate non-fatal error events", async function () {
     this.timeout(5000);
 
-    const player = await fixture(`<ix-video
+    const player = await fixture(`<ix-player
       src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
       type="hls"
       poster-params="video-thumbnail-time=2&mark-align=top,right&mark64=aHR0cHM6Ly9hc3NldHMuaW1naXgubmV0L3ByZXNza2l0L2ltZ2l4LXByZXNza2l0LnBkZj93PTE2MCZmbT1wbmcmcGFnZT00"
       muted
-    ></ix-video>`);
+    ></ix-player>`);
 
     let fired;
     player.addEventListener('error', () => {
@@ -28,12 +28,12 @@ describe('errors', () => {
   });
 
   it('does propagate fatal error events', async function () {
-    const player = await fixture(`<ix-video
+    const player = await fixture(`<ix-player
       src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
       type="hls"
       poster-params="video-thumbnail-time=2&mark-align=top,right&mark64=aHR0cHM6Ly9hc3NldHMuaW1naXgubmV0L3ByZXNza2l0L2ltZ2l4LXByZXNza2l0LnBkZj93PTE2MCZmbT1wbmcmcGFnZT00"
       muted
-    ></ix-video>`);
+    ></ix-player>`);
 
     let fired;
     player.addEventListener('error', () => {

@@ -4,7 +4,7 @@ import { render } from '../src/html.ts';
 
 const minify = (html) => html.trim().replace(/>\s+</g, '><');
 
-describe('<ix-video> template render', () => {
+describe('<ix-player> template render', () => {
   const div = document.createElement('div');
 
   const exportParts = `top, center, bottom, layer, media-layer, poster-layer, vertical-layer, centered-layer, gesture-layer, poster, seek-live, play, button, seek-backward, seek-forward, mute, captions, airplay, pip, fullscreen, cast, playback-rate, volume, range, time, display`;

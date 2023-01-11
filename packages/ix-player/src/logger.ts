@@ -2,7 +2,7 @@ import { i18n } from './utils';
 import { getPlayerVersion } from './helpers';
 import type { DevlogOptions } from './types';
 
-const prefix = `[ix-video ${getPlayerVersion()}]`;
+const prefix = `[ix-player ${getPlayerVersion()}]`;
 
 export function log(...args: any[]) {
   console.log(prefix, ...args);
