@@ -1,6 +1,6 @@
 import { globalThis } from 'shared-polyfills';
-import { VideoEvents } from '@mux/mux-video';
-import type MuxVideoElement from '@mux/mux-video';
+import { VideoEvents } from '@imgix/ix-video';
+import type MuxVideoElement from '@imgix/ix-video';
 import * as logger from './logger';
 import { toNumberOrUndefined } from './utils';
 
@@ -226,7 +226,7 @@ class VideoApiElement extends globalThis.HTMLElement implements VideoApiElement 
   }
 
   get media(): MuxVideoElementExt | null | undefined {
-    return this.shadowRoot?.querySelector('mux-video');
+    return this.shadowRoot?.querySelector('ix-video');
   }
 
   get paused() {

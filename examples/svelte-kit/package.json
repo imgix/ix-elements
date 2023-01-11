@@ -29,7 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@imgix/ix-video": ">=2.0.0-alpha.1",
-		"@mux/mux-video": ">=0.3.0"
+		"@imgix/ix-player": ">=2.0.0-alpha.1",
+		"@imgix/ix-video": ">=2.0.0-alpha.1"
 	}
 }

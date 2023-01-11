@@ -1,7 +1,7 @@
 import { globalThis, document } from 'shared-polyfills';
 // @ts-ignore
 import { MediaController } from 'media-chrome';
-import MuxVideoElement, { MediaError, Attributes as MuxVideoAttributes } from '@mux/mux-video';
+import MuxVideoElement, { MediaError, Attributes as MuxVideoAttributes } from '@imgix/ix-video';
 import {
   ValueOf,
   Metadata,
@@ -203,7 +203,7 @@ class IxPlayerElement extends VideoApiElement {
     this.#setState({ playerSize: getPlayerSize(this) });
 
     // Fixes a bug in React where ix-player's CE children were not upgraded yet.
-    // These lines ensure the rendered mux-video and media-controller are upgraded,
+    // These lines ensure the rendered ix-video and media-controller are upgraded,
     // even before they are connected to the main document.
     try {
       customElements.upgrade(this.theme as Node);
@@ -216,7 +216,7 @@ class IxPlayerElement extends VideoApiElement {
       customElements.upgrade(this.media as Node);
       if (!(this.media instanceof MuxVideoElement)) throw '';
     } catch (error) {
-      logger.error('<mux-video> failed to upgrade!');
+      logger.error('<ix-video> failed to upgrade!');
     }
 
     try {
@@ -280,7 +280,7 @@ class IxPlayerElement extends VideoApiElement {
 
   connectedCallback() {
     this.#renderChrome();
-    const ixPlayer = this.shadowRoot?.querySelector('ix-video') as IxPlayerElement;
+    const ixPlayer = this.shadowRoot?.querySelector('ix-player') as IxPlayerElement;
     if (ixPlayer) {
       ixPlayer.metadata = this.metadataFromAttrs;
     }

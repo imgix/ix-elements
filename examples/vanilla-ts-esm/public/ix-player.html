@@ -2,16 +2,25 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width" />
-    <title>&lt;ix-video&gt; example</title>
+    <title>&lt;ix-player&gt; example</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <link rel="stylesheet" href="./styles.css">
-    <script type="module" src="./dist/ix-video.js"></script>
+    <script
+      defer
+      src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"
+    ></script>
+    <script type="module" src="./dist/ix-player.js"></script>
     <style>
-      ix-video {
+      ix-player {
         display: block;
         width: 100%;
-        aspect-ratio: 16 / 9;
         margin: 1rem 0 2rem;
+        background-color: #000;
+        line-height: 0;
+      }
+
+      ix-player:not([audio]) {
+        aspect-ratio: 16 / 9;
       }
     </style>
   </head>
@@ -30,15 +39,12 @@
       </div>
     </header>
 
-    <ix-video
-      playback-id="23s11nz72DsoN657h4314PjKKjsF2JG33eBQQt6B95I"
-      metadata-video-id="video-id-12345"
-      metadata-video-title="Star Wars: Episode 3"
-      metadata-viewer-user-id="user-id-6789"
-      stream-type="on-demand"
-      controls
-      muted
-    ></ix-video>
+    <ix-player
+      src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
+      type="hls"
+      gif-preview
+      poster-params="video-thumbnail-time=2&mark-align=top,right&mark64=aHR0cHM6Ly9hc3NldHMuaW1naXgubmV0L3ByZXNza2l0L2ltZ2l4LXByZXNza2l0LnBkZj93PTE2MCZmbT1wbmcmcGFnZT00"
+    ></ix-player>
 
     <a href="../">Browse Elements</a>
   </body>

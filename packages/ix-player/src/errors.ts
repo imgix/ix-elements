@@ -1,4 +1,4 @@
-import { MediaError } from '@mux/mux-video';
+import { MediaError } from '@imgix/ix-video';
 // @ts-ignore
 import lang from '../lang/en.json';
 import { i18n, parseJwt } from './utils';
