@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import type { CSSProperties } from 'react';
 import type { CmcdTypes, PlaybackTypes, StreamTypes } from '@mux/playback-core';
-import { MediaError } from '@imgix/ix-video';
-import type IxVideoElement from '@imgix/ix-video';
-import type { Tokens } from '@imgix/ix-video';
+import { MediaError } from '@imgix/ix-player';
+import type IxPlayerElement from '@imgix/ix-player';
+import type { Tokens } from '@imgix/ix-player';
 import { toNativeProps } from './common/utils';
 import { useRef } from 'react';
 import { useCombinedRefs } from './useCombinedRefs';
@@ -17,7 +17,7 @@ interface GenericEventListener<T extends Event = CustomEvent> {
   (evt: T): void;
 }
 
-export type IxVideoRefAttributes = IxVideoElement;
+export type IxPlayerRefAttributes = IxPlayerElement;
 type VideoApiAttributes = {
   currentTime: number;
   volume: number;
@@ -55,9 +55,9 @@ type MuxMediaPropTypes = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IxVideoElementEventMap extends HTMLVideoElementEventMap {}
+interface IxPlayerElementEventMap extends HTMLVideoElementEventMap {}
 
-export type IxVideoProps = {
+export type IxPlayerProps = {
   className?: string;
   hotkeys?: string;
   nohotkeys?: boolean;
@@ -79,42 +79,42 @@ export type IxVideoProps = {
   gifPreview?: boolean;
   posterParams?: string;
   tokens?: Tokens;
-  onAbort?: GenericEventListener<IxVideoElementEventMap['abort']>;
-  onCanPlay?: GenericEventListener<IxVideoElementEventMap['canplay']>;
-  onCanPlayThrough?: GenericEventListener<IxVideoElementEventMap['canplaythrough']>;
-  onEmptied?: GenericEventListener<IxVideoElementEventMap['emptied']>;
-  onLoadStart?: GenericEventListener<IxVideoElementEventMap['loadstart']>;
-  onLoadedData?: GenericEventListener<IxVideoElementEventMap['loadeddata']>;
-  onLoadedMetadata?: GenericEventListener<IxVideoElementEventMap['loadedmetadata']>;
-  onProgress?: GenericEventListener<IxVideoElementEventMap['progress']>;
-  onDurationChange?: GenericEventListener<IxVideoElementEventMap['durationchange']>;
-  onVolumeChange?: GenericEventListener<IxVideoElementEventMap['volumechange']>;
-  onRateChange?: GenericEventListener<IxVideoElementEventMap['ratechange']>;
-  onResize?: GenericEventListener<IxVideoElementEventMap['resize']>;
-  onWaiting?: GenericEventListener<IxVideoElementEventMap['waiting']>;
-  onPlay?: GenericEventListener<IxVideoElementEventMap['play']>;
-  onPlaying?: GenericEventListener<IxVideoElementEventMap['playing']>;
-  onTimeUpdate?: GenericEventListener<IxVideoElementEventMap['timeupdate']>;
-  onPause?: GenericEventListener<IxVideoElementEventMap['pause']>;
-  onSeeking?: GenericEventListener<IxVideoElementEventMap['seeking']>;
-  onSeeked?: GenericEventListener<IxVideoElementEventMap['seeked']>;
-  onStalled?: GenericEventListener<IxVideoElementEventMap['stalled']>;
-  onSuspend?: GenericEventListener<IxVideoElementEventMap['suspend']>;
-  onEnded?: GenericEventListener<IxVideoElementEventMap['ended']>;
-  onError?: GenericEventListener<IxVideoElementEventMap['error']>;
+  onAbort?: GenericEventListener<IxPlayerElementEventMap['abort']>;
+  onCanPlay?: GenericEventListener<IxPlayerElementEventMap['canplay']>;
+  onCanPlayThrough?: GenericEventListener<IxPlayerElementEventMap['canplaythrough']>;
+  onEmptied?: GenericEventListener<IxPlayerElementEventMap['emptied']>;
+  onLoadStart?: GenericEventListener<IxPlayerElementEventMap['loadstart']>;
+  onLoadedData?: GenericEventListener<IxPlayerElementEventMap['loadeddata']>;
+  onLoadedMetadata?: GenericEventListener<IxPlayerElementEventMap['loadedmetadata']>;
+  onProgress?: GenericEventListener<IxPlayerElementEventMap['progress']>;
+  onDurationChange?: GenericEventListener<IxPlayerElementEventMap['durationchange']>;
+  onVolumeChange?: GenericEventListener<IxPlayerElementEventMap['volumechange']>;
+  onRateChange?: GenericEventListener<IxPlayerElementEventMap['ratechange']>;
+  onResize?: GenericEventListener<IxPlayerElementEventMap['resize']>;
+  onWaiting?: GenericEventListener<IxPlayerElementEventMap['waiting']>;
+  onPlay?: GenericEventListener<IxPlayerElementEventMap['play']>;
+  onPlaying?: GenericEventListener<IxPlayerElementEventMap['playing']>;
+  onTimeUpdate?: GenericEventListener<IxPlayerElementEventMap['timeupdate']>;
+  onPause?: GenericEventListener<IxPlayerElementEventMap['pause']>;
+  onSeeking?: GenericEventListener<IxPlayerElementEventMap['seeking']>;
+  onSeeked?: GenericEventListener<IxPlayerElementEventMap['seeked']>;
+  onStalled?: GenericEventListener<IxPlayerElementEventMap['stalled']>;
+  onSuspend?: GenericEventListener<IxPlayerElementEventMap['suspend']>;
+  onEnded?: GenericEventListener<IxPlayerElementEventMap['ended']>;
+  onError?: GenericEventListener<IxPlayerElementEventMap['error']>;
   // onPlayerReady?: EventListener;
 } & Partial<MuxMediaPropTypes> &
   Partial<VideoApiAttributes>;
 
-const IxVideoInternal = React.forwardRef<IxVideoRefAttributes, IxVideoProps>(({ children, ...props }, ref) => {
-  return React.createElement('ix-video', toNativeProps({ ...props, ref }), children);
+const IxPlayerInternal = React.forwardRef<IxPlayerRefAttributes, IxPlayerProps>(({ children, ...props }, ref) => {
+  return React.createElement('ix-player', toNativeProps({ ...props, ref }), children);
 });
 
-const useEventCallbackEffect = <K extends keyof IxVideoElementEventMap>(
+const useEventCallbackEffect = <K extends keyof IxPlayerElementEventMap>(
   type: K,
   ref: // | ((instance: EventTarget | null) => void)
-  React.MutableRefObject<IxVideoElement | null> | null | undefined,
-  callback: GenericEventListener<IxVideoElementEventMap[K]> | undefined
+  React.MutableRefObject<IxPlayerElement | null> | null | undefined,
+  callback: GenericEventListener<IxPlayerElementEventMap[K]> | undefined
 ) => {
   return useEffect(() => {
     const eventTarget = ref?.current;
@@ -128,8 +128,8 @@ const useEventCallbackEffect = <K extends keyof IxVideoElementEventMap>(
 
 const usePlayer = (
   ref: // | ((instance: EventTarget | null) => void)
-  React.MutableRefObject<IxVideoElement | null> | null | undefined,
-  props: IxVideoProps
+  React.MutableRefObject<IxPlayerElement | null> | null | undefined,
+  props: IxPlayerProps
 ) => {
   const {
     onAbort,
@@ -218,18 +218,18 @@ const usePlayer = (
 };
 
 const playerSoftwareVersion = getPlayerVersion();
-const playerSoftwareName = 'ix-video-react';
+const playerSoftwareName = 'ix-player-react';
 
-const IxVideo = React.forwardRef<
-  IxVideoRefAttributes,
-  Omit<IxVideoProps, 'playerSoftwareVersion' | 'playerSoftwareName'>
+const IxPlayer = React.forwardRef<
+  IxPlayerRefAttributes,
+  Omit<IxPlayerProps, 'playerSoftwareVersion' | 'playerSoftwareName'>
 >((props, ref) => {
-  const innerPlayerRef = useRef<IxVideoElement>(null);
+  const innerPlayerRef = useRef<IxPlayerElement>(null);
   const playerRef = useCombinedRefs(innerPlayerRef, ref);
   const [remainingProps] = usePlayer(innerPlayerRef, props);
 
   return (
-    <IxVideoInternal
+    <IxPlayerInternal
       /** @TODO Fix types relationships (CJP) */
       ref={playerRef as typeof innerPlayerRef}
       playerSoftwareName={playerSoftwareName}
@@ -239,4 +239,4 @@ const IxVideo = React.forwardRef<
   );
 });
 
-export default IxVideo;
+export default IxPlayer;

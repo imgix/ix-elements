@@ -1,5 +1,5 @@
 {
-  "name": "@imgix/ix-video-react",
+  "name": "@imgix/ix-player-react",
   "version": "0.0.1-beta.1",
   "description": "An imgix video custom element for React",
   "main": "./dist/index.cjs.js",
@@ -28,8 +28,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/imgix/ix-elements/tree/l/ix-video",
-    "directory": "packages/ix-video-react"
+    "url": "https://github.com/imgix/ix-elements/tree/l/ix-player",
+    "directory": "packages/ix-player-react"
   },
   "author": "imgix, Inc.",
   "license": "MIT",
@@ -65,7 +65,7 @@
     }
   },
   "dependencies": {
-    "@imgix/ix-video": ">=2.0.0-alpha.1",
+    "@imgix/ix-player": ">=2.0.0-alpha.1",
     "@mux/playback-core": "0.15.0",
     "prop-types": "^15.7.2"
   },
