@@ -1,8 +1,8 @@
 {
-  "name": "@mux/mux-video-react",
+  "name": "@imgix/ix-video-react",
   "private": true,
   "version": "0.7.2",
-  "description": "A custom mux video element for React that Just Works™",
+  "description": "A custom imgix video element for React that works anywhere",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.mjs",
   "exports": {
@@ -20,10 +20,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/muxinc/elements",
-    "directory": "packages/mux-video"
+    "url": "https://github.com/imgix/ix-elements",
+    "directory": "packages/ix-video"
   },
-  "author": "Mux, Inc.",
+  "author": "imgix, Inc.",
   "license": "MIT",
   "scripts": {
     "clean": "shx rm -rf dist/",

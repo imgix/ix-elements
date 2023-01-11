@@ -21,9 +21,9 @@ export type Props = Omit<
   MuxMediaProps;
 
 const playerSoftwareVersion = getPlayerVersion();
-const playerSoftwareName = 'mux-video-react';
+const playerSoftwareName = 'ix-video-react';
 
-const MuxVideo = React.forwardRef<HTMLVideoElement | undefined, Partial<Props>>((props, ref) => {
+const IxVideo = React.forwardRef<HTMLVideoElement | undefined, Partial<Props>>((props, ref) => {
   const { playbackId, src: outerSrc, children, autoPlay, preload, ...restProps } = props;
 
   const [playerInitTime] = useState(generatePlayerInitTime());
@@ -75,7 +75,7 @@ const MuxVideo = React.forwardRef<HTMLVideoElement | undefined, Partial<Props>>(
   );
 });
 
-MuxVideo.propTypes = {
+IxVideo.propTypes = {
   envKey: PropTypes.string,
   debug: PropTypes.bool,
   disableCookies: PropTypes.bool,
@@ -91,4 +91,4 @@ MuxVideo.propTypes = {
   startTime: PropTypes.number,
 };
 
-export default MuxVideo;
+export default IxVideo;
