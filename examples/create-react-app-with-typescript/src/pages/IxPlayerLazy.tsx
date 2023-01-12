@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link } from "react-router-dom";
-import IxVideo from "@imgix/ix-video-react";
+import IxPlayer from "@imgix/ix-player-react/lazy";
 
-function IxVideoPage() {
+function IxPlayerPage() {
   return (
     <>
       <style>
-        {`video {
+        {`ix-player {
           display: block;
           width: 100%;
           aspect-ratio: 16 / 9;
@@ -13,10 +14,11 @@ function IxVideoPage() {
         }`}
       </style>
 
-      <IxVideo
+      <IxPlayer
         src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
-        controls
         type="hls"
+        gifPreview
+        posterParams="video-thumbnail-time=2&mark-align=top,right&mark64=aHR0cHM6Ly9hc3NldHMuaW1naXgubmV0L3ByZXNza2l0L2ltZ2l4LXByZXNza2l0LnBkZj93PTE2MCZmbT1wbmcmcGFnZT00"
         muted
       />
 
@@ -25,4 +27,4 @@ function IxVideoPage() {
   );
 }
 
-export default IxVideoPage;
+export default IxPlayerPage;

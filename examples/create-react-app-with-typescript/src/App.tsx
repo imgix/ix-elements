@@ -2,9 +2,9 @@
 import React from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages";
-import MuxVideoPage from "./pages/MuxVideo";
 import IxVideoPage from "./pages/IxVideo";
-import IxVideoLazyPage from "./pages/IxVideoLazy";
+import IxPlayerPage from "./pages/IxPlayer";
+import IxPlayerLazyPage from "./pages/IxPlayerLazy";
 
 function App() {
   return (
@@ -25,9 +25,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="MuxVideo" element={<MuxVideoPage />} />
           <Route path="IxVideo" element={<IxVideoPage />} />
-          <Route path="IxVideoLazy" element={<IxVideoLazyPage />} />
+          <Route path="IxPlayer" element={<IxPlayerPage />} />
+          <Route path="IxPlayerLazy" element={<IxPlayerLazyPage />} />
         </Routes>
       </Router>
     </>
