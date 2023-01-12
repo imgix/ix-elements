@@ -4,14 +4,14 @@ coverage:
     project:
       default:
         target: auto #overall project/ repo coverage
-      mux-audio:
+      ix-player:
         target: auto
         flags:
-          - mux-audio
-      mux-audio-react:
+          - ix-player
+      ix-player-react:
         target: auto
         flags:
-          - mux-audio-react
+          - ix-player-react
       ix-video:
         target: auto
         flags:
@@ -20,14 +20,6 @@ coverage:
         target: auto
         flags:
           - ix-video-react
-      mux-video:
-        target: auto
-        flags:
-          - mux-video
-      mux-video-react:
-        target: auto
-        flags:
-          - mux-video-react
       playback-core:
         target: auto
         flags:
@@ -47,24 +39,18 @@ comment:
 # uploader, and update when new Flags added
 
 flags:
-  mux-audio:
+  ix-player:
     paths: #note, accepts globs, not regexes
-      - packages/mux-audio
-  mux-audio-react:
+      - packages/ix-player
+  ix-player-react:
     paths: #note, accepts globs, not regexes
-      - packages/mux-audio-react
+      - packages/ix-player-react
   ix-video:
     paths: #note, accepts globs, not regexes
       - packages/ix-video
   ix-video-react:
     paths: #note, accepts globs, not regexes
       - packages/ix-video-react
-  mux-video:
-    paths: #note, accepts globs, not regexes
-      - packages/mux-video
-  mux-video-react:
-    paths: #note, accepts globs, not regexes
-      - packages/mux-video-react
   playback-core:
     paths: #note, accepts globs, not regexes
       - packages/playback-core

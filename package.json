@@ -5,7 +5,7 @@
     "npm": "^7.17.0 || ^8.1.0"
   },
   "version": "0.1.0",
-  "description": "Custom elements for working with media in the browser that Just Work",
+  "description": "Custom elements for working with media in the browser that work anywhere",
   "main": "index.js",
   "repository": "https://github.com/imgix/ix-elements",
   "author": "imgix, Inc.",
