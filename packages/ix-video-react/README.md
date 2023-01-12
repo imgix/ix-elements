@@ -99,7 +99,7 @@ By default `<IxVideo/>` will try to figure out the type of media you're trying t
 
 ```jsx
 <IxVideo
-  src="https://stream.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe/high.mp4"
+  src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.mp4"
   controls
 />
 ```

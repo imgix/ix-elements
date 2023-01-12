@@ -106,8 +106,7 @@ By default `<ix-video>` will try to figure out the type of media you're trying t
 
 ```html
 <ix-video
-  src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
-  type="hls"
+  src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.mp4"
   prefer-playback="mse"
   controls
 >
