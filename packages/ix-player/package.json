@@ -1,6 +1,6 @@
 {
   "name": "@imgix/ix-player",
-  "version": "2.0.0-beta.1",
+  "version": "0.0.1-alpha.1",
   "description": "An imgix video custom element that works anywhere",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.mjs",
@@ -50,7 +50,7 @@
     "publish-release": "../../scripts/publish.sh"
   },
   "dependencies": {
-    "@imgix/ix-video": ">=2.0.0-alpha.1",
+    "@imgix/ix-video": ">=2.0.0-beta.2",
     "@mux/playback-core": "0.15.0",
     "media-chrome": "0.16.2"
   },
