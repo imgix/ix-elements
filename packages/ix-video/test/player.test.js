@@ -1,16 +1,16 @@
 import { fixture, assert, aTimeout } from '@open-wc/testing';
 import MuxVideoElement, { VideoEvents } from '../src/index.ts';
 
-describe('<mux-video>', () => {
+describe('<ix-video>', () => {
   it('has a Mux specific API', async function () {
-    const player = await fixture(`<mux-video
+    const player = await fixture(`<ix-video
       playback-id="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe"
       env-key="ilc02s65tkrc2mk69b7q2qdkf"
       start-time="0"
       stream-type="on-demand"
       prefer-playback="mse"
       muted
-    ></mux-video>`);
+    ></ix-video>`);
 
     assert.equal(player.playbackId, 'DS00Spx1CV902MCtPj5WknGlR102V5HFkDe', 'playback-id is reflected');
     assert.equal(player.envKey, 'ilc02s65tkrc2mk69b7q2qdkf', 'env-key is reflected');
@@ -23,11 +23,11 @@ describe('<mux-video>', () => {
   it('dispatches events properly', async function () {
     this.timeout(10000);
 
-    const player = await fixture(`<mux-video
+    const player = await fixture(`<ix-video
       playback-id="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe"
       muted
       preload="auto"
-    ></mux-video>`);
+    ></ix-video>`);
 
     const eventMap = {};
     VideoEvents.forEach((type) => {
@@ -61,16 +61,16 @@ describe('<mux-video>', () => {
   });
 
   it('can use extended autoplay properties on initial load', async function () {
-    const player = await fixture(`<mux-video
+    const player = await fixture(`<ix-video
       autoplay="muted"
-    ></mux-video>`);
+    ></ix-video>`);
 
     assert.equal(player.autoplay, 'muted', 'our autoplay setting is muted');
   });
 
   it('can use extended autoplay properties', async function () {
-    const player = await fixture(`<mux-video
-    ></mux-video>`);
+    const player = await fixture(`<ix-video
+    ></ix-video>`);
 
     assert.equal(player.autoplay, false, 'initial autoplay is false');
 
@@ -95,8 +95,8 @@ describe('<mux-video>', () => {
   });
 
   it('can use extended autoplay attributes', async function () {
-    const player = await fixture(`<mux-video
-    ></mux-video>`);
+    const player = await fixture(`<ix-video
+    ></ix-video>`);
 
     assert.equal(player.autoplay, false, 'initial autoplay is false');
 
@@ -122,9 +122,9 @@ describe('<mux-video>', () => {
   });
 
   it('preload is forwarded to the native el', async function () {
-    const player = await fixture(`<mux-video
+    const player = await fixture(`<ix-video
       src="https://stream.mux.com/23s11nz72DsoN657h4314PjKKjsF2JG33eBQQt6B95I.m3u8"
-    ></mux-video>`);
+    ></ix-video>`);
 
     assert.equal(player.preload, 'metadata', 'browser default preload is metadata');
 
@@ -144,11 +144,11 @@ describe('<mux-video>', () => {
   it('can use preload="none" and play', async function () {
     this.timeout(10000);
 
-    const player = await fixture(`<mux-video
+    const player = await fixture(`<ix-video
       src="https://stream.mux.com/23s11nz72DsoN657h4314PjKKjsF2JG33eBQQt6B95I.m3u8"
       preload="none"
       muted
-    ></mux-video>`);
+    ></ix-video>`);
 
     assert.equal(player.preload, 'none', 'preload is none');
     await aTimeout(3000);
@@ -165,11 +165,11 @@ describe('<mux-video>', () => {
 
   it('maps arbitrary metadata-* attrs to the metadata prop and populates video_id if not provided', async function () {
     const playbackId = '23s11nz72DsoN657h4314PjKKjsF2JG33eBQQt6B95I';
-    const player = await fixture(`<mux-video
+    const player = await fixture(`<ix-video
       src="https://stream.mux.com/${playbackId}.m3u8"
       metadata-video-title="Video Title"
       metadata-sub-property-id="sub-id-12"
-    ></mux-video>`);
+    ></ix-video>`);
 
     assert.equal(player.metadata.video_title, 'Video Title');
     assert.equal(player.metadata.sub_property_id, 'sub-id-12');
