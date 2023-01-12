@@ -1,13 +1,13 @@
 <p align="center">
-  <h1 align="center">&lt;mux-video/&gt;</h1>
-  <a href="https://npmcharts.com/compare/@mux/mux-video-react?interval=30"><img src="https://img.shields.io/npm/dm/@mux/mux-video-react.svg?sanitize=true" alt="Downloads"></a>
-    <a href="https://www.npmjs.com/package/@mux/mux-video-react"><img src="https://img.shields.io/npm/v/@mux/mux-video-react.svg?sanitize=true" alt="Version"></a>
-    <a href="https://www.npmjs.com/package/@mux/mux-video-react"><img src="https://img.shields.io/npm/l/@mux/mux-video-react.svg?sanitize=true" alt="License"></a>
+  <h1 align="center">&lt;ix-video/&gt;</h1>
+  <a href="https://npmcharts.com/compare/@imgix/ix-video-react?interval=30"><img src="https://img.shields.io/npm/dm/@imgix/ix-video-react.svg?sanitize=true" alt="Downloads"></a>
+    <a href="https://www.npmjs.com/package/@imgix/ix-video-react"><img src="https://img.shields.io/npm/v/@imgix/ix-video-react.svg?sanitize=true" alt="Version"></a>
+    <a href="https://www.npmjs.com/package/@imgix/ix-video-react"><img src="https://img.shields.io/npm/l/@imgix/ix-video-react.svg?sanitize=true" alt="License"></a>
 </p>
 
 # Introduction
 
-`<MuxVideo/>` is a Mux-flavored React video component.
+`<IxVideo/>` is a imgix-flavored React video component.
 
 If you are familiar with using `<video />` + [Hls.js](https://github.com/video-dev/hls.js) in your application, then you'll feel right at home with this React component.
 
@@ -18,34 +18,34 @@ If you're using `npm` or `yarn`, install that way:
 ## Package manager
 
 ```
-yarn add @mux/mux-video-react
+yarn add @imgix/ix-video-react
 ```
 
 or
 
 ```
-npm i @mux/mux-video-react
+npm i @imgix/ix-video-react
 ```
 
 Then, import the library into your application with either `import` or `require`:
 
 ```js
-import MuxVideo from '@mux/mux-video-react';
+import IxVideo from '@imgix/ix-video-react';
 ```
 
 or
 
 ```js
-const MuxVideo = require('@mux/mux-video-react');
+const IxVideo = require('@imgix/ix-video-react');
 ```
 
 ## Features and benefits
 
-Without `<MuxVideo/>`, if you want to use the browser built-in HTML5 video element for playback you would have to wire up [Hls.js](https://github.com/video-dev/hls.js) and [Mux Data](https://docs.mux.com/guides/data/monitor-hls-js) yourself.
+Without `<IxVideo/>`, if you want to use the browser built-in HTML5 video element for playback you would have to wire up [Hls.js](https://github.com/video-dev/hls.js) yourself.
 
-`<MuxVideo/>` will automatically handle recoverable errors that happen during video playback. This is particularly handy for live streams that may experience disconnects.
+`<IxVideo/>` will automatically handle recoverable errors that happen during video playback. This is particularly handy for live streams that may experience disconnects.
 
-`<MuxVideo/>` will use the optimial Hls.js settings for Mux Video so you don't have to worry about that. `<MuxVideo/>` will also periodically test new versions of Hls.js and upgrade to known stable versions so you don't have to worry about upgrading to a new version of Hls.js yourself.
+`<IxVideo/>` will use the optimal Hls.js settings for Mux Video so you don't have to worry about that. `<IxVideo/>` will also periodically test new versions of Hls.js and upgrade to known stable versions so you don't have to worry about upgrading to a new version of Hls.js yourself.
 
 ## Usage
 
@@ -54,19 +54,13 @@ Loading this library in the browser will register a [custom web component](https
 Now you are free to use this web component in your HTML, just as you would with the HTML5 `<video>` element.
 
 ```jsx
-const MuxVideoExample = () => {
+const IxVideoExample = () => {
   return (
     <div>
-      <h1>Simple MuxVideo Example</h1>
-      <MuxVideo
+      <h1>Simple IxVideo Example</h1>
+      <IxVideo
         style={{ height: '100%', maxWidth: '100%' }}
-        playbackId="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe"
-        metadata={{
-          video_id: 'video-id-123456',
-          video_title: 'Super Interesting Video',
-          viewer_user_id: 'user-id-bc-789',
-        }}
-        streamType="on-demand"
+        src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=mp4"
         controls
         autoPlay
         muted
@@ -77,33 +71,23 @@ const MuxVideoExample = () => {
 ```
 
 ### Primary Props:
-
-- `playbackId: string`: This is the playback ID for your Mux Asset or Mux Live Stream. The playback-id is the variable you may have used before to construct a `.m3u8` hls url like this:`https://stream.mux.com/{PLAYBACK_ID}.m3u8`. For more, check out the [Mux Docs](https://docs.mux.com/guides/video/play-your-videos#1-get-your-playback-id).
-- `envKey: string`: This is the environment key for Mux Data. Note that this is different than your API Key. Get your env key from the "Mux Data" part of your [Mux Environments Dashboard](https://dashboard.mux.com/environments). If undefined and you are playing a Mux Video asset, the environment will be inferred.
-  <img src="../../images/env-key.png" alt="Mux Data dashboard env key"></img>
-- `metadata: Object`: This is an object for configuring any metadata you'd like to send to Mux Data. For a detailed discussion of the available metadata fields and what they represent, check out the [Mux Data docs](https://docs.mux.com/guides/data/make-your-data-actionable-with-metadata). A few high priority keys that you'll likely want to set are:
-  - `video_id: string`: Your internal ID for the video.
   - `video_title: string`: Title of the video player (e.g.: 'Awesome Show: Pilot')
-  - `viewer_user_id: string`: An ID representing the viewer who is watching the stream. Use this to look up video views for an individual viewer. If no value is specified, a unique ID will be generated by the SDK. Note: You should not use any value that is personally identifiable on its own (such as email address, username, etc). Instead, you should supply an anonymized viewer ID which you have stored within your own system.
-- `streamType: string`: Enum value: one of `"on-demand"`, `"live"` (HLS live stream), `"ll-live"` (low latency live). Not strictly required, but preferred so that `<MuxVideo/>` can make optimizations based on the type of stream.
+`<IxVideo/>` can make optimizations based on the type of stream.
 - `startTime: number (seconds)`: Set this to start playback of your media at some time other than 0.
+- `gif-preview: boolean`: Set this to show a GIF whenever the mouse hovers over the player.
 
-In addition, any props that you would use on a `<video>` element like `poster`, `controls`, `muted` and `autoPlay` are available and should work the same as they do when using a video element in react. One sidenote about `autoPlay` though -- [read this to understand why that might not always work as expected](https://docs.mux.com/guides/video/web-autoplay-your-videos).
+In addition, any props that you would use on a `<video>` element like `poster`, `controls`, `muted` and `autoPlay` are available and should work the same as they do when using a video element in react.
 
 ### Advanced: preferPlayback
 
-By default `<MuxVideo/>` will try to use native playback via the underlying `<video/>` tag whenever possible. However, it can also instead use an in-code player as long as the browser supports [Media Source Extensions](https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API). This includes MSE in Mac OS Safari.
+By default `<IxVideo/>` will try to use native playback via the underlying `<video/>` tag whenever possible. However, it can also instead use an in-code player as long as the browser supports [Media Source Extensions](https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API). This includes MSE in Mac OS Safari.
 
 If you prefer to use the in-code MSE-based engine (currently hls.js) whenever possible, then simply set the `preferPlayback` prop to `mse`.
 
 ```jsx
-<MuxVideo
-  playback-id="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe"
-  metadata={{
-    video_id: 'video-id-123456',
-    video_title: 'Super Interesting Video',
-    viewer_user_id: 'user-id-bc-789',
-  }}
+<IxVideo
+  style={{ height: '100%', maxWidth: '100%' }}
+  src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=mp4"
   preferPlayback="mse"
   controls
 />
@@ -111,16 +95,11 @@ If you prefer to use the in-code MSE-based engine (currently hls.js) whenever po
 
 ### Advanced: type
 
-By default `<MuxVideo/>` will try to figure out the type of media you're trying to play (for example, an HLS/m3u8 media source, an mp4, etc.) based the extension of the file from the `src` attribute's url. This allows `<MuxVideo/>` to determine whether it can/should use an in-code player or native playback. By way of example, the code below has an identifiable "mp4" extension, so `<MuxVideo/>` will rely on native playback via the underlying `<video/>` tag.
+By default `<IxVideo/>` will try to figure out the type of media you're trying to play (for example, an HLS/m3u8 media source, an mp4, etc.) based the extension of the file from the `src` attribute's url. This allows `<IxVideo/>` to determine whether it can/should use an in-code player or native playback. By way of example, the code below has an identifiable "mp4" extension, so `<IxVideo/>` will rely on native playback via the underlying `<video/>` tag.
 
 ```jsx
-<MuxVideo
+<IxVideo
   src="https://stream.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe/high.mp4"
-  metadata={{
-    video_id: 'video-id-123456',
-    video_title: 'Super Interesting Video',
-    viewer_user_id: 'user-id-bc-789',
-  }}
   controls
 />
 ```
@@ -128,14 +107,10 @@ By default `<MuxVideo/>` will try to figure out the type of media you're trying 
 Sometimes, however, your `src` URL may not have an identifiable extension. In these cases, we recommend relying on the `type` attribute, similar to the `<source/>` tag's [type attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source#attr-type). Below is an example of explicitly declaring the MIME type for an HLS/m3u8 media source:
 
 ```jsx
-<MuxVideo
-  src="https://stream.notmux.com/path/to/an/hls/source/playlist"
-  type="application/vnd.apple.mpegurl"
-  metadata={{
-    video_id: 'video-id-123456',
-    video_title: 'Super Interesting Video',
-    viewer_user_id: 'user-id-bc-789',
-  }}
+<IxVideo
+  style={{ height: '100%', maxWidth: '100%' }}
+  src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
+  type="hls"
   controls
 />
 ```
@@ -143,38 +118,23 @@ Sometimes, however, your `src` URL may not have an identifiable extension. In th
 Or, for convenience, we also support the shorthand `type="hls`:
 
 ```jsx
-<MuxVideo
-  src="https://stream.notmux.com/path/to/an/hls/source/playlist"
+<IxVideo
+  src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=mp4"
   type="hls"
-  metadata={{
-    video_id: 'video-id-123456',
-    video_title: 'Super Interesting Video',
-    viewer_user_id: 'user-id-bc-789',
-  }}
   controls
 />
 ```
 
-### Advanced: Signed URLs and other playback query params
-
-Mux supports a number of query parameters on HLS playback URLs. Most commonly the `token=` param is [used for signed URLs](https://docs.mux.com/guides/video/secure-video-playback).
-
-In order to use `token=` -- or any other query params, pass them through with the `playbackId` prop:
-
-```
-playbackId="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe?token=jwt-signed-token"
-```
-
 # FAQ
 
-### Can I use `<MuxVideo/>` with `TypeScript`?
+### Can I use `<IxVideo/>` with `TypeScript`?
 
-Yes! In fact, `@mux-element/mux-video-react` is written entirely in `TypeScript` and provides a definitions file automatically (no additional installs needed).
+Yes! In fact, `@imgix-element/ix-video-react` is written entirely in `TypeScript` and provides a definitions file automatically (no additional installs needed).
 
-### If I'm using Mux, do I have to use this library?
+### If I'm using imgix, do I have to use this library?
 
-No, you do not. The way Mux delivers HLS video is compliant with the HLS spec. Any video player that supports HLS will work with Mux Video.
+No, you do not. The way imgix delivers HLS video is compliant with the HLS spec. Any video player that supports HLS will work with IxVideo.
 
-### If I'm not using Mux Video, can I still use this library?
+### If I'm not using IxVideo, can I still use this library?
 
-You sure can! Instead of passing in `playbackId=""` prop, pass in `src=""` with an HLS url. You can still use `envKey=""` to get all the features of Mux Data with your non-Mux video.
+You sure can! Pass in `src=""` with an HLS url.

@@ -12,7 +12,7 @@
 
 `<ix-player>` is the official imgix video player web component that works anywhere.
 
-The player UI is built on [Media Chrome](https://media-chrome.org) and [`<mux-video>`](../mux-video) drives the core video logic used to play videos.
+The player UI is built on [Media Chrome](https://media-chrome.org) and [`<ix-video>`](../ix-video) drives the core video logic used to play videos.
 
 # Installation
 

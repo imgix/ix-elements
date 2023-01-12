@@ -59,7 +59,7 @@ Without `<ix-video>` if you want to use the browser built-in HTML5 video element
 
 `<ix-video>` will automatically handle recoverable errors that happen during video playback. This is particularly handy for live streams that may experience disconnects.
 
-`<ix-video>` will use the optimial Hls.js settings for imgix Video so you don't have to worry about that. `<ix-video>` will also periodically test new versions of Hls.js and upgrade to known stable versions so you don't have to worry about upgrading to a new version of Hls.js yourself.
+`<ix-video>` will use the optimal Hls.js settings for imgix Video so you don't have to worry about that. `<ix-video>` will also periodically test new versions of Hls.js and upgrade to known stable versions so you don't have to worry about upgrading to a new version of Hls.js yourself.
 
 ## Usage
 
@@ -69,13 +69,11 @@ Now you are free to use this web component in your HTML, just as you would with 
 
 ```html
 <body>
-  <ix-video
-    playback-id="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe"
-    metadata-video-title="Big Buck Bunny"
-    metadata-viewer-user-id="user-id-1234"
-    stream-type="on-demand"
-    controls
-  ></ix-video>
+    <ix-video
+      src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=mp4"
+      controls
+      muted
+    ></ix-video>
 </body>
 ```
 
@@ -94,10 +92,9 @@ If you prefer to use the in-code MSE-based engine (currently hls.js) whenever po
 
 ```html
 <ix-video
-  playback-id="DS00Spx1CV902MCtPj5WknGlR102V5HFkDe"
-  metadata-video-title="Big Buck Bunny"
-  metadata-viewer-user-id="user-id-1234"
+  src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=mp4"
   prefer-playback="mse"
+  muted
   controls
 >
 </ix-video>
@@ -109,7 +106,8 @@ By default `<ix-video>` will try to figure out the type of media you're trying t
 
 ```html
 <ix-video
-  src="https://stream.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe/high.mp4"
+  src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
+  type="hls"
   prefer-playback="mse"
   controls
 >
@@ -120,7 +118,7 @@ Sometimes, however, your `src` URL may not have an identifiable extension. In th
 
 ```html
 <ix-video
-  src="https://stream.notmux.com/path/to/an/hls/source/playlist"
+  src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
   type="application/vnd.apple.mpegurl"
   prefer-playback="mse"
   controls
@@ -132,7 +130,7 @@ Or, for convenience, we also support the shorthand `type="hls`:
 
 ```html
 <ix-video
-  src="https://stream.notmux.com/path/to/an/hls/source/playlist"
+  src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
   type="hls"
   prefer-playback="mse"
   controls
@@ -142,22 +140,7 @@ Or, for convenience, we also support the shorthand `type="hls`:
 
 ### Advanced: Use with React+TypeScript
 
-Even though we don't (yet!) have our own `React` version of `<ix-video>`, you can still use it in your `React` app. However, if you're also using TypeScript, make sure you add the following TypeScript definitions, since custom elements (like as `<ix-video>`) will not be recognized as [Intrinsic Elements](https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements):
-
-```typescript
-interface IxVideoHTMLAttributes<T> extends React.VideoHTMLAttributes<T> {
-  debug?: boolean;
-  autoplay?: boolean;
-}
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'ix-video': React.DetailedHTMLProps<IxVideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
-    }
-  }
-}
-```
+Take a look at our [ix-video-react (beta)](../ix-video-react/) package to use `<ix-video />` in React.
 
 # FAQ
 
