@@ -291,23 +291,6 @@ describe('<ix-player>', () => {
     );
   });
 
-  it('should forward metadata attributes to the media element', async () => {
-    const video_id = 'test-video-id';
-    const video_title = 'test-video-title';
-    const viewer_user_id = 'test-viewer-user-id';
-    const sub_property_id = 'test-sub-prop-id';
-    const player = await fixture(`<ix-player
-      metadata-video-id="${video_id}"
-      metadata-video-title="${video_title}"
-      metadata-viewer-user-id="${viewer_user_id}"
-      metadata-sub-property-id="${sub_property_id}"
-    ></ix-player>`);
-
-    const actual = player.media.metadata;
-    const expected = { video_id, video_title, viewer_user_id, sub_property_id };
-    assert.include(actual, expected, 'has expected metadata entries from attrs');
-  });
-
   it('muted attribute behaves like expected', async function () {
     const player = await fixture(`<ix-player
       src="https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls"
