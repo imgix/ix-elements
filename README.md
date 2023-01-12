@@ -7,7 +7,7 @@
     Custom elements for working with media in the browser that work anywhere.
   </p>
   <p align="center" style="text: italic">
-    A fork of <a href="https://www.github.com/imgix/ix-elements">Mux Elements</a>
+    A fork of <a href="https://www.github.com/muxinc/elements">Mux Elements</a>
   </p>
 </p>
 
