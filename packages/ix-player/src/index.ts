@@ -918,7 +918,7 @@ class IxPlayerElement extends VideoApiElement {
 
   set posterParams(val: string | undefined) {
     if (!val) {
-      this.removeAttribute('title');
+      this.removeAttribute('poster-params');
     } else {
       this.setAttribute(PlayerAttributes.POSTER_PARAMS, val);
     }
