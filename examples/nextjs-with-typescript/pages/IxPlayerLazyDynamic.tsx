@@ -1,6 +1,6 @@
 import type { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
-const IxVideoPageStatic = dynamic(() => import("./IxVideo"));
+const IxPlayerPageStatic = dynamic(() => import("./IxPlayerLazy"));
 
 type Props = { location?: Pick<Location, 'origin' | 'pathname'> };
 
@@ -22,8 +22,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
   return ({ props: { location } })
 };
 
-function IxVideoPage({ location }: Props) {
-  return <IxVideoPageStatic location={location} />;
+function IxPlayerPage({ location }: Props) {
+  return <IxPlayerPageStatic location={location} />;
 }
 
-export default IxVideoPage;
+export default IxPlayerPage;

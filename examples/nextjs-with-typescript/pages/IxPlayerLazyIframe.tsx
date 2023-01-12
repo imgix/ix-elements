@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
-const IxVideoPageStatic = dynamic(() => import("./IxVideoLazy"));
-function IxVideoPage() {
+const IxPlayerPageStatic = dynamic(() => import("./IxPlayerLazy"));
+function IxPlayerPage() {
   return <iframe
     src="./IxVideoLazy"
     width="816"
@@ -9,4 +9,4 @@ function IxVideoPage() {
   />;
 }
 
-export default IxVideoPage;
+export default IxPlayerPage;

@@ -14,7 +14,7 @@
     "@imgix/ix-player": ">=2.0.0-alpha.1",
     "@imgix/ix-player-react": ">=0.0.1-beta.1",
     "@imgix/ix-video": ">=2.0.0-alpha.1",
-    "@imgix/ix-video-react": ">=0.3.0",
+    "@imgix/ix-video-react": ">=0.0.1-beta.1",
     "next": "^12.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"

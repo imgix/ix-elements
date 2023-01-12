@@ -1,11 +1,10 @@
 import Link from "next/link";
 import Head from "next/head";
 import Script from 'next/script';
-import IxVideo from "@imgix/ix-video-react/lazy";
-import type {IxVideoProps} from "@imgix/ix-video-react";
+import IxPlayer, { IxPlayerProps } from "@imgix/ix-player-react";
 import { useEffect, useReducer, useRef, useState } from "react";
 import mediaAssetsJSON from "@mux/assets/media-assets.json";
-import type IxVideoElement from "@imgix/ix-video/";
+import type IxPlayerElement from "@imgix/ix-player";
 import { useRouter } from "next/router";
 import type { NextParsedUrlQuery } from "next/dist/server/request-meta";
 import type { GetServerSideProps } from "next";
@@ -51,9 +50,9 @@ const toPlayerPropsFromJSON = (mediaAsset: typeof mediaAssetsJSON[0] | undefined
     type,
   } = mediaAsset ?? {};
   // NOTE: Inferred type is "string" from JSON (CJP)
-  const streamType = mediaAsset?.['stream-type'] as IxVideoProps["streamType"];
-  const posterParams = mediaAsset?.['poster-params'] as IxVideoProps["posterParams"];
-  const gifPreview = mediaAsset?.['gif-preview'] as IxVideoProps["gifPreview"];
+  const streamType = mediaAsset?.['stream-type'] as IxPlayerProps["streamType"];
+  const posterParams = mediaAsset?.['poster-params'] as IxPlayerProps["posterParams"];
+  const gifPreview = mediaAsset?.['gif-preview'] as IxPlayerProps["gifPreview"];
   const metadata = mediaAsset ? toMetadataFromMediaAsset(mediaAsset, mediaAssets) : undefined;
   return {
     playbackId,
@@ -75,9 +74,11 @@ const ActionTypes = {
   UPDATE: 'UPDATE',
 };
 
-const DEFAULT_INITIAL_STATE: Partial<IxVideoProps> = Object.freeze({
+const DEFAULT_INITIAL_STATE: Partial<IxPlayerProps> = Object.freeze({
+  preferCmcd: undefined,
   muted: undefined,
   debug: undefined,
+  disableCookies: undefined,
   autoPlay: undefined,
   preload: undefined,
   startTime: undefined,
@@ -145,7 +146,7 @@ const toValueString = (value: any) => {
   return value;
 };
 
-const IxVideoCodeRenderer = ({ state, component = 'IxVideo' }: { state: Partial<IxVideoProps>; component?: string; }) => {
+const IxVideoCodeRenderer = ({ state, component = 'IxPlayer' }: { state: Partial<IxPlayerProps>; component?: string; }) => {
   const stateEntries = Object.entries(state).filter(([,value]) => value != undefined);
   const propsStr = stateEntries.length
     ? `\n${stateEntries.map(([key, value]) => `  ${key}={${toValueString(value)}}`).join('\n')}\n`
@@ -170,7 +171,7 @@ const UrlPathRenderer = ({
     origin: '',
     pathname: './'
   },
-}: { state: Partial<IxVideoProps>; location?: Pick<Location, 'origin' | 'pathname'>; }) => {
+}: { state: Partial<IxPlayerProps>; location?: Pick<Location, 'origin' | 'pathname'>; }) => {
   const stateEntries = Object.entries(state).filter(([,value]) => value != undefined);
   const urlSearchParamsStr = stateEntries.length
     ? `?${new URLSearchParams(Object.fromEntries(stateEntries.map(([k, v]) => [k, JSON.stringify(v)]))).toString()}`
@@ -291,9 +292,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
   return ({ props: { location } })
 };
 
-function IxVideoPage({ location }: Props) {
+function MuxPlayerPage({ location }: Props) {
   const router = useRouter();
-  const [isRefSafeToCheck, setIsRefSafeToCheck] = useState(false)
   const mediaElRef = useRef(null);
   const [mediaAssets, _setMediaAssets] = useState(mediaAssetsJSON);
   const [selectedAsset, setSelectedAsset] = useState(undefined);
@@ -303,7 +303,7 @@ function IxVideoPage({ location }: Props) {
     dispatch(updateProps(toInitialState(selectedAsset, mediaAssets, router.query)))
   }, [router.query, router.isReady]);
   const [stylesState, dispatchStyles] = useReducer(reducer, {});
-  const genericOnChange = (obj) => dispatch(updateProps<IxVideoProps>(obj));
+  const genericOnChange = (obj) => dispatch(updateProps<IxPlayerProps>(obj));
   const genericOnStyleChange = (obj) => dispatchStyles(updateProps(obj));
 
   const [optionStyles, optionsDispatchStyles] = useReducer(reducer, {
@@ -311,25 +311,24 @@ function IxVideoPage({ location }: Props) {
   });
   const optionsGenericOnStyleChange = (obj) => optionsDispatchStyles(updateProps(obj));
   useEffect(() => {
-    if (isRefSafeToCheck) {
-      const height = mediaElRef.current.offsetHeight;
-      optionsGenericOnStyleChange({'--player-height': height + 'px'});
-    }
-  }, [mediaElRef, isRefSafeToCheck]);
+    const height = mediaElRef.current.offsetHeight;
+    optionsGenericOnStyleChange({'--player-height': height + 'px'});
+  }, [mediaElRef]);
 
   return (
     <>
       <Head>
-        <title>&lt;IxVideo/&gt; Demo</title>
+        <title>&lt;IxPlayer/&gt; Demo</title>
       </Head>
 
       <Script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1" />
-      <IxVideo
+      <IxPlayer
         ref={mediaElRef}
-        src={state.src}
-        gifPreview={state.gifPreview}
-        type={state.type}
         style={stylesState}
+        src={state.src}
+        type={state.type}
+        posterParams={state.posterParams}
+        gifPreview={!!state.gifPreview}
         envKey={state.envKey}
         metadata={state.metadata}
         title={state.title}
@@ -347,7 +346,9 @@ function IxVideoPage({ location }: Props) {
         nohotkeys={state.nohotkeys}
         hotkeys={state.hotkeys}
         // onPlayerReady={() => console.log("ready!")}
+        preferCmcd={state.preferCmcd}
         debug={state.debug}
+        disableCookies={state.disableCookies}
         loop={state.loop}
         muted={state.muted}
         volume={state.volume}
@@ -360,8 +361,7 @@ function IxVideoPage({ location }: Props) {
         secondaryColor={state.secondaryColor}
         defaultShowRemainingTime={state.defaultShowRemainingTime}
         defaultHiddenCaptions={state.defaultHiddenCaptions}
-        /** @TODO This doesn't appear to work? (CJP) */
-        // playbackRate={state.playbackRate}
+        playbackRate={state.playbackRate}
         playbackRates={state.playbackRates}
         onPlay={(evt: Event) => {
           onPlay(evt);
@@ -372,16 +372,11 @@ function IxVideoPage({ location }: Props) {
           // dispatch(updateProps({ paused: true }));
         }}
         onVolumeChange={(event) => {
-          // const IxVideoEl = event.target as IxVideoElement
-          // dispatch(updateProps({ muted: IxVideoEl.muted, volume: IxVideoEl.volume }));
+          // const ixPlayerEl = event.imgix/@imgix/ix-player
+          // dispatch(updateProps({ muted: ixPlayerEl.muted, volume: ixPlayerEl.volume }));
         }}
         onSeeking={onSeeking}
         onSeeked={onSeeked}
-        onLoadStart={(evt) => {
-          onLoadStart(evt)
-          // onLoadStart will fire after ix-video-react/lazy has mounted
-          setIsRefSafeToCheck(true)
-        }}
       />
 
       <div className="options" style={optionStyles}>
@@ -396,7 +391,7 @@ function IxVideoPage({ location }: Props) {
             id="assets-control"
             onChange={({ target: { value } }) => {
               setSelectedAsset(mediaAssets[value]);
-              dispatch(updateProps<IxVideoProps>(toPlayerPropsFromJSON(mediaAssets[value], mediaAssets)));
+              dispatch(updateProps<IxPlayerProps>(toPlayerPropsFromJSON(mediaAssets[value], mediaAssets)));
             }}
             value={mediaAssets.indexOf(selectedAsset)}
           >
@@ -558,9 +553,20 @@ function IxVideoPage({ location }: Props) {
           min={0}
         />
         <BooleanRenderer
+          value={state.disableCookies}
+          name="disableCookies"
+          onChange={genericOnChange}
+        />
+        <BooleanRenderer
           value={state.debug}
           name="debug"
           onChange={genericOnChange}
+        />
+        <EnumRenderer
+          value={state.preferCmcd}
+          name="preferCmcd"
+          onChange={genericOnChange}
+          values={['query', 'header', 'none']}
         />
         <BooleanRenderer
           value={state.loop}
@@ -573,15 +579,14 @@ function IxVideoPage({ location }: Props) {
           onChange={genericOnChange}
           values={['anonymous', 'use-credentials']}
         />
-        {/** @TODO This doesn't appear to work? (CJP) */}
-        {/* <NumberRenderer
+        <NumberRenderer
           value={state.playbackRate}
           name="playbackRate"
           onChange={genericOnChange}
           min={0}
           max={3}
           step={0.25}
-        /> */}
+        />
         {/** @TODO Is this sufficient for a UI or do we want a "fancier" one that allows adding/removing dynamic items from a list (CJP) */}
         <EnumMultiSelectRenderer
           value={state.playbackRates}
@@ -635,4 +640,4 @@ function IxVideoPage({ location }: Props) {
   );
 }
 
-export default IxVideoPage;
+export default MuxPlayerPage;

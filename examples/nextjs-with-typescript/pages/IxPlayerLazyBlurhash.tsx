@@ -4,7 +4,7 @@ import type { GetStaticProps } from "next";
 
 import muxBlurHash from '@mux/blurhash'
 
-import IxVideoLazy from '@imgix/ix-video-react/lazy';
+import IxPlayerLazy from '@imgix/ix-player-react/lazy';
 
 type Props = {
   playbackId: string
@@ -16,7 +16,7 @@ function IxVideoLazyPage({ playbackId, blurHashBase64, sourceWidth, sourceHeight
   return (
     <>
       <Head>
-        <title>&lt;IxVideoLazy/&gt; Demo</title>
+        <title>&lt;IxPlayerLazy/&gt; Demo</title>
       </Head>
 
       <h3>Scroll down too see the Lazy IxVideo Player ↓</h3>
@@ -24,11 +24,11 @@ function IxVideoLazyPage({ playbackId, blurHashBase64, sourceWidth, sourceHeight
         <code>
           {`import muxBlurHash from '@mux/blurhash'
 
-import IxVideoLazy from '@imgix/ix-video-react/lazy';
+import IxPlayerLazy from '@imgix/ix-player-react/lazy';
 
 function IxVideoLazyPage({ playbackId, blurHashBase64, sourceWidth, sourceHeight }) {
   return (
-      <IxVideoLazy
+      <IxPlayerLazy
         playbackId={playbackId}
         placeholder={blurHashBase64}
         style={{ aspectRatio: \`\${sourceWidth}/\${sourceHeight}\` }}
@@ -56,7 +56,7 @@ export default IxVideoLazyPage;
         </code>
       </pre>
 
-      <IxVideoLazy
+      <IxPlayerLazy
         playbackId={playbackId}
         placeholder={blurHashBase64}
         style={{ aspectRatio: `${sourceWidth}/${sourceHeight}` }}

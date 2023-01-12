@@ -1,20 +1,19 @@
 // @ts-nocheck
 import Link from "next/link";
-import Head from 'next/head';
-import "@imgix/ix-video";
+import Head from "next/head";
+import "@imgix/ix-player";
 import { useState } from "react";
 
-// const INITIAL_DEBUG = true;
 const INITIAL_DEBUG = false;
 const INITIAL_MUTED = false;
 const INITIAL_AUTOPLAY = false;
-const INITIAL_PLAYBACK_SRC = "https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls";
-const INITIAL_PLAYBACK_TYPE = "hls";
+const INITIAL_SRC = "https://assets.imgix.video/videos/alexa_ski_big_bear_mountain.MOV?fm=hls";
+const INITIAL_TYPE = "hls";
 
 function IxVideoWCPage() {
   // const mediaElRef = useRef(null);
-  const [playbackSrc, setPlaybackSrc] = useState(INITIAL_PLAYBACK_SRC);
-  const [type, setType] = useState(INITIAL_PLAYBACK_TYPE);
+  const [playbackSrc, setSrc] = useState(INITIAL_SRC);
+  const [playbackType, setType] = useState(INITIAL_TYPE);
   const [muted, setMuted] = useState(INITIAL_MUTED);
   const [debug, setDebug] = useState(INITIAL_DEBUG);
   const [autoplay, setAutoplay] = useState(INITIAL_AUTOPLAY);
@@ -24,25 +23,28 @@ function IxVideoWCPage() {
   return (
     <>
       <Head>
-        <title>&lt;ix-video&gt; Demo</title>
+        <title>&lt;ix-player&gt; Demo</title>
       </Head>
 
-      <ix-video
-        // style={{ aspectRatio: "16 / 9" }}
-        src={playbackSrc}
-        type={type}
-        // onPlayerReady={() => console.log("ready!")}
-        {...debugObj}
-        {...mutedObj}
-        {...autoplayObj}
-        // stream-type="live"
-        // primary-color="#ec407a"
-        // secondary-color="#64b5f6"
-        // tertiary-color="#b4004e"
-        // startTime={12}
-        controls
-      ></ix-video>
-
+      <div>
+        <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+        <ix-player
+          // style={{ aspectRatio: "16 / 9" }}
+          src={playbackSrc}
+          type={playbackType}
+          forward-seek-offset={10}
+          backward-seek-offset={10}
+          // onPlayerReady={() => console.log("ready!")}
+          {...debugObj}
+          {...mutedObj}
+          {...autoplayObj}
+          // stream-type="live"
+          // primary-color="#ec407a"
+          // secondary-color="#64b5f6"
+          // tertiary-color="#b4004e"
+          // startTime={12}
+        ></ix-player>
+      </div>
       <div className="options">
         <div>
           <label htmlFor="autoplay-control">Muted Autoplay</label>
@@ -75,16 +77,16 @@ function IxVideoWCPage() {
           <label htmlFor="playback-src-control">Playback Src</label>
           <input
             id="playback-src-control"
-            onBlur={({ currentTarget }) => setPlaybackSrc(currentTarget.value)}
+            onBlur={({ currentTarget }) => setSrc(currentTarget.value)}
             defaultValue={playbackSrc}
           />
         </div>
         <div>
-          <label htmlFor="type-control">Type</label>
+          <label htmlFor="playback-type-control">Playback Type</label>
           <input
-            id="type-control"
+            id="playback-type-control"
             onBlur={({ currentTarget }) => setType(currentTarget.value)}
-            defaultValue={type}
+            defaultValue={playbackType}
           />
         </div>
       </div>
