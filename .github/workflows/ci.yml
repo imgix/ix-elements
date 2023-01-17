@@ -22,15 +22,15 @@ jobs:
         with:
           node-version: ${{steps.nvmrc.outputs.NODE_VERSION}}
           # this line is required for the setup-node action to be able to run the npm publish below.
-          registry-url: 'https://registry.npmjs.org'
+          # registry-url: 'https://registry.npmjs.org'
           cache: yarn
       - run: yarn install --frozen-lockfile
       - run: yarn clean
       - run: yarn build:packages
-      - run: npm run publish-release -- canary
-        if: ${{ github.ref == 'refs/heads/main' }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - run: npm run publish-release -- canary
+      #   if: ${{ github.ref == 'refs/heads/main' }}
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   lint:
     runs-on: ubuntu-latest
