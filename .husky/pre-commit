@@ -3,6 +3,3 @@
 
 # Runs Prettier on changed files.
 npx pretty-quick --staged
-
-# Runs commitlint on on commit message prior to commit
-npx --no-install commitlint --edit ""

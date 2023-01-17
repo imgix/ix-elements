@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Runs commitlint on on commit message prior to commit
+npx --no-install commitlint --edit ""
