@@ -1,6 +1,6 @@
 {
   "name": "@imgix/ix-player-react",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1",
   "description": "An imgix video custom element for React",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.mjs",
