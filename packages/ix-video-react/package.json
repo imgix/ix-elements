@@ -1,7 +1,6 @@
 {
   "name": "@imgix/ix-video-react",
-  "private": true,
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1",
   "description": "A custom imgix video element for React that works anywhere",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.mjs",
