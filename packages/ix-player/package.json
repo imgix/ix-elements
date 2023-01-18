@@ -1,0 +1,74 @@
+{
+  "name": "@imgix/ix-player",
+  "version": "0.0.1-beta.1",
+  "description": "An imgix video custom element that works anywhere",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.mjs",
+  "browser": "./dist/index.mjs",
+  "unpkg": "./dist/ix-player.js",
+  "jsdelivr": "./dist/ix-player.js",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs.js",
+    "default": "./dist/index.cjs.js"
+  },
+  "types": "dist/types-ts3.4/index.d.ts",
+  "typesVersions": {
+    ">=4.3.5": {
+      "*": [
+        "dist/types/index.d.ts"
+      ]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imgix/ix-elements/tree/l/ix-player",
+    "directory": "packages/ix-player"
+  },
+  "author": "imgix, Inc.",
+  "license": "MIT",
+  "scripts": {
+    "clean": "shx rm -rf dist/",
+    "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
+    "test": "web-test-runner **/*test.js --port 8001 --coverage --config test/web-test-runner.config.mjs --root-dir ../..",
+    "posttest": "replace 'SF:src/' 'SF:packages/ix-player/src/' coverage/lcov.info --silent",
+    "i18n": "yarn build:esm --keep-names && i18n-utils dist/index.mjs ./lang",
+    "dev:iife": "yarn build:iife --watch=forever",
+    "dev:esm": "yarn build:esm --watch=forever",
+    "dev:esm-module": "yarn build:esm-module --watch=forever",
+    "dev:cjs": "yarn build:cjs --watch=forever",
+    "dev:types": "yarn build:types -w",
+    "dev": "npm-run-all --parallel dev:types dev:esm dev:cjs dev:esm-module dev:iife",
+    "build:esm": "esbuilder src/index.ts --format=esm --out-extension:.js=.mjs",
+    "build:esm-module": "esbuilder src/index.ts --format=esm-module --outfile=dist/ix-player.mjs",
+    "build:iife": "esbuilder src/index.ts --format=iife --outfile=dist/ix-player.js",
+    "build:cjs": "esbuilder src/index.ts --format=cjs --out-extension:.js=.cjs.js",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir './dist/types'",
+    "postbuild:types": "downlevel-dts ./dist/types ./dist/types-ts3.4",
+    "build": "npm-run-all --parallel 'build:esm --minify' 'build:iife --minify' 'build:cjs --minify' 'build:esm-module --minify'",
+    "create-release-notes": "create-release-notes ./CHANGELOG.md",
+    "publish-release": "../../scripts/publish.sh"
+  },
+  "dependencies": {
+    "@imgix/ix-video": ">=2.0.0-beta.2",
+    "@mux/playback-core": "0.15.0",
+    "media-chrome": "0.16.2"
+  },
+  "devDependencies": {
+    "@mux/esbuilder": "0.1.0",
+    "@mux/test-esm-exports": "0.1.0",
+    "@open-wc/testing": "^3.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "@web/dev-server-esbuild": "^0.3.2",
+    "@web/dev-server-import-maps": "^0.0.6",
+    "@web/test-runner": "^0.13.26",
+    "downlevel-dts": "^0.11.0",
+    "eslint": "^8.24.0",
+    "npm-run-all": "^4.1.5",
+    "replace": "^1.2.1",
+    "shared-polyfills": "0.1.0",
+    "shx": "^0.3.4",
+    "typescript": "^4.9.4"
+  }
+}

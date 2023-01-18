@@ -15,5 +15,4 @@ a supported media format.
 
 ### Useful Links
 
-- [Standard input specs](https://docs.mux.com/guides/video/minimize-processing-time)
 - [Browser video format support](https://caniuse.com/?search=video%20format)

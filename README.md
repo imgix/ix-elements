@@ -1,32 +1,27 @@
 <p align="center">
-  <a href="https://mux.com/">
-    <img src="https://avatars.githubusercontent.com/u/16199997?s=200&v=4" alt="Mux Logo">
-    <h1 align="center">&lt;mux-elements/&gt;</h1>
+  <a href="https://imgix.com/">
+    <img src="https://avatars.githubusercontent.com/u/2793044?s=200&v=4" alt="imgix Logo">
+    <h1 align="center">&lt;ix-elements/&gt;</h1>
   </a>
   <p align="center">
-    Custom elements for working with media in the browser that Just Work™
+    Custom elements for working with media in the browser that work anywhere.
+  </p>
+  <p align="center" style="text: italic">
+    A fork of <a href="https://www.github.com/muxinc/elements">Mux Elements</a>
   </p>
 </p>
 
 # Elements
 
-Elements are written to make it easy to work in a variety of web frameworks. If we don't (yet) have a framework-specific "flavor" of an element, we always provide a pure [Web Component](https://developer.mozilla.org/en-US/docs/Web/Web_Components) version that work with HTML and can be used by most modern web frameworks and web application environments.
+Elements are written to make it easy to work in a variety of web frameworks. If there isn't a framework-specific element, you can use the [Web Component](https://developer.mozilla.org/en-US/docs/Web/Web_Components) version that can be used by most modern web frameworks and web application environments.
 
 | Name                                              | Description                                   | Framework     | Official Release Status |
 | ------------------------------------------------- | --------------------------------------------- | ------------- | ----------------------- |
-| [mux-video](packages/mux-video)                   | A Mux-flavored HTML5 video element            | Web Component | Public Beta             |
-| [mux-video-react](packages/mux-video-react)       | A Mux-flavored React video component          | React         | Public Beta             |
-| [mux-audio](packages/mux-audio)                   | A Mux-flavored HTML5 audio element            | Web Component | Public Beta             |
-| [mux-audio-react](packages/mux-audio-react)       | A Mux-flavored HTML5 audio component          | React         | Public Beta             |
-| [mux-player](packages/mux-player)                 | A Mux-flavored HTML5 media player component   | Web Component | 1.x.x 🎉                |
-| [mux-player-react](packages/mux-player-react)     | A Mux-flavored React media player component   | React         | 1.x.x 🎉                |
-| [mux-uploader](packages/mux-uploader)             | A Mux-flavored HTML5 media uploader component | Web Component | Public Beta             |
-| [mux-uploader-react](packages/mux-uploader-react) | A Mux-flavored React media uploader component | React         | Public Beta             |
+| [ix-video](packages/ix-video)                   | An imgix-flavored HTML5 video element            | Web Component | 2.0.0  🎉           |
+| [ix-video-react](packages/ix-video-react)       | An imgix-flavored React video component          | React         | Public Beta             |
+| [ix-player](packages/ix-player)                 | An imgix-flavored HTML5 media player component   | Web Component | Public Beta                 |
+| [ix-player-react](packages/ix-player-react)     | An imgix-flavored React media player component   | React         | Public Beta                 |
 
 # Contribution
 
 Please make sure to read the [Contributing Guide](CONTRIBUTING.md) before making a pull request.
-
-Thank you to all the people who already contributed to `<mux-elements/>`!
-
-![Contributors](https://contrib.rocks/image?repo=muxinc/elements)

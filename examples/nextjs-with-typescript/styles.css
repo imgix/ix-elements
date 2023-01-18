@@ -90,7 +90,7 @@ li a.uploader {
   }
 }
 
-mux-player:not([audio]),
+ix-video:not([audio]),
 mux-video:not([audio]),
 video {
   width: 100%;
@@ -101,7 +101,7 @@ video {
   aspect-ratio: 16 / 9;
 }
 
-mux-player,
+ix-video,
 mux-video,
 mux-audio,
 audio {

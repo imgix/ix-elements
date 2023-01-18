@@ -1,6 +1,5 @@
-import MuxPlayerView from "@/views/MuxPlayerView.vue";
-import MuxVideoView from "@/views/MuxVideoView.vue";
-import MuxAudioView from "@/views/MuxAudioView.vue";
+import IxPlayer from "@/views/IxPlayerView.vue";
+import IxVideo from "@/views/IxVideo.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
@@ -13,19 +12,14 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/mux-player",
-      name: "mux-player",
-      component: MuxPlayerView,
+      path: "/ix-player",
+      name: "ix-player",
+      component: IxPlayer,
     },
     {
-      path: "/mux-video",
-      name: "mux-video",
-      component: MuxVideoView,
-    },
-    {
-      path: "/mux-audio",
-      name: "mux-audio",
-      component: MuxAudioView,
+      path: "/ix-video",
+      name: "ix-video",
+      component: IxVideo,
     },
     // {
     //   path: '/about',

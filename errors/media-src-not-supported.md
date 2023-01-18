@@ -13,5 +13,4 @@ connection check if your browser supports this media format in the links below.
 
 ### Useful Links
 
-- [Standard input specs](https://docs.mux.com/guides/video/minimize-processing-time)
 - [Browser video format support](https://caniuse.com/?search=video%20format)

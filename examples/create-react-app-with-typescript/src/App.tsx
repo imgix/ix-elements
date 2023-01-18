@@ -1,36 +1,33 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages";
-import MuxVideoPage from "./pages/MuxVideo";
-import MuxAudioPage from "./pages/MuxAudio";
-import MuxPlayerPage from "./pages/MuxPlayer";
-import MuxPlayerLazyPage from "./pages/MuxPlayerLazy";
-import MuxUploaderPage from "./pages/MuxUploader";
+import IxVideoPage from "./pages/IxVideo";
+import IxPlayerPage from "./pages/IxPlayer";
+import IxPlayerLazyPage from "./pages/IxPlayerLazy";
 
 function App() {
   return (
     <>
       <header>
         <div className="left-header">
-          <a className="mux-logo" href="https://www.mux.com/player" target="_blank" rel="noreferrer">
-            <img width="81" height="26" src="./images/mux-logo@2x.webp" alt="Mux logo" decoding="async" />
+          <a className="imgix-logo" href="https://www.imgix.com/video" target="_blank">
+            <img width="81" height="26" src="https://assets.imgix.net/imgix-logo.png?fm=auto&w=281&h=226" alt="imgix logo" decoding="async" />
           </a>
-          <h1><a href="/">Elements</a></h1>
+          <h1><a href="/">ix-elements</a></h1>
         </div>
         <div className="right-header">
-          <a className="github-logo" href="https://github.com/muxinc/elements" target="_blank" rel="noreferrer">
-            <img width="32" height="32" src="./images/github-logo.svg" alt="Github logo" />
+          <a className="github-logo" href="https://github.com/imgix/ix-elements" target="_blank">
+            <img width="32" height="32" src="https://avatars.githubusercontent.com/u/2793044?s=200&v=4" alt="Github logo" />
           </a>
         </div>
       </header>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="MuxVideo" element={<MuxVideoPage />} />
-          <Route path="MuxAudio" element={<MuxAudioPage />} />
-          <Route path="MuxPlayer" element={<MuxPlayerPage />} />
-          <Route path="MuxPlayerLazy" element={<MuxPlayerLazyPage />} />
-          <Route path="MuxUploader" element={<MuxUploaderPage />} />
+          <Route path="IxVideo" element={<IxVideoPage />} />
+          <Route path="IxPlayer" element={<IxPlayerPage />} />
+          <Route path="IxPlayerLazy" element={<IxPlayerLazyPage />} />
         </Routes>
       </Router>
     </>

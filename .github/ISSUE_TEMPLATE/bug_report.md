@@ -12,17 +12,17 @@ assignees: ''
 
 ### Checklist
 
-- [] Verified whether your issue exists in the latest version Mux Element(s) release: `npm install @mux/[element_name]` or `yarn @mux/[element_name]`.
+- [] Verified whether your issue exists in the latest version imgix Element(s) release: `npm install @imgix/[element_name]` or `yarn @imgix/[element_name]`.
   - (NOTE: If the issue is not occurring in the latest version, we may not resolve it.)
-- [] Confirmed that this issue hasn't [already been filed](https://github.com/muxinc/elements/issues?q=is%3Aopen+is%3Aissue+label%3Abug).
+- [] Confirmed that this issue hasn't [already been filed](https://github.com/imgix/ix-elements/issues?q=is%3Aopen+is%3Aissue+label%3Abug).
 
-### Which Mux Elements/Packages has a bug?
+### Which ix-element/Packages has a bug?
 
 <!--
   Uncomment all that apply. Also, make sure you add the appropriate Label after creating the issue!
 
-- mux-video
-- mux-audio
+- imgix-video
+- imgix-audio
 - common
 -->
 
@@ -30,7 +30,7 @@ assignees: ''
 
 <!--
   Uncomment all that apply
-  (NOTE: Currently, Mux Elements are only officially supported in new versions of the browsers listed above)
+  (NOTE: Currently, imgix Elements are only officially supported in new versions of the browsers listed above)
 
 - Chrome
 - Safari
@@ -45,7 +45,7 @@ assignees: ''
 
 (For example: macOS, Windows, iOS, Android)
 
-### How are you using Mux Elements?
+### How are you using ix-elements?
 
 (For example: npm package, `<script>` tag)
 
@@ -54,7 +54,7 @@ assignees: ''
 <!--
   Please provide a clear and concise description of what the bug is. Include
   screenshots if needed. Please test using the latest version of the relevant
-  Mux Elements packages to make sure your issue has not already been fixed.
+  ix-elements packages to make sure your issue has not already been fixed.
 -->
 
 ## Steps To Reproduce
