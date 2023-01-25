@@ -1,3 +1,4 @@
+<!-- ix-docs-ignore -->
 <p align="center">
   <a href="https://imgix.com/">
     <img src="https://avatars.githubusercontent.com/u/2793044?s=200&v=4" alt="imgix Logo">
@@ -10,6 +11,7 @@
     A fork of <a href="https://www.github.com/muxinc/elements">Mux Elements</a>
   </p>
 </p>
+<!-- /ix-docs-ignore -->
 
 # Elements
 
@@ -22,6 +24,8 @@ Elements are written to make it easy to work in a variety of web frameworks. If 
 | [ix-player](https://github.com/imgix/ix-elements/tree/main/packages/ix-player)                 | An imgix-flavored HTML5 media player component   | Web Component | Public Beta                 |
 | [ix-player-react](https://github.com/imgix/ix-elements/tree/main/packages/ix-player-react)     | An imgix-flavored React media player component   | React         | Public Beta                 |
 
+<!-- ix-docs-ignore -->
 # Contribution
 
 Please make sure to read the [Contributing Guide](https://github.com/imgix/ix-elements/blob/main/CONTRIBUTING.md) before making a pull request.
+<!-- /ix-docs-ignore -->
