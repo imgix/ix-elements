@@ -1,4 +1,4 @@
-# Contributing to `<mux-elements/>`
+# Contributing to `<ix-elements/>`
 
 - [Code of Conduct](#code-of-conduct)
 - [Questions](#questions)
@@ -13,23 +13,23 @@ Before contributing, please read and make sure you follow our [Code of Conduct](
 
 ## <a name="questions">Questions</a>
 
-Have a question? Want to start a discussion? For now, you can simply [Open a New Issue](https://github.com/muxinc/elements/issues/new), prefix the `title` with "Question: [...]" or "Discussion: [...]", and add the `discussion` and/or `question` label to the issue.
+Have a question? Want to start a discussion? For now, you can simply [Open a New Issue](https://github.com/imgix/ix-elements/issues/new), prefix the `title` with "Question: [...]" or "Discussion: [...]", and add the `discussion` and/or `question` label to the issue.
 
 ## <a name="issues">Bugs and Issues</a>
 
-If you think you've found a bug, make sure you review and fill out a [Bug Report](https://github.com/muxinc/elements/issues/new/choose) before starting any work. This will ensure for both yourself and the maintainers that the issue in question can be properly confirmed, reproduced, smoke tested, etc. Once done, go ahead and follow our [Submitting a Pull Request](#pull-requests) guide.
+If you think you've found a bug, make sure you review and fill out a [Bug Report](https://github.com/imgix/ix-elements/issues/new/choose) before starting any work. This will ensure for both yourself and the maintainers that the issue in question can be properly confirmed, reproduced, smoke tested, etc. Once done, go ahead and follow our [Submitting a Pull Request](#pull-requests) guide.
 
 ## <a name="documentation">Documentation Updates</a>
 
-Our documentation update request requirements are similar to the requirements for [Bugs and Issues](#issues), except you'll want to review and fill out a [Docs Request](https://github.com/muxinc/elements/issues/new/choose) instead of a Bug Report.
+Our documentation update request requirements are similar to the requirements for [Bugs and Issues](#issues), except you'll want to review and fill out a [Docs Request](https://github.com/imgix/ix-elements/issues/new/choose) instead of a Bug Report.
 
 ## <a name="features">Feature Requests</a>
 
-For feature requests, you can start by reviewing and filling out a [Feature Request](https://github.com/muxinc/elements/issues/new/choose). Unlike bug fixes, Feature Requests will likely require more discussion from the maintainers, including whether or not it is consistent with our overall architectural goals, our timeline and priorities, and the like. Once done, assuming you've gotten a 👍 to work on the feature, go ahead and follow our [Submitting a Pull Request](#pull-requests) guide.
+For feature requests, you can start by reviewing and filling out a [Feature Request](https://github.com/imgix/ix-elements/issues/new/choose). Unlike bug fixes, Feature Requests will likely require more discussion from the maintainers, including whether or not it is consistent with our overall architectural goals, our timeline and priorities, and the like. Once done, assuming you've gotten a 👍 to work on the feature, go ahead and follow our [Submitting a Pull Request](#pull-requests) guide.
 
 ## <a name="pull-requests">Submitting a Pull Request</a>
 
-Before submitting a pull request, make sure you've reviewed and filled out an appropriate [Issue](https://github.com/muxinc/elements/issues/new/choose). We recommend doing this before starting any work, just in case an issue already exists, or it's unlikely the maintainers will be able to review the PR because it e.g. lacks sufficient reproduction steps. In addition, we recommend the following:
+Before submitting a pull request, make sure you've reviewed and filled out an appropriate [Issue](https://github.com/imgix/ix-elements/issues/new/choose). We recommend doing this before starting any work, just in case an issue already exists, or it's unlikely the maintainers will be able to review the PR because it e.g. lacks sufficient reproduction steps. In addition, we recommend the following:
 
 1. We use [semantic releases/commits](https://openbase.com/js/@semantic-release/commit-analyzer/documentation), please try to name your branch and prefix your commits according to the type of changes you're making, and try to be as descriptive as possible in your commit messages. For example:
 
