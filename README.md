@@ -24,4 +24,4 @@ Elements are written to make it easy to work in a variety of web frameworks. If 
 
 # Contribution
 
-Please make sure to read the [Contributing Guide](CONTRIBUTING.md) before making a pull request.
+Please make sure to read the [Contributing Guide](https://github.com/imgix/ix-elements/blob/main/CONTRIBUTING.md) before making a pull request.
