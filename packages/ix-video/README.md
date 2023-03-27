@@ -44,13 +44,13 @@ require('@imgix/ix-video');
 Alternatively, use the CDN hosted version of this package:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@imgix/ix-video@0"></script>
+<script src="https://static.imgix.net/ix-player/@latest/dist/ix-player.js"></script>
 ```
 
 If you are using ECMAScript modules, you can also load the `ix-video.mjs` file with `type=module`:
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@imgix/ix-video@0/dist/ix-video.mjs"></script>
+<script type="module" src="https://static.imgix.net/ix-player/@latest/dist/ix-player.mjs"></script>
 ```
 
 ## Features and benefits
