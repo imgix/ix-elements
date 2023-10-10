@@ -41,6 +41,5 @@
     "version:update": "lerna version --exact --no-private --conventional-commits",
     "create-release-notes": "lerna run create-release-notes --scope @imgix/*",
     "publish-release": "lerna run publish-release --scope @imgix/* --"
-  },
-  "dependencies": {}
+  }
 }
