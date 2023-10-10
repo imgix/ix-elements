@@ -159,16 +159,25 @@ class IxPlayerElement extends VideoApiElement {
   #isInit = false;
   #tokens = {};
   #userInactive = true;
+  #isRetrying = false;
+  #maxRetries = 4;
   #hotkeys = new AttributeTokenList(this, 'hotkeys');
   #resizeObserver?: ResizeObserver;
   #state: Partial<IxTemplateProps> = {
     ...initialState,
+    retries: 0,
     onCloseErrorDialog: () => this.#setState({ dialog: undefined, isDialogOpen: false }),
     onInitFocusDialog: (e) => {
       const isFocusedElementInPlayer = containsComposedNode(this, document.activeElement);
       if (!isFocusedElementInPlayer) e.preventDefault();
     },
     onSeekToLive: () => seekToLive(this),
+    onRetry: () => {
+      this.retries = 0;
+      this.#setState({ isDialogOpen: false });
+      this.play();
+      this.#handleRetry();
+    },
   };
 
   static get observedAttributes() {
@@ -231,7 +240,7 @@ class IxPlayerElement extends VideoApiElement {
     this.#setUpErrors();
     this.#setUpCaptionsButton();
     this.#monitorHover();
-    this.#monitorLiveWindow();
+    this.#monitorWindow();
     this.#userInactive = this.mediaController?.hasAttribute('user-inactive') ?? true;
     this.#setUpCaptionsMovement();
     this.#preload();
@@ -264,6 +273,10 @@ class IxPlayerElement extends VideoApiElement {
 
   get mediaController(): MediaController | null | undefined {
     return this.theme?.shadowRoot?.querySelector('media-controller');
+  }
+
+  get mediaLoadingIndicator(): Element | null | undefined {
+    return this.theme?.shadowRoot?.querySelector('media-loading-indicator');
   }
 
   get metadataFromAttrs() {
@@ -353,8 +366,8 @@ class IxPlayerElement extends VideoApiElement {
     this.media?.addEventListener('mouseleave', checkEndGifPreview);
   }
 
-  #monitorLiveWindow() {
-    this.mediaController?.addEventListener('mediaplayrequest', (event) => {
+  #monitorWindow() {
+    const handleSeekToLive = (event: Event) => {
       if (
         (event.target as Element)?.localName === 'media-play-button' &&
         this.streamType &&
@@ -365,6 +378,9 @@ class IxPlayerElement extends VideoApiElement {
           seekToLive(this);
         }
       }
+    };
+    this.mediaController?.addEventListener('mediaplayrequest', (event) => {
+      handleSeekToLive(event);
     });
 
     const updateLiveWindow = () => {
@@ -381,37 +397,117 @@ class IxPlayerElement extends VideoApiElement {
     this.media?.addEventListener('waiting', updateLiveWindow);
     this.media?.addEventListener('timeupdate', updateLiveWindow);
     this.media?.addEventListener('emptied', updateLiveWindow);
+
+    const handleLoadedData = () => {
+      if (this.#state.isDialogOpen) {
+        // dismiss the error dialog if first frame was successfully loaded
+        this.#setState({ isDialogOpen: false });
+      }
+    };
+    this.media?.addEventListener('loadeddata', handleLoadedData);
+
+    const handlePosterError = () => {
+      console.warn('ix-player: poster failed to load, removing poster.');
+      // if the poster fails to load, remove it
+      this.poster = undefined;
+    };
+    const mediaPoster = this.mediaController?.querySelector('media-poster-image');
+    const posterImg = mediaPoster?.shadowRoot?.querySelector('img');
+    posterImg?.addEventListener('error', handlePosterError);
+  }
+
+  #loadMedia() {
+    this.media?.load();
+  }
+
+  #checkVideoReady = async () => {
+    if (!this.src || !this.media) return;
+
+    // helper to dispatch a 423 error on the player if the video is still processing
+    const dispatch423Error = () => {
+      const mediaError = new MediaError('A network error caused the media download to fail.', 2, true);
+      mediaError.data = {
+        details: 'manifestLoadError',
+        type: 'networkError',
+        fatal: true,
+        message: 'Video is not currently available',
+        response: {
+          code: 423,
+          text: 'Locked',
+        },
+      };
+
+      this.dispatchEvent(new CustomEvent('error', { detail: mediaError }));
+    };
+
+    const retryDelay = [2000, 5000, 10000, 20000][this.retries];
+
+    // 1. try to load the source using fetch
+    // 2. if the fetch fails, retry after a delay
+    // 3. if the fetch succeeds, load the media
+    // 4. if max retries is reached, dispatch a 423 error
+    try {
+      const response = await fetch(this.src);
+      if (response.status === 423) {
+        throw new Error('423');
+      }
+      this.#isRetrying = false;
+      this.#loadMedia();
+    } catch (e) {
+      if (this.retries < this.#maxRetries) {
+        this.retries += 1;
+        setTimeout(this.#checkVideoReady, retryDelay);
+      } else {
+        this.#isRetrying = false;
+        this.media?.pause();
+        dispatch423Error();
+      }
+    }
+  };
+
+  #handleRetry() {
+    this.#isRetrying = true;
+    this.#checkVideoReady();
   }
 
   #setUpErrors() {
     const onError = (event: Event) => {
       let { detail: error }: { detail: any } = event as CustomEvent;
+      let fatal = error?.fatal ?? false;
 
       if (!(error instanceof MediaError)) {
         error = new MediaError(error.message, error.code, error.fatal);
       }
 
+      const { dialog, devlog } = getErrorLogs(error, !window.navigator.onLine, this.playbackId, this.playbackToken);
+
+      // Retry on 423 errors
+      if (error.data?.response.code === 423) {
+        if (this.retries < this.#maxRetries) {
+          fatal = false;
+          this.#handleRetry();
+        }
+        dialog.retry = true;
+      }
+
       // Don't show an error dialog if it's not fatal.
-      if (!error?.fatal) {
+      if (!fatal) {
         logger.warn(error);
         if (error.data) {
           logger.warn(`${error.name} data:`, error.data);
         }
-        return;
       }
-
-      const { dialog, devlog } = getErrorLogs(error, !window.navigator.onLine, this.playbackId, this.playbackToken);
 
       if (devlog.message) {
         logger.devlog(devlog);
       }
 
-      logger.error(error);
-      if (error.data) {
-        logger.error(`${error.name} data:`, error.data);
+      if (fatal) {
+        logger.error(error);
+        error.data && logger.error(`${error.name} data:`, error.data);
       }
 
-      this.#setState({ isDialogOpen: true, dialog });
+      fatal && this.#setState({ isDialogOpen: true, dialog });
     };
 
     // Keep this event listener on ix-player instead of calling onError directly
@@ -602,6 +698,14 @@ class IxPlayerElement extends VideoApiElement {
         fetch(getGifURLFromSrc(src));
       }
     }
+  }
+
+  get retries() {
+    return this.#state.retries || 0;
+  }
+
+  set retries(val) {
+    this.#state.retries = val;
   }
 
   attributeChangedCallback(attrName: string, oldValue: string | null, newValue: string) {

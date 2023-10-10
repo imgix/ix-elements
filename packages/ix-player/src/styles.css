@@ -54,6 +54,38 @@ a {
   cursor: unset;
 }
 
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Primary button */
+.btn-primary {
+  background-color: #3490dc;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #2779bd;
+}
+
+/* Secondary button */
+.btn-secondary {
+  background-color: #6b7280;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #4b5563;
+}
+
 ::part(top),
 [part~='top'] {
   --media-controls: var(--controls, var(--top-controls));

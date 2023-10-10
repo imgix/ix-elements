@@ -25,6 +25,7 @@ export type IxTemplateProps = Partial<IxVideoProps> & {
   defaultShowRemainingTime: boolean;
   onCloseErrorDialog: (evt: CustomEvent) => void;
   onInitFocusDialog: (evt: CustomEvent) => void;
+  onRetry: (evt: CustomEvent) => void;
   dialog: DialogOptions;
   inLiveWindow: boolean;
   onSeekToLive: (_evt: Event) => void;
@@ -37,6 +38,9 @@ export type IxTemplateProps = Partial<IxVideoProps> & {
   placeholder: string;
   hotKeys: AttributeTokenList;
   title: string;
+  isRetrying: boolean;
+  maxRetries: number;
+  retries: number;
 };
 
 export type DialogOptions = {
@@ -44,6 +48,7 @@ export type DialogOptions = {
   message?: string;
   linkText?: string;
   linkUrl?: string;
+  retry?: boolean;
 };
 
 export type DevlogOptions = {

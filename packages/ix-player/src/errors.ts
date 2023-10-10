@@ -20,6 +20,16 @@ export function getErrorLogs(
       dialog.message = error.message;
 
       switch (error.data?.response.code) {
+        case 423: {
+          dialog.title = i18n(`Video is not currently available`, translate);
+          dialog.message = i18n(`The video file is still being processed.`, translate);
+          devlog.message = i18n(
+            `This playback url may belong to an asset that is not ready yet and is still being processed.`,
+            translate
+          );
+          devlog.file = '423-still-processing.md';
+          break;
+        }
         case 412: {
           dialog.title = i18n(`Video is not currently available`, translate);
           dialog.message = i18n(`The live stream or video file are not yet ready.`, translate);

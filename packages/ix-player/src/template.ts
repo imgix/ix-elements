@@ -10,26 +10,26 @@ import { getSrcFromPlaybackId } from './helpers';
 import { html } from './html';
 import { i18n, stylePropsToString } from './utils';
 
-import type { MuxTemplateProps } from './types';
+import type { IxTemplateProps } from './types';
 import { StreamTypes } from '@mux/playback-core';
 
 const muxTemplate = document.createElement('template');
 if ('innerHTML' in muxTemplate) muxTemplate.innerHTML = muxTheme;
 
 // prettier-ignore
-export const template = (props: MuxTemplateProps) => html`
+export const template = (props: IxTemplateProps) => html`
   <style>
     ${cssStr}
   </style>
   ${content(props)}
 `;
 
-const isLive = (props: MuxTemplateProps) => [StreamTypes.LIVE, StreamTypes.LL_LIVE].includes(props.streamType as any);
+const isLive = (props: IxTemplateProps) => [StreamTypes.LIVE, StreamTypes.LL_LIVE].includes(props.streamType as any);
 
-const isLiveOrDVR = (props: MuxTemplateProps) =>
+const isLiveOrDVR = (props: IxTemplateProps) =>
   [StreamTypes.LIVE, StreamTypes.LL_LIVE, StreamTypes.DVR, StreamTypes.LL_DVR].includes(props.streamType as any);
 
-const getLayout = (props: MuxTemplateProps) => {
+const getLayout = (props: IxTemplateProps) => {
   let layout = '';
   if (props.audio) layout += 'audio ';
   if (isLive(props)) layout += 'live';
@@ -39,7 +39,7 @@ const getLayout = (props: MuxTemplateProps) => {
   return layout;
 };
 
-const getHotKeys = (props: MuxTemplateProps) => {
+const getHotKeys = (props: IxTemplateProps) => {
   let hotKeys = props.hotKeys ? `${props.hotKeys}` : '';
   if (isLiveOrDVR(props)) {
     hotKeys += ' noarrowleft noarrowright';
@@ -47,7 +47,7 @@ const getHotKeys = (props: MuxTemplateProps) => {
   return hotKeys;
 };
 
-export const content = (props: MuxTemplateProps) => html`
+export const content = (props: IxTemplateProps) => html`
   <media-theme
     template="${props.theme ?? muxTemplate.content.children[0]}"
     class="size-${props.playerSize}${props.secondaryColor ? ' two-tone' : ''}"
@@ -127,7 +127,7 @@ export const content = (props: MuxTemplateProps) => html`
           Live
         </button>`
       : html``}
-    <mxp-dialog
+    <ixp-dialog
       no-auto-hide
       open="${props.isDialogOpen ?? false}"
       onclose="${props.onCloseErrorDialog}"
@@ -146,6 +146,9 @@ export const content = (props: MuxTemplateProps) => html`
             >`
           : html``}
       </p>
-    </mxp-dialog>
+      ${props.dialog?.retry
+        ? html` <button class="btn btn-secondary" id="retry-btn" onclick="${props.onRetry}">Retry</button> `
+        : html``}
+    </ixp-dialog>
   </media-theme>
 `;
