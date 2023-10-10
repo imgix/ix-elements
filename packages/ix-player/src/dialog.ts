@@ -35,7 +35,7 @@ template.innerHTML = `
   </slot>
 `;
 
-class MxpDialog extends MediaDialog {
+class IxpDialog extends MediaDialog {
   static template: HTMLTemplateElement = template;
 
   constructor() {
@@ -47,9 +47,9 @@ class MxpDialog extends MediaDialog {
   }
 }
 
-if (!globalThis.customElements.get('mxp-dialog')) {
-  globalThis.customElements.define('mxp-dialog', MxpDialog);
-  (globalThis as any).MxpDialog = MxpDialog;
+if (!globalThis.customElements.get('ixp-dialog')) {
+  globalThis.customElements.define('ixp-dialog', IxpDialog);
+  (globalThis as any).IxpDialog = IxpDialog;
 }
 
-export default MxpDialog;
+export default IxpDialog;

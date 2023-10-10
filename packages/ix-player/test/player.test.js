@@ -642,11 +642,11 @@ describe('<ix-player>', () => {
 //       })
 //     );
 
-//     assert.equal(player.shadowRoot.querySelector('mxp-dialog h3').textContent, 'Network Error');
+//     assert.equal(player.shadowRoot.querySelector('ixp-dialog h3').textContent, 'Network Error');
 
 //     player.playbackId = 'xLGf7y8cRquv7QXoDB02zEe6centwKfVmUOiPSY02JhCE';
 
-//     assert.equal(player.shadowRoot.querySelector('mxp-dialog h3'), null);
+//     assert.equal(player.shadowRoot.querySelector('ixp-dialog h3'), null);
 //   });
 
 //   it('loads the new src and clears dialog state', async function () {
@@ -664,11 +664,11 @@ describe('<ix-player>', () => {
 //       })
 //     );
 
-//     assert.equal(player.shadowRoot.querySelector('mxp-dialog h3').textContent, 'Network Error');
+//     assert.equal(player.shadowRoot.querySelector('ixp-dialog h3').textContent, 'Network Error');
 
 //     player.src = 'https://stream.mux.com/xLGf7y8cRquv7QXoDB02zEe6centwKfVmUOiPSY02JhCE.m3u8';
 
-//     assert.equal(player.shadowRoot.querySelector('mxp-dialog h3'), null);
+//     assert.equal(player.shadowRoot.querySelector('ixp-dialog h3'), null);
 //   });
 // });
 
