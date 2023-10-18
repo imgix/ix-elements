@@ -2,10 +2,10 @@
 
 - [Code of Conduct](#code-of-conduct)
 - [Questions](#questions)
-- [Bugs and Issues](#issues)
-- [Documentation Updates](#documentation)
-- [Feature Requests](#features)
-- [Submitting a Pull Request](#pull-requests)
+- [Bugs and Issues](#bugs-and-issues)
+- [Documentation Updates](#documentation-updates)
+- [Feature Requests](#feature-requests)
+- [Submitting a Pull Request](#submitting-a-pull-request)
 
 ## <a name="code-of-conduct">Code of Conduct</a>
 
@@ -34,8 +34,8 @@ Before submitting a pull request, make sure you've reviewed and filled out an ap
 1. We use [semantic releases/commits](https://openbase.com/js/@semantic-release/commit-analyzer/documentation), please try to name your branch and prefix your commits according to the type of changes you're making, and try to be as descriptive as possible in your commit messages. For example:
 
 - For Bug Fixes: `fix/my-fix-for-foo`
-- For Features: `feat/mux-video-feat-bar`
-- For Documentation Updates: `docs/mux-audio-example-for-baz`
+- For Features: `feat/ix-video-feat-bar`
+- For Documentation Updates: `docs/ix-audio-example-for-baz`
 
 2. Make sure you base your branch off of the latest in `main`, e.g.
 
