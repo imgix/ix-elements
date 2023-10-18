@@ -14,7 +14,6 @@ function HomePage() {
         <li><Link href="/IxPlayerLazyBlurhash"><a className="player">&lt;IxPlayer&gt;<br/>(lazy + @mux/blurhash)</a></Link></li>
         <li><Link href="/ix-video"><a className="video">&lt;ix-video&gt;<br/>(Web Component)</a></Link></li>
         <li><Link href="/ix-player"><a className="video">&lt;ix-player&gt;<br/>(Web Component)</a></Link></li>
-        {/* <li><Link href="/mux-player"><a className="player">&lt;mux-player&gt;<br/>(Web Component)</a></Link></li> */}
       </ul>
     </nav>
   );
