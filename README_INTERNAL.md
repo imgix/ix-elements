@@ -18,10 +18,23 @@ Examples:
 It's helpful to point at Media Chrome canaries for developing PRs and having all the live examples work; however, we should not merge any PRs that point at a Media Chrome Canary release.
 
 # Releasing
-<!-- TODO -->
+
+> In future, we'll use bash script to automate this process.
+
+Each package needs to be individually released. The following steps should be followed for each package.
+
+1. Update the changelog to include the new version.
+2. Stage the changes and commit them.
+3. Tag the commit with the new version, `git tag 1.0.0`
+4. Push the changes and tags, `git push && git push origin 1.0.0`
+5. Run `npm pack` to generate a tarball of the package.
+6. Add the tarball to the release on GitHub.
+7. Run `npm publish` to publish the package to npm.
+8. Update the version in any dependent packages, e.g. `@imgix/ix-player-react` depends on `@imgix/ix-player`.
+9. Repeat steps 1-7 for each package that needs to be released with the new version.
 
 # After releasing IxPlayer
 
 - Update the player on imgix.com
-- Update the player on imgix.com
+- Update the player on blog
 - Post in #sdk to let product team know
