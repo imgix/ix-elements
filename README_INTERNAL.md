@@ -25,13 +25,14 @@ Each package needs to be individually released. The following steps should be fo
 
 1. Update the changelog to include the new version.
 2. Stage the changes and commit them.
-3. Tag the commit with the new version, `git tag 1.0.0`
-4. Push the changes and tags, `git push && git push origin 1.0.0`
-5. Run `npm pack` to generate a tarball of the package, check log output to see that all dist files are included.
-6. Add the tarball to the release on GitHub.
-7. Run `npm publish` to publish the package to npm.
-8. Update the version in any dependent packages, e.g. `@imgix/ix-player-react` depends on `@imgix/ix-player`.
-9. Repeat steps 1-7 for each package that needs to be released with the new version.
+3. Run `yarn build` in the either the top level or the package directory.
+4. Tag the commit with the new version, `git tag 1.0.0`
+5. Push the changes and tags, `git push && git push origin 1.0.0`
+6. Run `npm pack` to generate a tarball of the package, check log output to see that all dist files are included.
+7. Add the tarball to the release on GitHub.
+8. Run `npm publish` to publish the package to npm.
+9. Update the version in any dependent packages, e.g. `@imgix/ix-player-react` depends on `@imgix/ix-player`.
+10. Repeat steps 1-8 for each package that needs to be released with the new version.
 
 # After releasing IxPlayer
 
