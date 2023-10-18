@@ -5,7 +5,7 @@
   </a>
   <a href="https://npmcharts.com/compare/@imgix/ix-player?interval=30"><img src="https://img.shields.io/npm/dm/@imgix/ix-player.svg?sanitize=true" alt="Downloads"></a>
     <a href="https://www.npmjs.com/package/@imgix/ix-player"><img src="https://img.shields.io/npm/v/@imgix/ix-player.svg?sanitize=true" alt="Version"></a>
-    <a href="https://www.npmjs.com/package/@imgix/ix-video"><img src="https://img.shields.io/npm/l/@imgix/ix-video.svg?sanitize=true" alt="License"></a>
+    <a href="https://www.npmjs.com/package/@imgix/ix-player"><img src="https://img.shields.io/npm/l/@imgix/ix-player.svg?sanitize=true" alt="License"></a>
 </p>
 
 # Introduction
