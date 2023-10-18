@@ -11,7 +11,7 @@ export default function MyApp({ Component, pageProps }) {
     </Head>
     <header>
       <div className="left-header">
-        <a className="imgix-logo" href="https://www.imgix.com/video" target="_blank">
+        <a className="imgix-logo" href="https://imgix.com/solutions/video-api?gad=1" target="_blank">
           <img width="81" height="26" src="https://assets.imgix.net/imgix-logo.png?fm=auto&w=281&h=226" alt="imgix logo" decoding="async" />
         </a>
         <h1><Link href="/">ix-elements</Link></h1>

@@ -14,5 +14,5 @@ imgix player is correct.
 
 ### Useful Links
 
-- [imgix Player Attributes](https://github.com/imgix/ix-elements/tree/main/packages/ix-player#attributes)
-- [imgix Player React Props](https://github.com/imgix/ix-elements/tree/main/packages/ix-player-react#props)
+- [imgix Player Attributes](https://github.com/imgix/ix-elements/blob/main/packages/ix-player/REFERENCE.md#attributes)
+- [imgix Player React Props](https://github.com/imgix/ix-elements/blob/main/packages/ix-player/REFERENCE.md#properties)
