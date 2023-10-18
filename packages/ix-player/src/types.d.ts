@@ -1,4 +1,4 @@
-import type MuxVideoElement, { MediaError } from '@mux/mux-video';
+import type MuxVideoElement, { MediaError } from '@imgix/ix-video';
 import type { AttributeTokenList } from './helpers';
 
 export type IxVideoProps = Partial<MuxVideoElement> & {

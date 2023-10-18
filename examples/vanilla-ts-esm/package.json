@@ -11,7 +11,7 @@
     "esbuild": "esbuild src/** --bundle --target=es2019 --format=esm --outdir=public/dist",
     "build": "yarn esbuild --minify",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages --dist public --dest ./examples/mux-elements/"
+    "deploy": "gh-pages --dist public --dest ./examples/ix-elements/"
   },
   "devDependencies": {
     "esbuild": "^0.15.7",
