@@ -36,6 +36,4 @@ Each package needs to be individually released. The following steps should be fo
 
 # After releasing IxPlayer
 
-- Update the player on imgix.com
-- Update the player on blog
-- Post in #sdk to let product team know
+- Update the player on across *.imgix.com sites.
