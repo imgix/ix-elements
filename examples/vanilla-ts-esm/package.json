@@ -10,8 +10,7 @@
     "dev": "yarn esbuild --servedir=public --serve=0.0.0.0:8004",
     "esbuild": "esbuild src/** --bundle --target=es2019 --format=esm --outdir=public/dist",
     "build": "yarn esbuild --minify",
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages --dist public --dest ./examples/ix-elements/"
+    "predeploy": "yarn run build"
   },
   "devDependencies": {
     "esbuild": "^0.15.7",
