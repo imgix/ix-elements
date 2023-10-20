@@ -19,7 +19,7 @@ It's helpful to point at Media Chrome canaries for developing PRs and having all
 
 # Releasing
 
-> In future, we'll use bash script to automate this process.
+> In the future, we'll use a bash script to automate this process.
 
 Each package needs to be individually released. The following steps should be followed for each package.
 
