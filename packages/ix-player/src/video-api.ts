@@ -1,6 +1,6 @@
 import { globalThis } from 'shared-polyfills';
 import { VideoEvents } from '@imgix/ix-video';
-import type MuxVideoElement from '@imgix/ix-video';
+import type IxVideoElement from '@imgix/ix-video';
 import * as logger from './logger';
 import { toNumberOrUndefined } from './utils';
 
@@ -12,7 +12,7 @@ export type CastOptions = {
   resumeSavedSession: boolean;
 };
 
-export type MuxVideoElementExt = MuxVideoElement & {
+export type IxVideoElementExt = IxVideoElement & {
   requestCast(options: CastOptions): Promise<undefined>;
 };
 
@@ -154,7 +154,7 @@ class VideoApiElement extends globalThis.HTMLElement implements VideoApiElement 
 
   /**
    * Create a HTMLVideoElement like API with opt-in methods to expose publicly.
-   * This class is intentionally not extending MuxVideoElement but composing it
+   * This class is intentionally not extending IxVideoElement but composing it
    * to opt in methods and not expose too much. More flexibility in the future.
    */
   constructor() {
@@ -225,7 +225,7 @@ class VideoApiElement extends globalThis.HTMLElement implements VideoApiElement 
     return this.media?.requestCast(options);
   }
 
-  get media(): MuxVideoElementExt | null | undefined {
+  get media(): IxVideoElementExt | null | undefined {
     return this.shadowRoot?.querySelector('ix-video');
   }
 
