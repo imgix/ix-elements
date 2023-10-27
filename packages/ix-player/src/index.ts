@@ -503,7 +503,7 @@ class IxPlayerElement extends VideoApiElement {
         // - cues that are not at the bottom
         //   - line is less than -5
         //   - line is between 0 and 10
-        if (!cue.snapToLines || cue.line < -5 || (cue.line >= 0 && cue.line < 10)) {
+        if (!cue.snapToLines || Number(cue.line) < -5 || (Number(cue.line) >= 0 && Number(cue.line) < 10)) {
           return;
         }
 
