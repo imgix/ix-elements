@@ -1,7 +1,7 @@
 import { globalThis, document } from 'shared-polyfills';
 // @ts-ignore
 import { MediaController } from 'media-chrome';
-import MuxVideoElement, { MediaError, Attributes as MuxVideoAttributes } from '@imgix/ix-video';
+import IxVideoElement, { MediaError, Attributes as IxVideoAttributes } from '@imgix/ix-video';
 import {
   ValueOf,
   Metadata,
@@ -32,7 +32,7 @@ import { render } from './html';
 import { getErrorLogs } from './errors';
 import { toNumberOrUndefined, i18n, parseJwt, containsComposedNode } from './utils';
 import * as logger from './logger';
-import type { MuxTemplateProps, ErrorEvent } from './types';
+import type { IxTemplateProps, ErrorEvent } from './types';
 
 export { MediaError };
 export type Tokens = {
@@ -88,7 +88,7 @@ const PlayerAttributes = {
   POSTER_PARAMS: 'poster-params',
 };
 
-function getProps(el: IxPlayerElement, state?: any): MuxTemplateProps {
+function getProps(el: IxPlayerElement, state?: any): IxTemplateProps {
   const props = {
     // Give priority to playbackId derrived asset URL's if playbackId is set.
     src: !el.playbackId && el.src,
@@ -133,7 +133,7 @@ function getProps(el: IxPlayerElement, state?: any): MuxTemplateProps {
     defaultHiddenCaptions: el.defaultHiddenCaptions,
     defaultShowRemainingTime: el.defaultShowRemainingTime,
     playbackRates: el.getAttribute(PlayerAttributes.PLAYBACK_RATES),
-    customDomain: el.getAttribute(MuxVideoAttributes.CUSTOM_DOMAIN) ?? undefined,
+    customDomain: el.getAttribute(IxVideoAttributes.CUSTOM_DOMAIN) ?? undefined,
     playerSize: getPlayerSize(el.mediaController ?? el),
     title: el.getAttribute(PlayerAttributes.TITLE),
     type: el.type,
@@ -143,7 +143,7 @@ function getProps(el: IxPlayerElement, state?: any): MuxTemplateProps {
   return props;
 }
 
-const MuxVideoAttributeNames = Object.values(MuxVideoAttributes);
+const IxVideoAttributeNames = Object.values(IxVideoAttributes);
 const VideoAttributeNames = Object.values(VideoAttributes);
 const PlayerAttributeNames = Object.values(PlayerAttributes);
 const playerSoftwareVersion = getPlayerVersion();
@@ -161,7 +161,7 @@ class IxPlayerElement extends VideoApiElement {
   #userInactive = true;
   #hotkeys = new AttributeTokenList(this, 'hotkeys');
   #resizeObserver?: ResizeObserver;
-  #state: Partial<MuxTemplateProps> = {
+  #state: Partial<IxTemplateProps> = {
     ...initialState,
     onCloseErrorDialog: () => this.#setState({ dialog: undefined, isDialogOpen: false }),
     onInitFocusDialog: (e) => {
@@ -175,7 +175,7 @@ class IxPlayerElement extends VideoApiElement {
     return [
       ...(VideoApiElement.observedAttributes ?? []),
       ...VideoAttributeNames,
-      ...MuxVideoAttributeNames,
+      ...IxVideoAttributeNames,
       ...PlayerAttributeNames,
     ];
   }
@@ -214,7 +214,7 @@ class IxPlayerElement extends VideoApiElement {
 
     try {
       customElements.upgrade(this.media as Node);
-      if (!(this.media instanceof MuxVideoElement)) throw '';
+      if (!(this.media instanceof IxVideoElement)) throw '';
     } catch (error) {
       logger.error('<ix-video> failed to upgrade!');
     }
@@ -644,7 +644,7 @@ class IxPlayerElement extends VideoApiElement {
         }
         break;
       }
-      case MuxVideoAttributes.PLAYBACK_ID: {
+      case IxVideoAttributes.PLAYBACK_ID: {
         if (newValue?.includes('?token')) {
           logger.error(
             i18n(
@@ -677,7 +677,7 @@ class IxPlayerElement extends VideoApiElement {
     }
 
     const shouldClearState = [
-      MuxVideoAttributes.PLAYBACK_ID,
+      IxVideoAttributes.PLAYBACK_ID,
       VideoAttributes.SRC,
       PlayerAttributes.PLAYBACK_TOKEN,
     ].includes(attrName);
@@ -690,15 +690,15 @@ class IxPlayerElement extends VideoApiElement {
   }
 
   get preferCmcd() {
-    return (this.getAttribute(MuxVideoAttributes.PREFER_CMCD) as ValueOf<CmcdTypes>) ?? undefined;
+    return (this.getAttribute(IxVideoAttributes.PREFER_CMCD) as ValueOf<CmcdTypes>) ?? undefined;
   }
 
   set preferCmcd(value: ValueOf<CmcdTypes> | undefined) {
     if (value === this.preferCmcd) return;
     if (!value) {
-      this.removeAttribute(MuxVideoAttributes.PREFER_CMCD);
+      this.removeAttribute(IxVideoAttributes.PREFER_CMCD);
     } else if (CmcdTypeValues.includes(value)) {
-      this.setAttribute(MuxVideoAttributes.PREFER_CMCD, value);
+      this.setAttribute(IxVideoAttributes.PREFER_CMCD, value);
     } else {
       logger.warn(`Invalid value for preferCmcd. Must be one of ${CmcdTypeValues.join()}`);
     }
@@ -726,7 +726,7 @@ class IxPlayerElement extends VideoApiElement {
   get playbackId() {
     // Don't get the mux-video attribute here because it could have the
     // playback token appended to it.
-    return this.getAttribute(MuxVideoAttributes.PLAYBACK_ID) ?? undefined;
+    return this.getAttribute(IxVideoAttributes.PLAYBACK_ID) ?? undefined;
   }
 
   /**
@@ -734,9 +734,9 @@ class IxPlayerElement extends VideoApiElement {
    */
   set playbackId(val) {
     if (val) {
-      this.setAttribute(MuxVideoAttributes.PLAYBACK_ID, val);
+      this.setAttribute(IxVideoAttributes.PLAYBACK_ID, val);
     } else {
-      this.removeAttribute(MuxVideoAttributes.PLAYBACK_ID);
+      this.removeAttribute(IxVideoAttributes.PLAYBACK_ID);
     }
   }
 
@@ -1076,21 +1076,21 @@ class IxPlayerElement extends VideoApiElement {
    * Get the player software name. Used by Mux Data.
    */
   get playerSoftwareName() {
-    return this.getAttribute(MuxVideoAttributes.PLAYER_SOFTWARE_NAME) ?? playerSoftwareName;
+    return this.getAttribute(IxVideoAttributes.PLAYER_SOFTWARE_NAME) ?? playerSoftwareName;
   }
 
   /**
    * Get the player software version. Used by Mux Data.
    */
   get playerSoftwareVersion() {
-    return this.getAttribute(MuxVideoAttributes.PLAYER_SOFTWARE_VERSION) ?? playerSoftwareVersion;
+    return this.getAttribute(IxVideoAttributes.PLAYER_SOFTWARE_VERSION) ?? playerSoftwareVersion;
   }
 
   /**
    * Get the beacon collection domain. Used by Mux Data.
    */
   get beaconCollectionDomain() {
-    return this.getAttribute(MuxVideoAttributes.BEACON_COLLECTION_DOMAIN) ?? undefined;
+    return this.getAttribute(IxVideoAttributes.BEACON_COLLECTION_DOMAIN) ?? undefined;
   }
 
   /**
@@ -1101,9 +1101,9 @@ class IxPlayerElement extends VideoApiElement {
     if (val === this.beaconCollectionDomain) return;
 
     if (val) {
-      this.setAttribute(MuxVideoAttributes.BEACON_COLLECTION_DOMAIN, val);
+      this.setAttribute(IxVideoAttributes.BEACON_COLLECTION_DOMAIN, val);
     } else {
-      this.removeAttribute(MuxVideoAttributes.BEACON_COLLECTION_DOMAIN);
+      this.removeAttribute(IxVideoAttributes.BEACON_COLLECTION_DOMAIN);
     }
   }
 
@@ -1111,7 +1111,7 @@ class IxPlayerElement extends VideoApiElement {
    * Get Mux asset custom domain.
    */
   get customDomain() {
-    return this.getAttribute(MuxVideoAttributes.CUSTOM_DOMAIN) ?? undefined;
+    return this.getAttribute(IxVideoAttributes.CUSTOM_DOMAIN) ?? undefined;
   }
 
   /**
@@ -1122,9 +1122,9 @@ class IxPlayerElement extends VideoApiElement {
     if (val === this.customDomain) return;
 
     if (val) {
-      this.setAttribute(MuxVideoAttributes.CUSTOM_DOMAIN, val);
+      this.setAttribute(IxVideoAttributes.CUSTOM_DOMAIN, val);
     } else {
-      this.removeAttribute(MuxVideoAttributes.CUSTOM_DOMAIN);
+      this.removeAttribute(IxVideoAttributes.CUSTOM_DOMAIN);
     }
   }
 
@@ -1132,21 +1132,21 @@ class IxPlayerElement extends VideoApiElement {
    * Get Mux Data env key.
    */
   get envKey() {
-    return getVideoAttribute(this, MuxVideoAttributes.ENV_KEY) ?? undefined;
+    return getVideoAttribute(this, IxVideoAttributes.ENV_KEY) ?? undefined;
   }
 
   /**
    * Set Mux Data env key.
    */
   set envKey(val: string | undefined) {
-    this.setAttribute(MuxVideoAttributes.ENV_KEY, `${val}`);
+    this.setAttribute(IxVideoAttributes.ENV_KEY, `${val}`);
   }
 
   /**
    * Get video engine debug flag.
    */
   get debug() {
-    return getVideoAttribute(this, MuxVideoAttributes.DEBUG) != null;
+    return getVideoAttribute(this, IxVideoAttributes.DEBUG) != null;
   }
 
   /**
@@ -1154,9 +1154,9 @@ class IxPlayerElement extends VideoApiElement {
    */
   set debug(val) {
     if (val) {
-      this.setAttribute(MuxVideoAttributes.DEBUG, '');
+      this.setAttribute(IxVideoAttributes.DEBUG, '');
     } else {
-      this.removeAttribute(MuxVideoAttributes.DEBUG);
+      this.removeAttribute(IxVideoAttributes.DEBUG);
     }
   }
 
@@ -1164,7 +1164,7 @@ class IxPlayerElement extends VideoApiElement {
    * Get video engine disable cookies flag.
    */
   get disableCookies() {
-    return getVideoAttribute(this, MuxVideoAttributes.DISABLE_COOKIES) != null;
+    return getVideoAttribute(this, IxVideoAttributes.DISABLE_COOKIES) != null;
   }
 
   /**
@@ -1172,9 +1172,9 @@ class IxPlayerElement extends VideoApiElement {
    */
   set disableCookies(val) {
     if (val) {
-      this.setAttribute(MuxVideoAttributes.DISABLE_COOKIES, '');
+      this.setAttribute(IxVideoAttributes.DISABLE_COOKIES, '');
     } else {
-      this.removeAttribute(MuxVideoAttributes.DISABLE_COOKIES);
+      this.removeAttribute(IxVideoAttributes.DISABLE_COOKIES);
     }
   }
 
@@ -1182,32 +1182,32 @@ class IxPlayerElement extends VideoApiElement {
    * Get stream type.
    */
   get streamType() {
-    return getVideoAttribute(this, MuxVideoAttributes.STREAM_TYPE);
+    return getVideoAttribute(this, IxVideoAttributes.STREAM_TYPE);
   }
 
   /**
    * Set stream type.
    */
   set streamType(val) {
-    this.setAttribute(MuxVideoAttributes.STREAM_TYPE, `${val}`);
+    this.setAttribute(IxVideoAttributes.STREAM_TYPE, `${val}`);
   }
 
   /**
    * Get the start time.
    */
   get startTime() {
-    return toNumberOrUndefined(getVideoAttribute(this, MuxVideoAttributes.START_TIME));
+    return toNumberOrUndefined(getVideoAttribute(this, IxVideoAttributes.START_TIME));
   }
 
   /**
    * Set the start time.
    */
   set startTime(val) {
-    this.setAttribute(MuxVideoAttributes.START_TIME, `${val}`);
+    this.setAttribute(IxVideoAttributes.START_TIME, `${val}`);
   }
 
   get preferPlayback(): ValueOf<PlaybackTypes> | undefined {
-    const val = this.getAttribute(MuxVideoAttributes.PREFER_PLAYBACK);
+    const val = this.getAttribute(IxVideoAttributes.PREFER_PLAYBACK);
     if (val === PlaybackTypes.MSE || val === PlaybackTypes.NATIVE) return val;
     return undefined;
   }
@@ -1216,9 +1216,9 @@ class IxPlayerElement extends VideoApiElement {
     if (val === this.preferPlayback) return;
 
     if (val === PlaybackTypes.MSE || val === PlaybackTypes.NATIVE) {
-      this.setAttribute(MuxVideoAttributes.PREFER_PLAYBACK, val);
+      this.setAttribute(IxVideoAttributes.PREFER_PLAYBACK, val);
     } else {
-      this.removeAttribute(MuxVideoAttributes.PREFER_PLAYBACK);
+      this.removeAttribute(IxVideoAttributes.PREFER_PLAYBACK);
     }
   }
 
