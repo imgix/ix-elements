@@ -41,6 +41,7 @@ export type IxTemplateProps = Partial<IxVideoProps> & {
   isRetrying: boolean;
   maxRetries: number;
   retries: number;
+  prevPoster: string | null;
 };
 
 export type DialogOptions = {

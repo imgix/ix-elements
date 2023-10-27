@@ -153,6 +153,7 @@ const initialState = {
   dialog: undefined,
   isDialogOpen: false,
   inLiveWindow: false,
+  prevPoster: undefined,
 };
 
 class IxPlayerElement extends VideoApiElement {
@@ -346,6 +347,7 @@ class IxPlayerElement extends VideoApiElement {
       }
 
       if (this.src !== undefined) {
+        this.prevPoster = this.poster + '';
         this.poster = getGifURLFromSrc(this.src);
       }
     };
@@ -357,7 +359,12 @@ class IxPlayerElement extends VideoApiElement {
 
       if (this.poster !== undefined && this.poster?.indexOf('video-generate=gif') >= 0) {
         if (this.src !== undefined) {
-          this.poster = getThumbnailFromSrc(this.src, this.posterParams);
+          const thumbnailPoster = getThumbnailFromSrc(this.src);
+          if (this.prevPoster && this.prevPoster !== thumbnailPoster) {
+            this.poster = this.prevPoster;
+          } else {
+            this.poster = thumbnailPoster;
+          }
         }
       }
     };
@@ -409,7 +416,12 @@ class IxPlayerElement extends VideoApiElement {
     const handlePosterError = () => {
       console.warn('ix-player: poster failed to load, removing poster.');
       // if the poster fails to load, remove it
-      this.poster = undefined;
+      if (this.src && this.poster !== this.prevPoster) {
+        this.poster = this.prevPoster ? this.prevPoster : getThumbnailFromSrc(this.src);
+      } else {
+        // TODO: add fallback poster
+        this.poster = '';
+      }
     };
     const mediaPoster = this.mediaController?.querySelector('media-poster-image');
     const posterImg = mediaPoster?.shadowRoot?.querySelector('img');
@@ -892,7 +904,19 @@ class IxPlayerElement extends VideoApiElement {
    */
   get poster() {
     const val = this.getAttribute(VideoAttributes.POSTER);
-    if (val != null) return val;
+    if (val != null) {
+      // combine the poster URL with the poster params
+      if (this.posterParams) {
+        const newPoster = new URL(val);
+        this.posterParams.split('&').forEach((param) => {
+          const [key, value] = param.split('=');
+          newPoster.searchParams.append(key, value);
+        });
+        return newPoster.toString();
+      } else {
+        return val;
+      }
+    }
 
     if (isImgixVideoSrc(this.src) && !this.audio) {
       if (this.src !== undefined) {
@@ -920,6 +944,14 @@ class IxPlayerElement extends VideoApiElement {
     } else {
       this.removeAttribute(VideoAttributes.POSTER);
     }
+  }
+
+  get prevPoster() {
+    return this.#state.prevPoster;
+  }
+
+  set prevPoster(val) {
+    this.#state.prevPoster = val;
   }
 
   /**
