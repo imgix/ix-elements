@@ -1,14 +1,14 @@
-import type MuxVideoElement, { MediaError } from '@imgix/ix-video';
+import type IxVideoElement, { MediaError } from '@imgix/ix-video';
 import type { AttributeTokenList } from './helpers';
 
-export type IxVideoProps = Partial<MuxVideoElement> & {
+export type IxVideoProps = Partial<IxVideoElement> & {
   nohotkeys?: boolean;
   hotkeys?: AttributeTokenList;
   preferPlayback?: 'mse' | 'native' | undefined;
   storyboard?: string;
 };
 
-export type MuxTemplateProps = Partial<IxVideoProps> & {
+export type IxTemplateProps = Partial<IxVideoProps> & {
   hasSrc: boolean;
   audio: boolean;
   theme?: string;
