@@ -347,8 +347,7 @@ class IxPlayerElement extends VideoApiElement {
       }
 
       if (this.src !== undefined) {
-        this.prevPoster = this.poster + '';
-        this.poster = getGifURLFromSrc(this.src);
+        this.theme?.setAttribute('poster', getGifURLFromSrc(this.src));
       }
     };
 
@@ -357,15 +356,11 @@ class IxPlayerElement extends VideoApiElement {
         return;
       }
 
-      if (this.poster !== undefined && this.poster?.indexOf('video-generate=gif') >= 0) {
-        if (this.src !== undefined) {
-          const thumbnailPoster = getThumbnailFromSrc(this.src);
-          if (this.prevPoster && this.prevPoster !== thumbnailPoster) {
-            this.poster = this.prevPoster;
-          } else {
-            this.poster = thumbnailPoster;
-          }
-        }
+      const currentPoster = this.theme?.getAttribute('poster') || '';
+      const thumbnailPoster = this.src ? getThumbnailFromSrc(this.src, this.posterParams) : '';
+      
+      if (this.poster && currentPoster.indexOf('video-generate=gif') >= 0) {
+          this.theme?.setAttribute('poster', this.poster || thumbnailPoster);
       }
     };
 
@@ -414,13 +409,9 @@ class IxPlayerElement extends VideoApiElement {
     this.media?.addEventListener('loadeddata', handleLoadedData);
 
     const handlePosterError = () => {
-      console.warn('ix-player: poster failed to load, removing poster.');
       // if the poster fails to load, remove it
-      if (this.src && this.poster !== this.prevPoster) {
-        this.poster = this.prevPoster ? this.prevPoster : getThumbnailFromSrc(this.src);
-      } else {
-        // TODO: add fallback poster
-        this.poster = '';
+      if (this.src) {
+        this.theme?.setAttribute('poster', '');
       }
     };
     const mediaPoster = this.mediaController?.querySelector('media-poster-image');
@@ -464,6 +455,7 @@ class IxPlayerElement extends VideoApiElement {
         throw new Error('423');
       }
       this.#isRetrying = false;
+      this.theme?.setAttribute('poster', this.poster || getThumbnailFromSrc(this.src, this.posterParams));
       this.#loadMedia();
     } catch (e) {
       if (this.retries < this.#maxRetries) {
