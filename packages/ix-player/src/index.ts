@@ -358,9 +358,9 @@ class IxPlayerElement extends VideoApiElement {
 
       const currentPoster = this.theme?.getAttribute('poster') || '';
       const thumbnailPoster = this.src ? getThumbnailFromSrc(this.src, this.posterParams) : '';
-      
+
       if (this.poster && currentPoster.indexOf('video-generate=gif') >= 0) {
-          this.theme?.setAttribute('poster', this.poster || thumbnailPoster);
+        this.theme?.setAttribute('poster', this.poster || thumbnailPoster);
       }
     };
 
