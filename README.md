@@ -19,10 +19,10 @@ Elements are written to make it easy to work in a variety of web frameworks. If 
 
 | Name                                              | Description                                   | Framework     | Official Release Status |
 | ------------------------------------------------- | --------------------------------------------- | ------------- | ----------------------- |
-| [ix-video](https://github.com/imgix/ix-elements/tree/main/packages/ix-video)                   | An imgix-flavored HTML5 video element            | Web Component | 2.0.0  🎉           |
+| [ix-video](https://github.com/imgix/ix-elements/tree/main/packages/ix-video)                   | An imgix-flavored HTML5 video element            | Web Component | 2.0.0            |
 | [ix-video-react](https://github.com/imgix/ix-elements/tree/main/packages/ix-video-react)       | An imgix-flavored React video component          | React         | Public Beta             |
-| [ix-player](https://github.com/imgix/ix-elements/tree/main/packages/ix-player)                 | An imgix-flavored HTML5 media player component   | Web Component | Public Beta                 |
-| [ix-player-react](https://github.com/imgix/ix-elements/tree/main/packages/ix-player-react)     | An imgix-flavored React media player component   | React         | Public Beta                 |
+| [ix-player](https://github.com/imgix/ix-elements/tree/main/packages/ix-player)                 | An imgix-flavored HTML5 media player component   | Web Component | 1.0.0                 |
+| [ix-player-react](https://github.com/imgix/ix-elements/tree/main/packages/ix-player-react)     | An imgix-flavored React media player component   | React         | 1.0.0                 |
 
 <!-- ix-docs-ignore -->
 # Contribution
