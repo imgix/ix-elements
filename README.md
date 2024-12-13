@@ -1,7 +1,7 @@
 <!-- ix-docs-ignore -->
 <p align="center">
   <a href="https://imgix.com/">
-    <img src="https://avatars.githubusercontent.com/u/2793044?s=200&v=4" alt="imgix Logo">
+    <img src="https://assets.imgix.net/sdk-imgix-logo-new.svg?w=400" alt="imgix Logo">
     <h1 align="center">&lt;ix-elements/&gt;</h1>
   </a>
   <p align="center">
